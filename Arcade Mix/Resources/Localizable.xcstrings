@@ -1,0 +1,470 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Auth_SignOut" : {
+      "comment" : "Sign out menu item.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Odhlásit se" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign Out" } }
+      }
+    },
+    "HighScore_None" : {
+      "comment" : "Shown on a game tile when there are no high scores yet.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Zatím žádné skóre" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No scores yet" } }
+      }
+    },
+    "Login_Apple" : {
+      "comment" : "Sign in with Apple button (system-provided text usually overrides this).",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlásit se přes Apple" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Apple" } }
+      }
+    },
+    "Login_Email" : {
+      "comment" : "Email text field placeholder.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "E-mail" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Email" } }
+      }
+    },
+    "Login_Error" : {
+      "comment" : "Generic sign-in failure message.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlášení se nezdařilo. Zkus to znovu." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign-in failed. Please try again." } }
+      }
+    },
+    "Login_Password" : {
+      "comment" : "Password text field placeholder.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Heslo" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Password" } }
+      }
+    },
+    "Login_SignIn" : {
+      "comment" : "Email sign-in button.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlásit se" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign In" } }
+      }
+    },
+    "Login_SignUp" : {
+      "comment" : "Email sign-up button.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Vytvořit účet" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Account" } }
+      }
+    },
+    "Login_Toggle_ToSignIn" : {
+      "comment" : "Switches the email form to sign-in mode.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Už máš účet? Přihlas se" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Already have an account? Sign in" } }
+      }
+    },
+    "Login_Toggle_ToSignUp" : {
+      "comment" : "Switches the email form to sign-up mode.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Nemáš účet? Zaregistruj se" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No account? Sign up" } }
+      }
+    },
+    "AFL_Behind" : {
+      "comment" : "Scored a behind (1 point) in AFL.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behind!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behind!"
+          }
+        }
+      }
+    },
+    "AFL_Goal" : {
+      "comment" : "Scored a goal (6 points) in AFL.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gól!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal!"
+          }
+        }
+      }
+    },
+    "AFL_Intercepted" : {
+      "comment" : "Handpass was intercepted by an opponent (game over).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zachyceno!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intercepted!"
+          }
+        }
+      }
+    },
+    "AFL_Mark" : {
+      "comment" : "Player took a Mark (caught the ball in the air).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyceno!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark!"
+          }
+        }
+      }
+    },
+    "AFL_SetShot" : {
+      "comment" : "Set shot scoring phase title.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Střela na branku"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Shot"
+          }
+        }
+      }
+    },
+    "AFL_Swipe_Hint" : {
+      "comment" : "Instruction telling the player how to kick during a set shot.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Švihni pro kop"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe to kick"
+          }
+        }
+      }
+    },
+    "AFL_Tackled" : {
+      "comment" : "Player was tackled while carrying the ball (game over).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skolen!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tackled!"
+          }
+        }
+      }
+    },
+    "App_Title" : {
+      "comment" : "App name.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade Mix"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade Mix"
+          }
+        }
+      }
+    },
+    "Common_Back" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zpět"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "Common_MainMenu" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlavní menu"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main Menu"
+          }
+        }
+      }
+    },
+    "Common_Retry" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zkusit znovu"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
+          }
+        }
+      }
+    },
+    "Game_AFL_Subtitle" : {
+      "comment" : "AFL game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vysokoenergetická arkáda"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High-energy arcade footy"
+          }
+        }
+      }
+    },
+    "Game_AFL_Title" : {
+      "comment" : "AFL game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AFL Arkáda"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AFL Arcade"
+          }
+        }
+      }
+    },
+    "Game_ComingSoon" : {
+      "comment" : "Badge shown on games that are not yet available.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Již brzy"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming Soon"
+          }
+        }
+      }
+    },
+    "Game_Connect4_Subtitle" : {
+      "comment" : "Connect 4 game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PvP souboj 1 na 1"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1v1 PvP showdown"
+          }
+        }
+      }
+    },
+    "Game_Connect4_Title" : {
+      "comment" : "Connect 4 game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čtyři v řadě"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect 4"
+          }
+        }
+      }
+    },
+    "Game_Over" : {
+      "comment" : "Game over overlay title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konec hry"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game Over"
+          }
+        }
+      }
+    },
+    "HighScores_Title" : {
+      "comment" : "High scores screen title.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nejlepší skóre"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High Scores"
+          }
+        }
+      }
+    },
+    "Hub_Title" : {
+      "comment" : "Main hub navigation title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyber hru"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a Game"
+          }
+        }
+      }
+    },
+    "Login_Button" : {
+      "comment" : "Sign-in button label.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        }
+      }
+    },
+    "Login_Title" : {
+      "comment" : "Login screen title.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vítej v Arcade Mix"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Arcade Mix"
+          }
+        }
+      }
+    },
+    "Menu_Play" : {
+      "comment" : "Generic play button.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hrát"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
+          }
+        }
+      }
+    },
+    "Score_Label" : {
+      "comment" : "In-game score readout. %lld is the score value.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skóre: %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score: %lld"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
