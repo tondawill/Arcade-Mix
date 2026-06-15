@@ -54,11 +54,23 @@ final class AFLGameScene: SKScene {
     private let interceptRadius: CGFloat = 54
     private let arriveRadius: CGFloat = 52
 
+    // Defenders.
+    private let startingDefenders = 4
+    private let maxDefenders = 10               // keep gaps passable as the count scales
+
     // Set-shot staging (a clean area of the world, above the field).
     private var stageCenter: CGPoint { CGPoint(x: fieldSize.width / 2, y: fieldSize.height + 1600) }
     private var stageBall: CGPoint { CGPoint(x: stageCenter.x, y: stageCenter.y - 500) }
     private var stagePostLineY: CGFloat { stageCenter.y + 420 }
+    private var goalBallY: CGFloat { stagePostLineY + 120 }   // set-shot balls arrive high in the goal
     private let setShotVisibleHeight: CGFloat = 1500
+
+    // Goalkeeper on the set shot. He rests on the ground and LEAPS up to the ball's height
+    // to catch it — shoot when he's down.
+    private let keeperHalfWidth: CGFloat = 120   // inner post to inner post
+    private let keeperHeight: CGFloat = 70
+    private var keeperDownY: CGFloat { stagePostLineY - 160 }  // resting on the ground: ball sails over
+    private var keeperUpY: CGFloat { goalBallY }              // leaps up to the ball: catches it
 
     // MARK: - Game State
 
@@ -110,6 +122,7 @@ final class AFLGameScene: SKScene {
     private var opponentsFrozen = false
     private var fieldBuilt = false
     private var setShotLayer: SKNode?
+    private weak var keeper: SKNode?
 
     // MARK: - Swipe tracking (set shot)
 
@@ -310,6 +323,7 @@ final class AFLGameScene: SKScene {
         joystickVector = .zero
         guard let ball else { return }
         ball.isHidden = false
+        ball.zPosition = 8                 // normal field layer (set shot bumps it above the overlay)
         // Launch from the far left at a random height toward a random landing point,
         // so the ball's path isn't aligned with the player — they must run to mark it.
         let startY = CGFloat.random(in: margin...(fieldSize.height - margin))
@@ -354,18 +368,13 @@ final class AFLGameScene: SKScene {
 
     private func spawnOpponents() {
         opponentsFrozen = false
-        guard let ap = activePlayer else { return }
-        let minDistance: CGFloat = 500   // never spawn on top of the carrier
-        for _ in 0..<4 {
-            var spot = randomPoint(xIn: margin...(fieldSize.width - margin),
-                                   yIn: margin...(fieldSize.height - margin))
-            var tries = 0
-            while distance(spot, ap.position) < minDistance && tries < 20 {
-                spot = randomPoint(xIn: margin...(fieldSize.width - margin),
-                                   yIn: margin...(fieldSize.height - margin))
-                tries += 1
-            }
-            let opp = makeOpponent(at: spot)
+        // A wall of defenders on the 50-metre line, ahead of the player (between them
+        // and goal). Count grows with the score: 4, then +1 every 6 points (capped).
+        let count = min(startingDefenders + score / 6, maxDefenders)
+        let usableHeight = fieldSize.height - 2 * margin
+        for i in 0..<count {
+            let y = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
+            let opp = makeOpponent(at: CGPoint(x: forward50X, y: y))
             addChild(opp)
             opponents.append(opp)
         }
@@ -451,12 +460,28 @@ final class AFLGameScene: SKScene {
         shooter.position = CGPoint(x: stageCenter.x, y: stageBall.y - 90)
         layer.addChild(shooter)
 
+        // Goalkeeper that rests on the ground and leaps up to the ball's height — shoot
+        // when he's DOWN. He dwells on the ground to give a beatable window.
+        let gk = SKSpriteNode(color: SKColor(red: 0.85, green: 0.18, blue: 0.18, alpha: 1),
+                              size: CGSize(width: keeperHalfWidth * 2, height: keeperHeight))
+        gk.position = CGPoint(x: stageCenter.x, y: keeperDownY)
+        gk.zPosition = 5
+        gk.run(.repeatForever(.sequence([
+            .moveTo(y: keeperUpY, duration: 0.4),
+            .wait(forDuration: 0.2),
+            .moveTo(y: keeperDownY, duration: 0.4),
+            .wait(forDuration: 0.5)
+        ])))
+        layer.addChild(gk)
+        keeper = gk
+
         addChild(layer)
         setShotLayer = layer
 
         ball?.removeAllActions()
         ball?.setScale(1.0)
         ball?.isHidden = false
+        ball?.zPosition = 60               // above the set-shot overlay (layer is 50)
         ball?.position = stageBall
 
         configureSetShotCamera()
@@ -470,7 +495,9 @@ final class AFLGameScene: SKScene {
 
         // Must swipe up with enough power.
         guard dirY > 0.25, power >= minPower else {
-            ball.run(.move(to: CGPoint(x: stageBall.x, y: stagePostLineY - 250), duration: 0.4)) { [weak self] in
+            // Weak kick: low arc that falls short.
+            animateShot(to: CGPoint(x: stageBall.x, y: stagePostLineY - 250),
+                        arcHeight: 110, duration: 0.5) { [weak self] in
                 self?.resolveShot(points: 0, labelText: nil)
             }
             return
@@ -484,15 +511,76 @@ final class AFLGameScene: SKScene {
         landingX = min(max(landingX, stageCenter.x - 700), stageCenter.x + 700)
 
         let dx = abs(landingX - stageCenter.x)
-        let points: Int
-        let labelText: String?
-        if dx <= 120 { points = 6; labelText = String(localized: "AFL_Goal") }
-        else if dx <= 360 { points = 1; labelText = String(localized: "AFL_Behind") }
-        else { points = 0; labelText = nil }
+        let isGoalBound = dx <= 120
+        let isBehind = dx > 120 && dx <= 360
 
-        ball.run(.move(to: CGPoint(x: landingX, y: stagePostLineY), duration: 0.45)) { [weak self] in
-            self?.resolveShot(points: points, labelText: labelText)
+        animateShot(to: CGPoint(x: landingX, y: goalBallY),
+                    arcHeight: 260, duration: 0.6) { [weak self] in
+            guard let self else { return }
+            if isGoalBound {
+                if self.keeperSaves(landingX: landingX) {
+                    self.resolveShot(points: 0, labelText: String(localized: "AFL_Saved"))
+                } else {
+                    self.resolveShot(points: 6, labelText: String(localized: "AFL_Goal"))
+                }
+            } else if isBehind {
+                self.resolveShot(points: 1, labelText: String(localized: "AFL_Behind"))
+            } else {
+                self.resolveShot(points: 0, labelText: nil)
+            }
         }
+    }
+
+    /// True if the keeper is actually touching the ball at the goal line on arrival
+    /// (overlap in both x and y).
+    private func keeperSaves(landingX: CGFloat) -> Bool {
+        guard let keeper else { return false }
+        let dx = abs(landingX - keeper.position.x)
+        let dy = abs(goalBallY - keeper.position.y)
+        return dx <= keeperHalfWidth + ballRadius && dy <= keeperHeight / 2 + ballRadius
+    }
+
+    /// Flies the ball from its current spot to `target` along a parabolic arc, growing
+    /// (to read as height/distance), spinning, and leaving a short fading trail.
+    private func animateShot(to target: CGPoint, arcHeight: CGFloat,
+                             duration: TimeInterval, completion: @escaping () -> Void) {
+        guard let ball else { return }
+        let start = ball.position
+        ball.removeAllActions()
+
+        var trailAccumulator: CGFloat = 0
+        let fly = SKAction.customAction(withDuration: duration) { [weak self] node, elapsed in
+            guard duration > 0 else { return }
+            let t = max(0, min(1, CGFloat(elapsed) / CGFloat(duration)))
+            let x = start.x + (target.x - start.x) * t
+            let y = start.y + (target.y - start.y) * t
+            let arc = sin(t * .pi) * arcHeight          // peaks mid-flight
+            node.position = CGPoint(x: x, y: y + arc)
+            node.setScale(1 + sin(t * .pi) * 0.8)       // looks higher near the apex
+
+            // Drop a trail dot roughly every frame-ish without flooding.
+            trailAccumulator += 1
+            if trailAccumulator >= 2 {
+                trailAccumulator = 0
+                self?.dropBallTrail(at: node.position, scale: node.xScale)
+            }
+        }
+        let spin = SKAction.rotate(byAngle: .pi * 4, duration: duration)
+        ball.run(.group([fly, spin])) {
+            ball.zRotation = 0
+            ball.setScale(1)
+            completion()
+        }
+    }
+
+    private func dropBallTrail(at point: CGPoint, scale: CGFloat) {
+        let dot = SKShapeNode(circleOfRadius: ballRadius * 0.55 * scale)
+        dot.fillColor = SKColor(red: 1.0, green: 0.55, blue: 0.0, alpha: 0.45)
+        dot.strokeColor = .clear
+        dot.position = point
+        dot.zPosition = 59                              // just under the ball, above the overlay
+        addChild(dot)
+        dot.run(.sequence([.fadeOut(withDuration: 0.3), .removeFromParent()]))
     }
 
     private func resolveShot(points: Int, labelText: String?) {

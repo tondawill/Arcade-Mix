@@ -1,76 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Auth_SignOut" : {
-      "comment" : "Sign out menu item.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Odhlásit se" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign Out" } }
-      }
-    },
-    "HighScore_None" : {
-      "comment" : "Shown on a game tile when there are no high scores yet.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Zatím žádné skóre" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No scores yet" } }
-      }
-    },
-    "Login_Apple" : {
-      "comment" : "Sign in with Apple button (system-provided text usually overrides this).",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlásit se přes Apple" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign in with Apple" } }
-      }
-    },
-    "Login_Email" : {
-      "comment" : "Email text field placeholder.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "E-mail" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Email" } }
-      }
-    },
-    "Login_Error" : {
-      "comment" : "Generic sign-in failure message.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlášení se nezdařilo. Zkus to znovu." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign-in failed. Please try again." } }
-      }
-    },
-    "Login_Password" : {
-      "comment" : "Password text field placeholder.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Heslo" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Password" } }
-      }
-    },
-    "Login_SignIn" : {
-      "comment" : "Email sign-in button.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihlásit se" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sign In" } }
-      }
-    },
-    "Login_SignUp" : {
-      "comment" : "Email sign-up button.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Vytvořit účet" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Create Account" } }
-      }
-    },
-    "Login_Toggle_ToSignIn" : {
-      "comment" : "Switches the email form to sign-in mode.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Už máš účet? Přihlas se" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Already have an account? Sign in" } }
-      }
-    },
-    "Login_Toggle_ToSignUp" : {
-      "comment" : "Switches the email form to sign-up mode.",
-      "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Nemáš účet? Zaregistruj se" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No account? Sign up" } }
-      }
-    },
     "AFL_Behind" : {
       "comment" : "Scored a behind (1 point) in AFL.",
       "localizations" : {
@@ -139,6 +69,13 @@
         }
       }
     },
+    "AFL_Saved" : {
+      "comment" : "Goalkeeper blocked the set shot.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Zákrok brankáře!" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved!" } }
+      }
+    },
     "AFL_SetShot" : {
       "comment" : "Set shot scoring phase title.",
       "extractionState" : "stale",
@@ -205,6 +142,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arcade Mix"
+          }
+        }
+      }
+    },
+    "Auth_SignOut" : {
+      "comment" : "Sign out menu item.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odhlásit se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
           }
         }
       }
@@ -359,6 +313,23 @@
         }
       }
     },
+    "HighScore_None" : {
+      "comment" : "Shown on a game tile when there are no high scores yet.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatím žádné skóre"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No scores yet"
+          }
+        }
+      }
+    },
     "HighScores_Title" : {
       "comment" : "High scores screen title.",
       "extractionState" : "stale",
@@ -394,6 +365,24 @@
         }
       }
     },
+    "Login_Apple" : {
+      "comment" : "Sign in with Apple button (system-provided text usually overrides this).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se přes Apple"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Apple"
+          }
+        }
+      }
+    },
     "Login_Button" : {
       "comment" : "Sign-in button label.",
       "extractionState" : "stale",
@@ -412,9 +401,93 @@
         }
       }
     },
+    "Login_Email" : {
+      "comment" : "Email text field placeholder.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "Login_Error" : {
+      "comment" : "Generic sign-in failure message.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlášení se nezdařilo. Zkus to znovu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in failed. Please try again."
+          }
+        }
+      }
+    },
+    "Login_Password" : {
+      "comment" : "Password text field placeholder.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "Login_SignIn" : {
+      "comment" : "Email sign-in button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        }
+      }
+    },
+    "Login_SignUp" : {
+      "comment" : "Email sign-up button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvořit účet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
+          }
+        }
+      }
+    },
     "Login_Title" : {
       "comment" : "Login screen title.",
-      "extractionState" : "stale",
       "localizations" : {
         "cs" : {
           "stringUnit" : {
@@ -426,6 +499,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Welcome to Arcade Mix"
+          }
+        }
+      }
+    },
+    "Login_Toggle_ToSignIn" : {
+      "comment" : "Switches the email form to sign-in mode.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už máš účet? Přihlas se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already have an account? Sign in"
+          }
+        }
+      }
+    },
+    "Login_Toggle_ToSignUp" : {
+      "comment" : "Switches the email form to sign-up mode.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemáš účet? Zaregistruj se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No account? Sign up"
           }
         }
       }
