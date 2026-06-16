@@ -17,10 +17,18 @@ final class AppCoordinator: ObservableObject {
     /// Where the app currently is. Drives `RootView`'s top-level switch.
     enum AppRoute: Equatable {
         case hub
+        case startMenu(GameID)
         case game(GameID)
     }
 
     @Published private(set) var route: AppRoute = .hub
+
+    /// Show a game's pre-play Start Menu, rotating to that game's orientation so the
+    /// player can reorient before any action begins.
+    func showStartMenu(_ game: GameID) {
+        route = .startMenu(game)
+        applyOrientation(for: route)
+    }
 
     /// Open a game, locking orientation to whatever that game requires.
     func open(_ game: GameID) {
@@ -44,10 +52,10 @@ final class AppCoordinator: ObservableObject {
         let preferred: UIInterfaceOrientationMask
 
         switch route {
-        case .game(.afl):
+        case .game(.afl), .startMenu(.afl):
             mask = .landscape
             preferred = .landscapeRight
-        case .hub, .game(.connect4):
+        case .hub, .game(.connect4), .startMenu(.connect4):
             mask = .portrait
             preferred = .portrait
         }

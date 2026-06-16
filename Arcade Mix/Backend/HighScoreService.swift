@@ -15,6 +15,9 @@ protocol HighScoreService: AnyObject {
 
     /// Fetch the top scores for a game, highest first.
     func topScores(for gameID: GameID, limit: Int) async throws -> [HighScore]
+
+    /// The given user's own best score for a game, if any.
+    func personalBest(for gameID: GameID, userID: String) async throws -> HighScore?
 }
 
 extension HighScoreService {
@@ -49,6 +52,12 @@ final class LocalHighScoreService: HighScoreService {
             .sorted { $0.score > $1.score }
             .prefix(limit)
             .map { $0 }
+    }
+
+    func personalBest(for gameID: GameID, userID: String) async throws -> HighScore? {
+        load()
+            .filter { $0.gameID == gameID.rawValue && $0.userID == userID }
+            .max { $0.score < $1.score }
     }
 
     // MARK: - Persistence

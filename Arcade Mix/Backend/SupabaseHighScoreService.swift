@@ -44,5 +44,18 @@ final class SupabaseHighScoreService: HighScoreService {
             .execute()
             .value
     }
+
+    func personalBest(for gameID: GameID, userID: String) async throws -> HighScore? {
+        let rows: [HighScore] = try await client
+            .from(table)
+            .select()
+            .eq("game_id", value: gameID.rawValue)
+            .eq("user_id", value: userID)
+            .order("score", ascending: false)
+            .limit(1)
+            .execute()
+            .value
+        return rows.first
+    }
 }
 #endif

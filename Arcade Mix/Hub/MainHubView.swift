@@ -22,7 +22,7 @@ struct MainHubView: View {
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(GameInfo.catalog) { game in
                         Button {
-                            coordinator.open(game.id)
+                            coordinator.showStartMenu(game.id)
                         } label: {
                             GameTileView(game: game, topScore: viewModel.topScores[game.id])
                         }

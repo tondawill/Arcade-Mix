@@ -578,6 +578,57 @@
           }
         }
       }
+    },
+    "StartMenu_Start" : {
+      "comment" : "Start button on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
+    },
+    "StartMenu_TopScore" : {
+      "comment" : "Label for the all-time top score across all users on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nejlepší vůbec"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All-Time Best"
+          }
+        }
+      }
+    },
+    "StartMenu_YourBest" : {
+      "comment" : "Label for the player's personal best score on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvé nejlepší"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Best"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

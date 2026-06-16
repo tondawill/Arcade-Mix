@@ -49,6 +49,10 @@ final class AFLGameScene: SKScene {
     private let aerialSpeed: CGFloat = 760
     private let playerSide: CGFloat = 60
     private let ballRadius: CGFloat = 22
+    private let aerialArcHeight: CGFloat = 360   // peak visual lift of the kicked arc
+    private let minFlightScale: CGFloat = 0.45   // small: far away just after the kick
+    private let maxFlightScale: CGFloat = 1.8    // big: near the camera as it lands (matches set-shot apex)
+    private let catchWindowStart: CGFloat = 0.85 // only markable in the final 15% of the flight
     private let worldVisibleHeight: CGFloat = 1500
     private let margin: CGFloat = 120          // keep spawns inside the boundary
 
@@ -63,6 +67,11 @@ final class AFLGameScene: SKScene {
     // Defenders.
     private let startingDefenders = 4
     private let maxDefenders = 10               // keep gaps passable as the count scales
+    private let surroundRadiusBase: CGFloat = 150  // containment ring radius (balanced)
+    private let surroundRadiusMin: CGFloat = 110   // ring radius at full aggression
+    private let markGoalSideOffset: CGFloat = 46   // how far goal-side a marker sits from its mate
+    private let opponentSeparation: CGFloat = 80   // push opponents apart below this spacing
+    private let minCarrierDefenders: Int = 3       // always keep this many surrounding the carrier
 
     // Set-shot staging (a clean area of the world, above the field).
     private var stageCenter: CGPoint { CGPoint(x: fieldSize.width / 2, y: fieldSize.height + 1600) }
@@ -124,6 +133,11 @@ final class AFLGameScene: SKScene {
 
     private var airborne = false
     private var ballVelocity: CGVector = .zero
+    private var ballGround: CGPoint = .zero   // logical on-ground position (used for catch detection)
+    private var flightStart: CGPoint = .zero
+    private var flightEnd: CGPoint = .zero
+    private var flightDuration: CGFloat = 0
+    private var flightElapsed: CGFloat = 0
     private var passTarget: SKNode?
     private var opponentsFrozen = false
     private var fieldBuilt = false
@@ -334,13 +348,16 @@ final class AFLGameScene: SKScene {
         // Launch from the far left at a random height toward a random landing point,
         // so the ball's path isn't aligned with the player — they must run to mark it.
         let startY = CGFloat.random(in: margin...(fieldSize.height - margin))
-        ball.position = CGPoint(x: 150, y: startY)
         let targetX: CGFloat = .random(in: 1600...2000)   // lands past mid-field if missed
         let targetY: CGFloat = .random(in: margin...(fieldSize.height - margin))
-        let flightTime = (targetX - 150) / aerialSpeed     // keep horizontal pace constant
-        ballVelocity = CGVector(dx: aerialSpeed, dy: (targetY - startY) / flightTime)
+        flightStart = CGPoint(x: 150, y: startY)
+        flightEnd = CGPoint(x: targetX, y: targetY)
+        ballGround = flightStart
+        flightDuration = (targetX - 150) / aerialSpeed     // keep horizontal pace constant
+        flightElapsed = 0
         ball.removeAllActions()
-        ball.run(.repeatForever(.sequence([.scale(to: 1.4, duration: 0.45), .scale(to: 1.0, duration: 0.45)])))
+        ball.position = flightStart
+        ball.setScale(minFlightScale)
     }
 
     /// The Mark: caught in the air → whistle, freeze, straight to set shot.
@@ -389,18 +406,112 @@ final class AFLGameScene: SKScene {
 
     private func freezeOpponents() { opponentsFrozen = true }
 
+    /// Role-based defense. Instead of every opponent piling onto the carrier, a few
+    /// mark the most dangerous teammates (cutting pass outlets) and the rest contain
+    /// the carrier — one or two engage to tackle while the others form a ring that
+    /// plugs the goal side and escape routes. A mutual separation force stops them
+    /// stacking into a single blob. Difficulty ramps with the score (balanced ≤30,
+    /// relentless ≥60).
     private func updateOpponentChase(_ dt: CGFloat) {
-        guard !opponentsFrozen, let ap = activePlayer else { return }
+        guard !opponentsFrozen, dt > 0, let ap = activePlayer else { return }
+
+        // Difficulty: 0 (balanced) at score ≤30, ramping to 1 (relentless) at ≥60.
+        let aggression = min(max((CGFloat(score) - 30) / 30, 0), 1)
+
+        // Decide which targets each opponent should pursue, then move everyone.
+        let targets = opponentTargets(carrier: ap.position, aggression: aggression)
+
         for opp in opponents {
-            let dir = unitVector(from: opp.position, to: ap.position)
-            opp.position = CGPoint(x: opp.position.x + dir.dx * opponentSpeed * dt,
-                                   y: opp.position.y + dir.dy * opponentSpeed * dt)
+            var move = unitVector(from: opp.position, to: targets[ObjectIdentifier(opp)] ?? ap.position)
+            // Separation: push apart from any nearby opponent so they never merge.
+            for other in opponents where other !== opp && distance(opp.position, other.position) < opponentSeparation {
+                let away = unitVector(from: other.position, to: opp.position)
+                move.dx += away.dx
+                move.dy += away.dy
+            }
+            let mag = hypot(move.dx, move.dy)
+            if mag > 0 {
+                let nx = opp.position.x + move.dx / mag * opponentSpeed * dt
+                let ny = opp.position.y + move.dy / mag * opponentSpeed * dt
+                opp.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
+                                       y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
+            }
             if hasPossession, distance(opp.position, ap.position) < tackleRadius {
                 showFloatingLabel(String(localized: "AFL_Tackled"))
                 triggerGameOver()
                 return
             }
         }
+    }
+
+    /// Assigns each opponent a steering target: markers sit goal-side of the most
+    /// forward teammates; carrier defenders split into engagers (beeline to tackle)
+    /// and a containment ring around the carrier.
+    private func opponentTargets(carrier: CGPoint, aggression: CGFloat) -> [ObjectIdentifier: CGPoint] {
+        var targets: [ObjectIdentifier: CGPoint] = [:]
+        var available = opponents
+
+        // --- Markers: shut down the best-positioned outlets (most dangerous to us). ---
+        let leaveOpen = aggression >= 0.6 ? 0 : 1      // balanced always leaves one outlet
+        let markerCount = max(0, min(teammates.count - leaveOpen, available.count - minCarrierDefenders))
+        if markerCount > 0 {
+            let toMark = teammates
+                .sorted { outletScore(for: $0, carrier: carrier) > outletScore(for: $1, carrier: carrier) }
+                .prefix(markerCount)
+            for mate in toMark {
+                guard let nearest = available.min(by: {
+                    distance($0.position, mate.position) < distance($1.position, mate.position)
+                }) else { break }
+                available.removeAll { $0 === nearest }
+                // Sit just goal-side (+x) of the mate, on the forward pass lane.
+                targets[ObjectIdentifier(nearest)] = CGPoint(x: mate.position.x + markGoalSideOffset,
+                                                             y: mate.position.y)
+            }
+        }
+
+        // --- Carrier defenders: engagers + containment ring. ---
+        let carrierDefenders = available.sorted {
+            distance($0.position, carrier) < distance($1.position, carrier)
+        }
+        let engagers = min(carrierDefenders.count, aggression >= 0.5 ? 2 : 1)
+        for opp in carrierDefenders.prefix(engagers) {
+            targets[ObjectIdentifier(opp)] = carrier      // beeline to tackle
+        }
+
+        let ringDefenders = Array(carrierDefenders.dropFirst(engagers))
+        if !ringDefenders.isEmpty {
+            let radius = surroundRadiusBase - (surroundRadiusBase - surroundRadiusMin) * aggression
+            let k = ringDefenders.count
+            // Evenly spaced slots, one anchored toward the goal (+x) to plug the front.
+            let slots = (0..<k).map { j -> CGPoint in
+                let theta = CGFloat(j) * (2 * .pi) / CGFloat(k)   // goalAngle = 0 (+x)
+                return CGPoint(x: carrier.x + cos(theta) * radius, y: carrier.y + sin(theta) * radius)
+            }
+            // Pair opponents to slots by sorted angle around the carrier to avoid crossing.
+            let bySlotAngle = slots.sorted { atan2($0.y - carrier.y, $0.x - carrier.x) < atan2($1.y - carrier.y, $1.x - carrier.x) }
+            let byOppAngle = ringDefenders.sorted {
+                atan2($0.position.y - carrier.y, $0.position.x - carrier.x) < atan2($1.position.y - carrier.y, $1.position.x - carrier.x)
+            }
+            for (opp, slot) in zip(byOppAngle, bySlotAngle) {
+                targets[ObjectIdentifier(opp)] = slot
+            }
+        }
+
+        return targets
+    }
+
+    /// How attractive a teammate is as a forward pass outlet — rewards open space and
+    /// forward progress, mirroring `bestPassTarget`'s scoring so markers go after the
+    /// option the carrier would most want. Openness ignores any defender already hugging
+    /// the teammate (within ~`markGoalSideOffset`) so that marking one doesn't instantly
+    /// make it look unattractive and cause markers to thrash between targets.
+    private func outletScore(for mate: SKNode, carrier: CGPoint) -> CGFloat {
+        let openness = opponents
+            .map { distance(mate.position, $0.position) }
+            .filter { $0 > markGoalSideOffset * 1.3 }
+            .min() ?? .greatestFiniteMagnitude
+        let forwardGain = mate.position.x - carrier.x
+        return openness + forwardGain * 0.5
     }
 
     /// Teammate AI: forward outlets. Each mate runs goal-ward into its own vertical
@@ -669,6 +780,7 @@ final class AFLGameScene: SKScene {
     }
 
     private func resolveShot(points: Int, labelText: String?) {
+        keeper?.removeAllActions()   // freeze the keeper so the result is readable on a static frame
         if points > 0 { score += points }
         if let labelText { showFloatingLabel(labelText) }
         run(.wait(forDuration: 1.0)) { [weak self] in
@@ -818,11 +930,14 @@ final class AFLGameScene: SKScene {
         switch state {
         case .aerial:
             applyJoystick(dt)
-            moveBall(dt)
-            if let ap = activePlayer, let b = ball, airborne, distance(ap.position, b.position) < markRadius {
+            let p = updateAerialFlight(dt)
+            if let ap = activePlayer, airborne,
+               p >= catchWindowStart,
+               distance(ap.position, ballGround) < markRadius {
                 attemptMark()
-            } else if let b = ball, b.position.x > 1500 {
-                enterPlayOn()
+            } else if p >= 1 {
+                ball?.position = ballGround   // landed: drop the lift offset to the exact ground spot
+                enterPlayOn()                 // missed -> loose ball in open play
             }
 
         case .playOn:
@@ -883,6 +998,22 @@ final class AFLGameScene: SKScene {
         guard dt > 0, let b = ball else { return }
         b.position = CGPoint(x: b.position.x + ballVelocity.dx * dt,
                              y: b.position.y + ballVelocity.dy * dt)
+    }
+
+    /// Advances the kicked ball along its parabolic arc and returns flight progress p∈[0,1].
+    /// The ball lifts up then drops back down, and grows from small to big as it nears the
+    /// camera. `ball.position` is rendered as ground + lift; catch math uses `ballGround`.
+    private func updateAerialFlight(_ dt: CGFloat) -> CGFloat {
+        guard dt > 0, let b = ball, flightDuration > 0 else { return 0 }
+        flightElapsed += dt
+        let p = max(0, min(1, flightElapsed / flightDuration))
+        ballGround = CGPoint(x: flightStart.x + (flightEnd.x - flightStart.x) * p,
+                             y: flightStart.y + (flightEnd.y - flightStart.y) * p)
+        let lift = sin(p * .pi) * aerialArcHeight                            // up then back down
+        let scale = minFlightScale + (maxFlightScale - minFlightScale) * p   // small -> big
+        b.position = CGPoint(x: ballGround.x, y: ballGround.y + lift)
+        b.setScale(scale)
+        return p
     }
 
     private func attachBallToCarrier() {

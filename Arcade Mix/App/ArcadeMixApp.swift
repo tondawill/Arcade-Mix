@@ -43,6 +43,8 @@ struct RootView: View {
                 switch coordinator.route {
                 case .hub:
                     MainHubView()
+                case .startMenu(let id):
+                    GameStartMenuView(gameID: id)
                 case .game(let id):
                     gameView(for: id)
                 }
