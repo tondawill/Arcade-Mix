@@ -58,6 +58,7 @@ final class AFLGameScene: SKScene {
     private let tackleRadius: CGFloat = 62
     private let interceptRadius: CGFloat = 54
     private let arriveRadius: CGFloat = 52
+    private let passTapRadius: CGFloat = 200    // forgiving tap target for picking a teammate to pass to
 
     // Defenders.
     private let startingDefenders = 4
@@ -138,6 +139,7 @@ final class AFLGameScene: SKScene {
 
     override func didMove(to view: SKView) {
         backgroundColor = SKColor(red: 0.18, green: 0.42, blue: 0.20, alpha: 1) // grass
+        view.isMultipleTouchEnabled = true   // joystick on one finger, pass with another
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         camera = cameraNode
@@ -513,8 +515,7 @@ final class AFLGameScene: SKScene {
 
     private func beginSetShot() {
         state = .setShot
-        joystickVector = .zero
-        removeJoystickVisual()
+        resetTouchTracking()
 
         let layer = SKNode()
         layer.zPosition = 50
@@ -681,46 +682,71 @@ final class AFLGameScene: SKScene {
     private func triggerGameOver() {
         guard state != .gameOver else { return }
         state = .gameOver
-        joystickVector = .zero
-        removeJoystickVisual()
+        resetTouchTracking()
         onGameOver?()
     }
 
     // MARK: - Touch Handling
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
+    /// Clears virtual-joystick / pass touch tracking. Called when leaving field play
+    /// (set shot, game over, new possession) so a stale, already-ended touch can't be
+    /// mistaken for a live joystick — which would block the next joystick from appearing.
+    private func resetTouchTracking() {
+        activeTouch = nil
+        joystickAnchor = nil
+        joystickVector = .zero
+        pendingPass = nil
+        removeJoystickVisual()
+    }
 
-        switch state {
-        case .setShot:
-            swipeStart = location
-            swipeStartTime = touch.timestamp
-        case .aerial, .playOn:
-            activeTouch = touch
-            joystickAnchor = location
-            joystickVector = .zero
-            pendingPass = (hasPossession && state == .playOn) ? teammate(at: location) : nil
-            if pendingPass == nil { showJoystickVisual(at: location) }
-        case .passing, .gameOver:
-            break
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            switch state {
+            case .setShot:
+                swipeStart = location
+                swipeStartTime = touch.timestamp
+            case .aerial, .playOn:
+                if activeTouch == nil {
+                    // First finger → virtual joystick (or a single-finger tap-to-pass).
+                    activeTouch = touch
+                    joystickAnchor = location
+                    joystickVector = .zero
+                    pendingPass = (hasPossession && state == .playOn) ? teammate(at: location) : nil
+                    if pendingPass == nil { showJoystickVisual(at: location) }
+                } else if hasPossession, state == .playOn {
+                    // Second finger while running → handpass to the tapped/nearest teammate
+                    // (or the best option), without disturbing the joystick.
+                    if let target = teammate(at: location) ?? bestPassTarget() {
+                        handpass(to: target)
+                    }
+                }
+            case .passing, .gameOver:
+                break
+            }
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let location = touch.location(in: self)
-
         if state == .setShot { return }
-        guard touch === activeTouch, let anchor = joystickAnchor else { return }
+        guard let touch = touches.first(where: { $0 === activeTouch }),
+              let anchor = joystickAnchor else { return }
+        let location = touch.location(in: self)
 
         let delta = CGVector(dx: location.x - anchor.x, dy: location.y - anchor.y)
         let mag = hypot(delta.dx, delta.dy)
         let deadzone: CGFloat = 28
+        let passCancelDistance: CGFloat = 120   // a held pass only cancels on a deliberate drag
+
+        // While a pass is pending, ignore tap jitter so the tap survives; only a clear
+        // drag cancels it and hands control to the joystick.
+        if pendingPass != nil {
+            guard mag > passCancelDistance else { return }
+            pendingPass = nil
+            showJoystickVisual(at: anchor)
+        }
 
         if mag > deadzone {
-            // Became a drag → cancel any pending pass and steer.
-            if pendingPass != nil { pendingPass = nil; showJoystickVisual(at: anchor) }
             joystickVector = CGVector(dx: delta.dx / mag, dy: delta.dy / mag)
             updateJoystickVisual(to: location)
         } else {
@@ -729,14 +755,14 @@ final class AFLGameScene: SKScene {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-
         if state == .setShot {
-            endSwipe(at: touch.location(in: self), time: touch.timestamp)
+            if let touch = touches.first {
+                endSwipe(at: touch.location(in: self), time: touch.timestamp)
+            }
             return
         }
 
-        guard touch === activeTouch else { return }
+        guard touches.contains(where: { $0 === activeTouch }) else { return }
         if let target = pendingPass { handpass(to: target) }
         joystickVector = .zero
         joystickAnchor = nil
@@ -746,18 +772,29 @@ final class AFLGameScene: SKScene {
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        joystickVector = .zero
-        joystickAnchor = nil
-        pendingPass = nil
-        activeTouch = nil
-        removeJoystickVisual()
+        if touches.contains(where: { $0 === activeTouch }) {
+            joystickVector = .zero
+            joystickAnchor = nil
+            pendingPass = nil
+            activeTouch = nil
+            removeJoystickVisual()
+        }
         swipeStart = nil
         swipeStartTime = nil
     }
 
+    /// Picks a teammate to pass to from a tap. A direct hit always counts; otherwise the
+    /// nearest teammate within `passTapRadius` wins, so the small, moving squares are easy
+    /// to target on a zoomed-out phone screen.
     private func teammate(at point: CGPoint) -> SKNode? {
         let hits = nodes(at: point)
-        return teammates.first { mate in hits.contains { $0 === mate || $0.parent === mate } }
+        if let direct = teammates.first(where: { mate in hits.contains { $0 === mate || $0.parent === mate } }) {
+            return direct
+        }
+        return teammates
+            .map { ($0, distance(point, $0.position)) }
+            .filter { $0.1 <= passTapRadius }
+            .min { $0.1 < $1.1 }?.0
     }
 
     private func endSwipe(at point: CGPoint, time: TimeInterval) {
