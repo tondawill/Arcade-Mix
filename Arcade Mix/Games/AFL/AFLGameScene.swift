@@ -40,6 +40,11 @@ final class AFLGameScene: SKScene {
     private let forward50X: CGFloat = 2100
     private let playerSpeed: CGFloat = 480
     private let opponentSpeed: CGFloat = 400
+    private let teammateSpeed: CGFloat = 380         // a touch slower than the carrier
+    private let teammateLeadAhead: CGFloat = 280     // how far ahead of the carrier they run
+    private let teammateF50Buffer: CGFloat = 120     // stay short of the 50 so a pass isn't an instant set shot
+    private let teammateOpenRadius: CGFloat = 220    // peel away from defenders within this range
+    private let teammateSpread: CGFloat = 200        // vertical gap between teammate lanes
     private let handpassSpeed: CGFloat = 1500
     private let aerialSpeed: CGFloat = 760
     private let playerSide: CGFloat = 60
@@ -396,7 +401,86 @@ final class AFLGameScene: SKScene {
         }
     }
 
+    /// Teammate AI: forward outlets. Each mate runs goal-ward into its own vertical
+    /// lane (so they don't stack), but stops short of the Forward-50 line and peels
+    /// away from nearby defenders so it stays open and on-screen as a handpass target.
+    private func updateTeammateMovement(_ dt: CGFloat) {
+        guard dt > 0, let ap = activePlayer else { return }
+        let mates = teammates
+        let count = max(mates.count, 1)
+        // Lanes are centred on the carrier and fanned out vertically.
+        let firstLaneY = ap.position.y - CGFloat(count - 1) / 2 * teammateSpread
+
+        for (i, mate) in mates.enumerated() {
+            // Seek a point ahead of the carrier, capped short of the 50.
+            let targetX = min(ap.position.x + teammateLeadAhead, forward50X - teammateF50Buffer)
+            let targetY = firstLaneY + CGFloat(i) * teammateSpread
+            var move = unitVector(from: mate.position, to: CGPoint(x: targetX, y: targetY))
+
+            // Steer away from defenders to stay open / uninterceptable.
+            for opp in opponents where distance(mate.position, opp.position) < teammateOpenRadius {
+                let away = unitVector(from: opp.position, to: mate.position)
+                move.dx += away.dx * 1.5
+                move.dy += away.dy * 1.5
+            }
+
+            // Don't crowd the ball carrier.
+            if distance(mate.position, ap.position) < playerSide * 2 {
+                let away = unitVector(from: ap.position, to: mate.position)
+                move.dx += away.dx
+                move.dy += away.dy
+            }
+
+            let mag = hypot(move.dx, move.dy)
+            guard mag > 0 else { continue }
+            let nx = mate.position.x + move.dx / mag * teammateSpeed * dt
+            let ny = mate.position.y + move.dy / mag * teammateSpeed * dt
+            mate.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
+                                    y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
+        }
+    }
+
     // MARK: - Phase: Handpass
+
+    /// One-press pass (keyboard / HUD button): handpass to the most open forward teammate.
+    func passToBestTeammate() {
+        guard hasPossession, state == .playOn, let best = bestPassTarget() else { return }
+        handpass(to: best)
+    }
+
+    /// Picks the teammate that's the safest, most forward outlet: rewards open space
+    /// (distance to the nearest defender) and forward progress, and rejects anyone
+    /// with a defender sitting on the pass lane (would just be intercepted).
+    private func bestPassTarget() -> SKNode? {
+        guard let ap = activePlayer else { return nil }
+        var best: SKNode?
+        var bestScore = -CGFloat.greatestFiniteMagnitude
+        for mate in teammates {
+            let openness = opponents.map { distance(mate.position, $0.position) }.min() ?? .greatestFiniteMagnitude
+            if openness < interceptRadius * 1.5 { continue }       // too tightly marked
+            if defenderOnLane(from: ap.position, to: mate.position) { continue }
+            let forwardGain = mate.position.x - ap.position.x
+            let score = openness + forwardGain * 0.5
+            if score > bestScore { bestScore = score; best = mate }
+        }
+        return best
+    }
+
+    /// True if a defender sits close to the straight line between two points — i.e. the
+    /// handpass would likely be intercepted.
+    private func defenderOnLane(from: CGPoint, to: CGPoint) -> Bool {
+        let lane = CGVector(dx: to.x - from.x, dy: to.y - from.y)
+        let laneLen = hypot(lane.dx, lane.dy)
+        guard laneLen > 0 else { return false }
+        for opp in opponents {
+            let rel = CGVector(dx: opp.position.x - from.x, dy: opp.position.y - from.y)
+            let t = (rel.dx * lane.dx + rel.dy * lane.dy) / (laneLen * laneLen)
+            guard t > 0, t < 1 else { continue }                   // only count defenders between the two
+            let closest = CGPoint(x: from.x + lane.dx * t, y: from.y + lane.dy * t)
+            if distance(opp.position, closest) < interceptRadius { return true }
+        }
+        return false
+    }
 
     func handpass(to teammate: SKNode) {
         guard hasPossession, state == .playOn, let ball else { return }
@@ -708,6 +792,7 @@ final class AFLGameScene: SKScene {
             applyJoystick(dt)
             if hasPossession {
                 attachBallToCarrier()
+                updateTeammateMovement(dt)
                 updateOpponentChase(dt)
                 checkForward50()
             } else if let ap = activePlayer, let b = ball, distance(ap.position, b.position) < pickupRadius {

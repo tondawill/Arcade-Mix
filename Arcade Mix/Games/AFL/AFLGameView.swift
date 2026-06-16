@@ -62,6 +62,11 @@ struct AFLGameView: View {
 
     private func handleKey(_ press: KeyPress) -> KeyPress.Result {
         let pressed = (press.phase == .down)
+        // Handpass: Space / E (fire once on key-down).
+        if press.key == .space || String(press.key.character).lowercased() == "e" {
+            if pressed { model.scene.passToBestTeammate() }
+            return .handled
+        }
         switch press.key {
         case .upArrow:
             upHeld = pressed
@@ -119,6 +124,23 @@ struct AFLGameView: View {
             .padding()
 
             Spacer()
+
+            if !model.isGameOver {
+                HStack {
+                    Spacer()
+                    Button {
+                        model.scene.passToBestTeammate()
+                    } label: {
+                        Label("AFL_Handpass", systemImage: "hand.point.up.left.fill")
+                            .labelStyle(.titleAndIcon)
+                            .font(.headline)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 12)
+                            .background(.ultraThinMaterial, in: Capsule())
+                    }
+                }
+                .padding()
+            }
         }
         .foregroundStyle(.primary)
     }

@@ -35,6 +35,13 @@
         }
       }
     },
+    "AFL_Handpass" : {
+      "comment" : "Button label: handpass the ball to the best-placed teammate.",
+      "localizations" : {
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihrávka" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Handpass" } }
+      }
+    },
     "AFL_Intercepted" : {
       "comment" : "Handpass was intercepted by an opponent (game over).",
       "localizations" : {
