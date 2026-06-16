@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		673DCAAC2FE0870900395B6E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 673DCAAB2FE0870900395B6E /* Supabase */; };
+		673DCAAE2FE0A30600395B6E /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 673DCAAD2FE0A30600395B6E /* AppIcon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		673DC9422FE0693200395B6E /* Arcade Mix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arcade Mix.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		673DCAAD2FE0A30600395B6E /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		AA11AA11AA11AA11AA110001 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		AA11AA11AA11AA11AA110002 /* Secrets.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.example.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +57,7 @@
 				AA11AA11AA11AA11AA110003 /* Config */,
 				673DC9442FE0693200395B6E /* Arcade Mix */,
 				673DC9432FE0693200395B6E /* Products */,
+				673DCAAD2FE0A30600395B6E /* AppIcon.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				673DCAAE2FE0A30600395B6E /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
