@@ -66,6 +66,10 @@ class BaseGameScene: SKScene {
     var ball: SKNode?
     private(set) var hasPossession: Bool = false
 
+    /// The teammate the next pass will go to (shown with a subtle highlight). Driven by
+    /// the joystick direction on touch, or cycled with Q/E on the keyboard.
+    private weak var aimedTeammate: SKNode?
+
     // MARK: - Scoring
 
     private(set) var score: Int = 0 {
@@ -532,6 +536,110 @@ class BaseGameScene: SKScene {
         handpass(to: best)
     }
 
+    // MARK: - Directional pass aim
+
+    /// The current movement direction used to aim the pass (joystick first, else keyboard).
+    private var currentMoveVector: CGVector {
+        (joystickVector.dx != 0 || joystickVector.dy != 0) ? joystickVector : keyboardVector
+    }
+
+    /// The eligible teammate sitting closest to the line projected from the carrier in
+    /// direction `dir` — the FC-style "pass where you're pointing". Only considers mates
+    /// in front along that line; returns nil if none are.
+    private func directionalPassTarget(dir: CGVector) -> SKNode? {
+        guard let ap = activePlayer else { return nil }
+        let mag = hypot(dir.dx, dir.dy)
+        guard mag > 0 else { return nil }
+        let ux = dir.dx / mag, uy = dir.dy / mag
+        var best: SKNode?
+        var bestCost = CGFloat.greatestFiniteMagnitude
+        for mate in teammates where isEligiblePassTarget(mate) {
+            let rx = mate.position.x - ap.position.x
+            let ry = mate.position.y - ap.position.y
+            let proj = rx * ux + ry * uy
+            guard proj > 0 else { continue }                  // must be in the aim direction
+            let perp = abs(rx * uy - ry * ux)                 // distance to the aim line
+            let cost = perp + proj * 0.1                      // tie-break: nearer along the line
+            if cost < bestCost { bestCost = cost; best = mate }
+        }
+        return best
+    }
+
+    /// Fallback target so there's always something highlighted: nearest eligible teammate.
+    private func nearestEligibleTeammate() -> SKNode? {
+        guard let ap = activePlayer else { return nil }
+        return teammates
+            .filter { isEligiblePassTarget($0) }
+            .min { distance($0.position, ap.position) < distance($1.position, ap.position) }
+    }
+
+    /// Refreshes which teammate is highlighted as the pass target. Joystick aiming wins
+    /// (touch); the keyboard movement vector is ignored here so arrows only move — Q/E
+    /// drive keyboard selection instead.
+    private func updatePassAim() {
+        // Drop a stale target (one that was passed away or became the carrier).
+        if let mate = aimedTeammate,
+           !(teammates.contains { $0 === mate } && isEligiblePassTarget(mate)) {
+            setAimedTeammate(nil)
+        }
+        if joystickVector.dx != 0 || joystickVector.dy != 0,
+           let t = directionalPassTarget(dir: joystickVector) {
+            setAimedTeammate(t)
+        }
+        if aimedTeammate == nil {
+            setAimedTeammate(nearestEligibleTeammate())
+        }
+    }
+
+    /// Cycles the highlighted target through the eligible teammates (Q = -1, E = +1).
+    func cyclePassTarget(by step: Int) {
+        guard hasPossession, state == .playOn else { return }
+        let options = teammates.filter { isEligiblePassTarget($0) }
+            .sorted { $0.position.y < $1.position.y }
+        guard !options.isEmpty else { return }
+        let current = options.firstIndex { $0 === aimedTeammate }
+        let next: Int
+        if let c = current {
+            next = (c + step + options.count) % options.count
+        } else {
+            next = step >= 0 ? 0 : options.count - 1
+        }
+        setAimedTeammate(options[next])
+    }
+
+    /// Pass to the highlighted teammate (button / Space), falling back to the directional
+    /// pick and finally the best-scored outlet.
+    func passToAimedTeammate() {
+        guard hasPossession, state == .playOn else { return }
+        let aimed = aimedTeammate.flatMap { isEligiblePassTarget($0) ? $0 : nil }
+        guard let target = aimed ?? directionalPassTarget(dir: currentMoveVector) ?? bestPassTarget()
+        else { return }
+        handpass(to: target)
+    }
+
+    private func setAimedTeammate(_ mate: SKNode?) {
+        guard mate !== aimedTeammate else { return }
+        aimedTeammate?.childNode(withName: "passAim")?.removeFromParent()
+        aimedTeammate = mate
+        guard let mate else { return }
+        let ring = SKShapeNode(rectOf: CGSize(width: playerSide + 12, height: playerSide + 12), cornerRadius: 8)
+        ring.name = "passAim"
+        ring.strokeColor = SKColor(red: 1.0, green: 0.85, blue: 0.2, alpha: 0.9)
+        ring.lineWidth = 3
+        ring.fillColor = .clear
+        ring.zPosition = -1
+        ring.run(.repeatForever(.sequence([
+            .scale(to: 1.12, duration: 0.5),
+            .scale(to: 1.0, duration: 0.5)
+        ])))
+        mate.addChild(ring)
+    }
+
+    private func clearPassAim() {
+        aimedTeammate?.childNode(withName: "passAim")?.removeFromParent()
+        aimedTeammate = nil
+    }
+
     /// The safest, most progressive *eligible* outlet: rewards openness + progress, and
     /// rejects tightly-marked mates or those with a defender on the pass lane.
     private func bestPassTarget() -> SKNode? {
@@ -978,6 +1086,7 @@ class BaseGameScene: SKScene {
                 attachBallToCarrier()
                 updateTeammateMovement(dt)
                 updateTeammateAppearance()
+                updatePassAim()
                 updateOpponentChase(dt)
                 checkScoringLine()
             } else if let ap = activePlayer, let b = ball, distance(ap.position, b.position) < config.pickupRadius {
@@ -1001,6 +1110,9 @@ class BaseGameScene: SKScene {
         case .kicking, .paused, .gameOver:
             break
         }
+
+        // The pass-target highlight only exists while you're carrying the ball in open play.
+        if !(state == .playOn && hasPossession) { clearPassAim() }
 
         switch state {
         case .aerial, .playOn, .passing:

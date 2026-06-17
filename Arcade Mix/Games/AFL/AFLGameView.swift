@@ -62,9 +62,14 @@ struct AFLGameView: View {
 
     private func handleKey(_ press: KeyPress) -> KeyPress.Result {
         let pressed = (press.phase == .down)
-        // Handpass: Space / E (fire once on key-down).
-        if press.key == .space || String(press.key.character).lowercased() == "e" {
-            if pressed { model.scene.passToBestTeammate() }
+        let ch = String(press.key.character).lowercased()
+        // Space passes to the highlighted teammate; Q/E cycle the target (once per key-down).
+        if press.key == .space {
+            if pressed { model.scene.passToAimedTeammate() }
+            return .handled
+        }
+        if ch == "q" || ch == "e" {
+            if pressed { model.scene.cyclePassTarget(by: ch == "e" ? 1 : -1) }
             return .handled
         }
         switch press.key {
@@ -129,7 +134,7 @@ struct AFLGameView: View {
                 HStack {
                     Spacer()
                     Button {
-                        model.scene.passToBestTeammate()
+                        model.scene.passToAimedTeammate()
                     } label: {
                         Label("AFL_Handpass", systemImage: "hand.point.up.left.fill")
                             .labelStyle(.titleAndIcon)

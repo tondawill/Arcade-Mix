@@ -26,6 +26,7 @@ final class RugbyGameScene: BaseGameScene {
     private let looseBallRollSide: ClosedRange<CGFloat> = -220...220  // sideways drift
     private let defenceRetreat: CGFloat = 250                          // play-the-ball line retreat (~10m)
     private let conversionHalfWidth: CGFloat = 120                     // inner-post to centre
+    private let maxConversionOffset: CGFloat = 600                     // lateral kick start for a sideline try
 
     // MARK: - Set state
 
@@ -128,10 +129,14 @@ final class RugbyGameScene: BaseGameScene {
         addScore(4)
         showFloatingLabel(String(localized: "Rugby_Try"))
         resetTackleSet()
-        // The conversion is taken in line with where the try was grounded: map the field
-        // Y of the try to a lateral shift of the kick (wide tries must be angled back).
-        let centerY = config.fieldSize.height / 2
-        kickLateralOffset = max(-520, min(520, (point.y - centerY) * 0.85))
+        // The conversion is taken straight back (~20m, the fixed stage setback) from where
+        // the try was grounded, and in line with it across the field. We map the try's
+        // position between the touchlines to a 0…1 fraction of either side and offset the
+        // kick start by that much: a try under the posts is a straight shot, a try in the
+        // corner starts right out wide and must be angled back to the central posts.
+        let halfPlay = config.fieldSize.height / 2 - config.margin
+        let fraction = max(-1, min(1, (point.y - config.fieldSize.height / 2) / halfPlay))
+        kickLateralOffset = fraction * maxConversionOffset
         beginKickPhase()
     }
 
