@@ -62,6 +62,8 @@ struct RootView: View {
         switch id {
         case .afl:
             AFLGameView()
+        case .rugby:
+            RugbyGameView()
         case .connect4:
             // Not built yet — the hub blocks selection, but fail safe to the hub.
             MainHubView()

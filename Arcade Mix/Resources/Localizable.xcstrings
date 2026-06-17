@@ -38,8 +38,18 @@
     "AFL_Handpass" : {
       "comment" : "Button label: handpass the ball to the best-placed teammate.",
       "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přihrávka" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Handpass" } }
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihrávka"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Handpass"
+          }
+        }
       }
     },
     "AFL_Intercepted" : {
@@ -79,8 +89,18 @@
     "AFL_Saved" : {
       "comment" : "Goalkeeper blocked the set shot.",
       "localizations" : {
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Zákrok brankáře!" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved!" } }
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zákrok brankáře!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved!"
+          }
+        }
       }
     },
     "AFL_SetShot" : {
@@ -316,6 +336,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Game Over"
+          }
+        }
+      }
+    },
+    "Game_Rugby_Subtitle" : {
+      "comment" : "Rugby League game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polož try a proměň ho"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score tries and convert"
+          }
+        }
+      }
+    },
+    "Game_Rugby_Title" : {
+      "comment" : "Rugby League game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rugby Arkáda"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rugby Arcade"
           }
         }
       }
@@ -558,6 +612,126 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Play"
+          }
+        }
+      }
+    },
+    "Rugby_Conversion" : {
+      "comment" : "Kicked a successful conversion (2 points) in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proměněno!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversion!"
+          }
+        }
+      }
+    },
+    "Rugby_Held" : {
+      "comment" : "Tackled but still in the set — play the ball.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Držen!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Held!"
+          }
+        }
+      }
+    },
+    "Rugby_Missed" : {
+      "comment" : "Missed the conversion kick in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedle!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missed!"
+          }
+        }
+      }
+    },
+    "Rugby_Pass" : {
+      "comment" : "Button label: pass the ball backward to the best-placed teammate.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihrávka"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass"
+          }
+        }
+      }
+    },
+    "Rugby_Tackle_Count" : {
+      "comment" : "HUD: how many tackles into the six-tackle set the player is.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skládka %lld / 6"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tackle %lld / 6"
+          }
+        }
+      }
+    },
+    "Rugby_Try" : {
+      "comment" : "Scored a try (4 points) in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try!"
+          }
+        }
+      }
+    },
+    "Rugby_Turnover" : {
+      "comment" : "Tackled on the last play of the set — turnover, game over.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ztráta!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turnover!"
           }
         }
       }

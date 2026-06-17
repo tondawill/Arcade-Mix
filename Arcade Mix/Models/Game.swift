@@ -13,6 +13,7 @@ import SwiftUI
 /// high-score key in Supabase).
 enum GameID: String, CaseIterable, Identifiable {
     case afl
+    case rugby
     case connect4
 
     var id: String { rawValue }
@@ -43,6 +44,14 @@ struct GameInfo: Identifiable {
             status: .available,
             systemImage: "figure.australian.football",
             accentColor: .red
+        ),
+        GameInfo(
+            id: .rugby,
+            titleKey: "Game_Rugby_Title",
+            subtitleKey: "Game_Rugby_Subtitle",
+            status: .available,
+            systemImage: "figure.rugby",
+            accentColor: .orange
         ),
         GameInfo(
             id: .connect4,

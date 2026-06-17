@@ -52,7 +52,7 @@ final class AppCoordinator: ObservableObject {
         let preferred: UIInterfaceOrientationMask
 
         switch route {
-        case .game(.afl), .startMenu(.afl):
+        case .game(.afl), .startMenu(.afl), .game(.rugby), .startMenu(.rugby):
             mask = .landscape
             preferred = .landscapeRight
         case .hub, .game(.connect4), .startMenu(.connect4):
