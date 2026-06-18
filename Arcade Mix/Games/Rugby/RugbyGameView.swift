@@ -70,7 +70,7 @@ struct RugbyGameView: View {
             return .handled
         }
         if ch == "q" || ch == "e" {
-            if pressed { model.scene.cyclePassTarget(by: ch == "e" ? 1 : -1) }
+            if pressed { model.scene.nudgeSelection(by: ch == "e" ? 1 : -1) }
             return .handled
         }
         switch press.key {

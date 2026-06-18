@@ -56,6 +56,8 @@ struct LoginView: View {
                             .foregroundStyle(.red)
                             .multilineTextAlignment(.center)
                     }
+
+                    guestSection
                 }
                 .padding(24)
                 .frame(maxWidth: 440)
@@ -63,6 +65,25 @@ struct LoginView: View {
             }
             .background(Color(.systemGroupedBackground))
         }
+    }
+
+    /// Lets the player into the app without an account — essential when offline, since
+    /// Apple / email sign-in can't complete. Scores aren't saved for a guest.
+    private var guestSection: some View {
+        VStack(spacing: 4) {
+            Button {
+                backend.continueAsGuest()
+            } label: {
+                Text("Login_Guest").font(.callout.weight(.medium))
+            }
+            .buttonStyle(.bordered)
+            .disabled(backend.isAuthenticating)
+
+            Text("Login_Guest_Note")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.top, 4)
     }
 
     private var emailForm: some View {

@@ -37,7 +37,7 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if backend.currentUser == nil {
+            if backend.currentUser == nil && !backend.isGuest {
                 LoginView()
             } else {
                 switch coordinator.route {

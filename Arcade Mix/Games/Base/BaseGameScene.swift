@@ -66,8 +66,8 @@ class BaseGameScene: SKScene {
     var ball: SKNode?
     private(set) var hasPossession: Bool = false
 
-    /// The teammate the next pass will go to (shown with a subtle highlight). Driven by
-    /// the joystick direction on touch, or cycled with Q/E on the keyboard.
+    /// The teammate the next pass will go to in open play, shown with a subtle highlight.
+    /// Driven by the joystick direction (touch) or cycled with Q/E (keyboard).
     private weak var aimedTeammate: SKNode?
 
     // MARK: - Scoring
@@ -399,6 +399,10 @@ class BaseGameScene: SKScene {
 
     func freezeOpponents() { opponentsFrozen = true }
 
+    /// Hook: opponent chase speed. Default = the config value; a sport can ramp it with
+    /// the score once the other difficulty levers (count, blocking) are maxed.
+    var effectiveOpponentSpeed: CGFloat { config.opponentSpeed }
+
     /// Role-based defense: a few opponents mark the most dangerous teammates (cutting
     /// pass outlets) while the rest contain the carrier (engagers + a containment ring),
     /// with a mutual separation force. Difficulty ramps with the score.
@@ -407,6 +411,7 @@ class BaseGameScene: SKScene {
 
         let aggression = min(max((CGFloat(score) - 30) / 30, 0), 1)
         let targets = opponentTargets(carrier: ap.position, aggression: aggression)
+        let speed = effectiveOpponentSpeed
 
         for opp in opponents {
             var move = unitVector(from: opp.position, to: targets[ObjectIdentifier(opp)] ?? ap.position)
@@ -417,8 +422,8 @@ class BaseGameScene: SKScene {
             }
             let mag = hypot(move.dx, move.dy)
             if mag > 0 {
-                let nx = opp.position.x + move.dx / mag * config.opponentSpeed * dt
-                let ny = opp.position.y + move.dy / mag * config.opponentSpeed * dt
+                let nx = opp.position.x + move.dx / mag * speed * dt
+                let ny = opp.position.y + move.dy / mag * speed * dt
                 opp.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
                                        y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
             }
@@ -529,23 +534,15 @@ class BaseGameScene: SKScene {
     /// Hook: per-frame teammate appearance. Default no-op; Rugby greys out forward mates.
     func updateTeammateAppearance() {}
 
-    // MARK: - Phase: Handpass
+    // MARK: - Phase: Handpass / directional aim (open play)
 
-    func passToBestTeammate() {
-        guard hasPossession, state == .playOn, let best = bestPassTarget() else { return }
-        handpass(to: best)
-    }
-
-    // MARK: - Directional pass aim
-
-    /// The current movement direction used to aim the pass (joystick first, else keyboard).
+    /// Movement direction used to aim a pass (joystick first, else keyboard).
     private var currentMoveVector: CGVector {
         (joystickVector.dx != 0 || joystickVector.dy != 0) ? joystickVector : keyboardVector
     }
 
-    /// The eligible teammate sitting closest to the line projected from the carrier in
-    /// direction `dir` — the FC-style "pass where you're pointing". Only considers mates
-    /// in front along that line; returns nil if none are.
+    /// The eligible teammate closest to the line projected from the carrier in `dir` — the
+    /// FC-style "pass where you're pointing". Mates in front only; nil if none.
     private func directionalPassTarget(dir: CGVector) -> SKNode? {
         guard let ap = activePlayer else { return nil }
         let mag = hypot(dir.dx, dir.dy)
@@ -565,19 +562,16 @@ class BaseGameScene: SKScene {
         return best
     }
 
-    /// Fallback target so there's always something highlighted: nearest eligible teammate.
+    /// Fallback so there's always something highlighted: nearest eligible teammate.
     private func nearestEligibleTeammate() -> SKNode? {
         guard let ap = activePlayer else { return nil }
-        return teammates
-            .filter { isEligiblePassTarget($0) }
+        return teammates.filter { isEligiblePassTarget($0) }
             .min { distance($0.position, ap.position) < distance($1.position, ap.position) }
     }
 
-    /// Refreshes which teammate is highlighted as the pass target. Joystick aiming wins
-    /// (touch); the keyboard movement vector is ignored here so arrows only move — Q/E
-    /// drive keyboard selection instead.
+    /// Refreshes the highlighted pass target while carrying. Joystick aiming wins (touch);
+    /// the keyboard movement vector is ignored so arrows only move — Q/E cycle instead.
     private func updatePassAim() {
-        // Drop a stale target (one that was passed away or became the carrier).
         if let mate = aimedTeammate,
            !(teammates.contains { $0 === mate } && isEligiblePassTarget(mate)) {
             setAimedTeammate(nil)
@@ -586,35 +580,41 @@ class BaseGameScene: SKScene {
            let t = directionalPassTarget(dir: joystickVector) {
             setAimedTeammate(t)
         }
-        if aimedTeammate == nil {
-            setAimedTeammate(nearestEligibleTeammate())
-        }
+        if aimedTeammate == nil { setAimedTeammate(nearestEligibleTeammate()) }
     }
 
-    /// Cycles the highlighted target through the eligible teammates (Q = -1, E = +1).
-    func cyclePassTarget(by step: Int) {
-        guard hasPossession, state == .playOn else { return }
+    /// Cycle the highlighted pass target through eligible teammates (top → bottom).
+    private func cyclePassTarget(by step: Int) {
         let options = teammates.filter { isEligiblePassTarget($0) }
             .sorted { $0.position.y < $1.position.y }
         guard !options.isEmpty else { return }
         let current = options.firstIndex { $0 === aimedTeammate }
-        let next: Int
-        if let c = current {
-            next = (c + step + options.count) % options.count
-        } else {
-            next = step >= 0 ? 0 : options.count - 1
-        }
+        let next = current.map { ($0 + step + options.count) % options.count } ?? (step >= 0 ? 0 : options.count - 1)
         setAimedTeammate(options[next])
     }
 
-    /// Pass to the highlighted teammate (button / Space), falling back to the directional
-    /// pick and finally the best-scored outlet.
+    /// Pass to the highlighted teammate (Pass button / Space), falling back to the
+    /// directional pick then the best-scored outlet.
     func passToAimedTeammate() {
         guard hasPossession, state == .playOn else { return }
         let aimed = aimedTeammate.flatMap { isEligiblePassTarget($0) ? $0 : nil }
-        guard let target = aimed ?? directionalPassTarget(dir: currentMoveVector) ?? bestPassTarget()
-        else { return }
+        guard let target = aimed ?? directionalPassTarget(dir: currentMoveVector) ?? bestPassTarget() else { return }
         handpass(to: target)
+    }
+
+    /// Keyboard Q/E: cycle the pass target while carrying, or — during the kickoff —
+    /// switch the controlled player to the teammate above / below.
+    func nudgeSelection(by step: Int) {
+        if state == .playOn, hasPossession {
+            cyclePassTarget(by: step)
+        } else if state == .aerial, let ap = activePlayer {
+            let options = teammates.sorted { $0.position.y < $1.position.y }
+            guard !options.isEmpty else { return }
+            let target = step >= 0
+                ? (options.first { $0.position.y > ap.position.y } ?? options.first!)
+                : (options.last { $0.position.y < ap.position.y } ?? options.last!)
+            setActivePlayer(target)
+        }
     }
 
     private func setAimedTeammate(_ mate: SKNode?) {
@@ -640,6 +640,15 @@ class BaseGameScene: SKScene {
         aimedTeammate = nil
     }
 
+    /// Hook: may the carrier pass to this teammate? Default = always (AFL). Rugby
+    /// allows only level-or-behind mates.
+    func isEligiblePassTarget(_ mate: SKNode) -> Bool { true }
+
+    /// Hook: the "progress" reward used by passing + the opponent marking AI. Default = AFL forward gain.
+    func passProgressGain(mate: SKNode, carrier: CGPoint) -> CGFloat {
+        (mate.position.x - carrier.x) * 0.5
+    }
+
     /// The safest, most progressive *eligible* outlet: rewards openness + progress, and
     /// rejects tightly-marked mates or those with a defender on the pass lane.
     private func bestPassTarget() -> SKNode? {
@@ -655,15 +664,6 @@ class BaseGameScene: SKScene {
             if score > bestScore { bestScore = score; best = mate }
         }
         return best
-    }
-
-    /// Hook: may the carrier pass to this teammate? Default = always (AFL). Rugby
-    /// allows only level-or-behind mates.
-    func isEligiblePassTarget(_ mate: SKNode) -> Bool { true }
-
-    /// Hook: the "progress" reward for a pass outlet. Default = AFL forward gain.
-    func passProgressGain(mate: SKNode, carrier: CGPoint) -> CGFloat {
-        (mate.position.x - carrier.x) * 0.5
     }
 
     private func defenderOnLane(from: CGPoint, to: CGPoint) -> Bool {
@@ -689,17 +689,23 @@ class BaseGameScene: SKScene {
         ballVelocity = CGVector(dx: dir.dx * config.handpassSpeed, dy: dir.dy * config.handpassSpeed)
     }
 
-    private func switchControl(to teammate: SKNode) {
+    /// Make `node` the controlled player without otherwise changing the phase — used to
+    /// tap-switch to a better-placed teammate while chasing the kickoff.
+    func setActivePlayer(_ node: SKNode) {
+        guard node !== activePlayer, teammates.contains(where: { $0 === node }) else { return }
         let group = ([activePlayer] + teammates).compactMap { $0 }
-        activePlayer = teammate
-        teammates = group.filter { $0 !== teammate }
+        activePlayer = node
+        teammates = group.filter { $0 !== node }
         refreshFriendlyRoles(group)
+        centerCameraOnActive(snap: true)
+    }
 
+    private func switchControl(to teammate: SKNode) {
+        setActivePlayer(teammate)
         hasPossession = true
         passTarget = nil
         ballVelocity = .zero
         state = .playOn
-        centerCameraOnActive(snap: true)
     }
 
     // MARK: - Scoring line / staged kick
@@ -947,14 +953,30 @@ class BaseGameScene: SKScene {
             case .kicking:
                 swipeStart = location
                 swipeStartTime = touch.timestamp
-            case .aerial, .playOn:
+            case .aerial:
                 if activeTouch == nil {
                     activeTouch = touch
                     joystickAnchor = location
                     joystickVector = .zero
-                    pendingPass = (hasPossession && state == .playOn) ? teammate(at: location) : nil
+                    // Tap a teammate to take control of them and chase the kick — the same
+                    // finger then drives them via the joystick.
+                    if let mate = teammate(at: location, requireEligible: false) {
+                        setActivePlayer(mate)
+                    }
+                    showJoystickVisual(at: location)
+                } else if let mate = teammate(at: location, requireEligible: false) {
+                    // Second finger while already running: switch to the tapped teammate,
+                    // keep steering with the joystick finger.
+                    setActivePlayer(mate)
+                }
+            case .playOn:
+                if activeTouch == nil {
+                    activeTouch = touch
+                    joystickAnchor = location
+                    joystickVector = .zero
+                    pendingPass = hasPossession ? teammate(at: location) : nil
                     if pendingPass == nil { showJoystickVisual(at: location) }
-                } else if hasPossession, state == .playOn {
+                } else if hasPossession {
                     if let target = teammate(at: location) ?? bestPassTarget() {
                         handpass(to: target)
                     }
@@ -1034,15 +1056,15 @@ class BaseGameScene: SKScene {
         swipeStartTime = nil
     }
 
-    private func teammate(at point: CGPoint) -> SKNode? {
+    /// Nearest teammate to a tap. `requireEligible` keeps it to legal pass outlets (for
+    /// passing); kickoff control-switching passes `false` so any teammate can be picked.
+    private func teammate(at point: CGPoint, requireEligible: Bool = true) -> SKNode? {
+        let pool = requireEligible ? teammates.filter { isEligiblePassTarget($0) } : teammates
         let hits = nodes(at: point)
-        if let direct = teammates.first(where: { mate in
-            isEligiblePassTarget(mate) && hits.contains { $0 === mate || $0.parent === mate }
-        }) {
+        if let direct = pool.first(where: { mate in hits.contains { $0 === mate || $0.parent === mate } }) {
             return direct
         }
-        return teammates
-            .filter { isEligiblePassTarget($0) }
+        return pool
             .map { ($0, distance(point, $0.position)) }
             .filter { $0.1 <= config.passTapRadius }
             .min { $0.1 < $1.1 }?.0
@@ -1111,7 +1133,8 @@ class BaseGameScene: SKScene {
             break
         }
 
-        // The pass-target highlight only exists while you're carrying the ball in open play.
+        // The pass-target highlight only exists while carrying the ball in open play
+        // (never during the kickoff).
         if !(state == .playOn && hasPossession) { clearPassAim() }
 
         switch state {

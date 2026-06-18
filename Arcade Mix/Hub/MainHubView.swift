@@ -39,11 +39,18 @@ struct MainHubView: View {
                     Menu {
                         if let name = backend.currentUser?.leaderboardName {
                             Text(verbatim: name)
-                        }
-                        Button(role: .destructive) {
-                            Task { await backend.signOut() }
-                        } label: {
-                            Label("Auth_SignOut", systemImage: "rectangle.portrait.and.arrow.right")
+                            Button(role: .destructive) {
+                                Task { await backend.signOut() }
+                            } label: {
+                                Label("Auth_SignOut", systemImage: "rectangle.portrait.and.arrow.right")
+                            }
+                        } else {
+                            // Guest: offer a way back to the sign-in screen (e.g. once online).
+                            Button {
+                                Task { await backend.signOut() }
+                            } label: {
+                                Label("Auth_SignIn", systemImage: "person.crop.circle.badge.plus")
+                            }
                         }
                     } label: {
                         Image(systemName: "person.crop.circle")
@@ -51,7 +58,11 @@ struct MainHubView: View {
                 }
             }
             .refreshable { await viewModel.loadTopScores(using: backend.highScores) }
-            .task { await viewModel.loadTopScores(using: backend.highScores) }
+            .task {
+                // A guest who has since reconnected gets sent back to sign-in.
+                backend.promptSignInIfPending()
+                await viewModel.loadTopScores(using: backend.highScores)
+            }
         }
     }
 }

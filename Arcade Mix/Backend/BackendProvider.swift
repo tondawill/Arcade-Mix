@@ -9,6 +9,7 @@
 
 import Foundation
 import Combine
+import Network
 
 @MainActor
 final class BackendProvider: ObservableObject {
@@ -17,6 +18,18 @@ final class BackendProvider: ObservableObject {
 
     @Published private(set) var currentUser: AppUser?
     @Published private(set) var isAuthenticating = false
+
+    /// True when the player chose to continue without signing in (e.g. offline). They can
+    /// play, but there is no `currentUser`, so scores are not submitted.
+    @Published private(set) var isGuest = false
+
+    // MARK: - Connectivity
+
+    private let connectivityMonitor = NWPathMonitor()
+    private var isOnline = true
+    /// Set when a *guest* regains connectivity; the main menu reads it to push the
+    /// sign-in screen the next time it appears.
+    private var pendingSignInPrompt = false
 
     /// True when talking to a real Supabase backend (package present + creds set).
     let usingSupabase: Bool
@@ -33,6 +46,30 @@ final class BackendProvider: ObservableObject {
             self.usingSupabase = resolved.usingSupabase
         }
         self.currentUser = self.auth.currentUser
+        startConnectivityMonitoring()
+    }
+
+    private func startConnectivityMonitoring() {
+        connectivityMonitor.pathUpdateHandler = { [weak self] path in
+            let online = path.status == .satisfied
+            Task { @MainActor in self?.handleConnectivity(online: online) }
+        }
+        connectivityMonitor.start(queue: DispatchQueue(label: "arcademix.connectivity"))
+    }
+
+    /// On an offline→online transition while playing as a guest, queue a sign-in prompt
+    /// for the next time the player is back at the main menu.
+    private func handleConnectivity(online: Bool) {
+        if online, !isOnline, isGuest { pendingSignInPrompt = true }
+        isOnline = online
+    }
+
+    /// Called when the main menu appears: if a guest has since come online, drop guest
+    /// mode so the app returns to the sign-in screen.
+    func promptSignInIfPending() {
+        guard pendingSignInPrompt else { return }
+        pendingSignInPrompt = false
+        if isGuest { isGuest = false }   // currentUser is nil → RootView shows LoginView
     }
 
     /// Picks Supabase services when available/configured, else Local.
@@ -54,6 +91,11 @@ final class BackendProvider: ObservableObject {
         currentUser = await auth.restoreSession()
     }
 
+    /// Enter the app without authenticating (offline / "no account"). Scores won't save.
+    func continueAsGuest() {
+        isGuest = true
+    }
+
     // MARK: - Auth actions
 
     func signIn(email: String, password: String) async throws {
@@ -73,11 +115,13 @@ final class BackendProvider: ObservableObject {
     func signOut() async {
         try? await auth.signOut()
         currentUser = nil
+        isGuest = false
     }
 
     private func run(_ action: () async throws -> AppUser) async rethrows {
         isAuthenticating = true
         defer { isAuthenticating = false }
         currentUser = try await action()
+        isGuest = false
     }
 }

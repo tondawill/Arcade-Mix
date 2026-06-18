@@ -24,7 +24,13 @@ final class RugbyGameScene: BaseGameScene {
     private let tackleSetSize = 6
     private let looseBallRollBack: ClosedRange<CGFloat> = 160...320   // distance the ball rolls away
     private let looseBallRollSide: ClosedRange<CGFloat> = -220...220  // sideways drift
-    private let defenceRetreat: CGFloat = 250                          // play-the-ball line retreat (~10m)
+    private let defensiveLineDistance: CGFloat = 280                   // onside line set in front of the attacker (~10m)
+
+    // Speed ramp: only kicks in once the count (maxed by score 36) and blocking
+    // aggression (maxed at score 60) are both topped out — then defenders get faster.
+    private let speedRampStartScore = 60
+    private let speedRampPerPoint: CGFloat = 4
+    private let maxOpponentSpeed: CGFloat = 760
     private let conversionHalfWidth: CGFloat = 120                     // inner-post to centre
     private let maxConversionOffset: CGFloat = 600                     // lateral kick start for a sideline try
 
@@ -41,6 +47,17 @@ final class RugbyGameScene: BaseGameScene {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not supported")
+    }
+
+    // MARK: - Difficulty
+
+    /// Defenders keep the base (player-matching) pace until the count and blocking are
+    /// maxed, then accelerate with the score up to a cap.
+    override var effectiveOpponentSpeed: CGFloat {
+        let base = config.opponentSpeed
+        guard score > speedRampStartScore else { return base }
+        let bonus = CGFloat(score - speedRampStartScore) * speedRampPerPoint
+        return min(base + bonus, maxOpponentSpeed)
     }
 
     // MARK: - Start positions
@@ -180,12 +197,19 @@ final class RugbyGameScene: BaseGameScene {
         }
     }
 
-    /// Play-the-ball restart: keep possession at the tackle spot; the defensive line
-    /// retreats goal-side (+X) to give a moment of space.
+    /// Play-the-ball restart: keep possession at the tackle spot and reset the defence to
+    /// an onside line a set distance in front of the attacker, evenly spread across the
+    /// field (as in rugby league, where the line must retreat ~10m and be square).
     private func playTheBall() {
-        let maxX = config.fieldSize.width - config.playerSide / 2
-        for opp in opponents {
-            opp.position = CGPoint(x: min(opp.position.x + defenceRetreat, maxX), y: opp.position.y)
+        guard let ap = activePlayer else { return }
+        let lineX = min(ap.position.x + defensiveLineDistance, scoringLineX)
+        let usableHeight = config.fieldSize.height - 2 * config.margin
+        // Keep each defender's vertical order so they slot into the line without crossing.
+        let line = opponents.sorted { $0.position.y < $1.position.y }
+        let count = max(line.count, 1)
+        for (i, opp) in line.enumerated() {
+            let y = config.margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
+            opp.position = CGPoint(x: lineX, y: y)
         }
     }
 }

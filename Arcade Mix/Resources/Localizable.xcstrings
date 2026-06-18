@@ -1,6 +1,57 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Auth_SignIn" : {
+      "comment" : "Account menu item shown to a guest: go to the sign-in screen.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        }
+      }
+    },
+    "Login_Guest" : {
+      "comment" : "Button: enter the app without signing in (works offline).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat bez přihlášení"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue without signing in"
+          }
+        }
+      }
+    },
+    "Login_Guest_Note" : {
+      "comment" : "Caption under the guest button: scores aren't saved without an account.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skóre se neuloží"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your scores won't be saved"
+          }
+        }
+      }
+    },
     "AFL_Behind" : {
       "comment" : "Scored a behind (1 point) in AFL.",
       "localizations" : {
