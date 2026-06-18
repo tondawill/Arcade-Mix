@@ -19,21 +19,34 @@ struct MainHubView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(GameInfo.catalog) { game in
-                        Button {
-                            // Connect 4 owns its own mode-picker, so it skips the
-                            // score-based start menu and opens directly.
-                            if game.id == .connect4 {
-                                coordinator.open(game.id)
-                            } else {
-                                coordinator.showStartMenu(game.id)
+                VStack(alignment: .leading, spacing: 28) {
+                    ForEach(GameCategory.allCases) { category in
+                        let games = GameInfo.games(in: category)
+                        if !games.isEmpty {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text(category.titleKey)
+                                    .font(.title2.bold())
+                                    .padding(.horizontal, 4)
+
+                                LazyVGrid(columns: columns, spacing: 16) {
+                                    ForEach(games) { game in
+                                        Button {
+                                            // Connect 4 owns its own mode-picker, so it skips
+                                            // the score-based start menu and opens directly.
+                                            if game.id == .connect4 {
+                                                coordinator.open(game.id)
+                                            } else {
+                                                coordinator.showStartMenu(game.id)
+                                            }
+                                        } label: {
+                                            GameTileView(game: game, topScore: viewModel.topScores[game.id])
+                                        }
+                                        .buttonStyle(.plain)
+                                        .disabled(game.status == .comingSoon)
+                                    }
+                                }
                             }
-                        } label: {
-                            GameTileView(game: game, topScore: viewModel.topScores[game.id])
                         }
-                        .buttonStyle(.plain)
-                        .disabled(game.status == .comingSoon)
                     }
                 }
                 .padding(20)

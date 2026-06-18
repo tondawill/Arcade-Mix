@@ -1211,6 +1211,40 @@
           }
         }
       }
+    },
+    "Hub_Category_Sport": {
+      "comment": "Hub section header for sports games.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sport"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sport"
+          }
+        }
+      }
+    },
+    "Hub_Category_Board": {
+      "comment": "Hub section header for board games.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Board games"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deskové hry"
+          }
+        }
+      }
     }
   },
   "version": "1.0"
