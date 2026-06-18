@@ -33,7 +33,11 @@ struct GameTileView: View {
                 .lineLimit(2)
 
             if !isComingSoon {
-                highScoreRow
+                if game.id == .connect4 {
+                    connect4RecordRow
+                } else {
+                    highScoreRow
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -67,6 +71,27 @@ struct GameTileView: View {
                 Text(verbatim: topScore.displayName).lineLimit(1)
             } else {
                 Text("HighScore_None")
+            }
+        }
+        .font(.footnote)
+        .foregroundStyle(.white.opacity(0.95))
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(.black.opacity(0.18), in: Capsule())
+    }
+
+    /// Connect 4 has no score — show the combined local win/loss/draw record instead.
+    @ViewBuilder
+    private var connect4RecordRow: some View {
+        let record = ConnectFourStats.shared.combinedRecord()
+        HStack(spacing: 6) {
+            Image(systemName: "rosette")
+            if record.total > 0 {
+                Text(String(format: String(localized: "Connect4_Record"),
+                            record.wins, record.losses, record.draws))
+                    .bold()
+            } else {
+                Text("Connect4_NoGames")
             }
         }
         .font(.footnote)

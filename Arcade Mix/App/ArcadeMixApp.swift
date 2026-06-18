@@ -65,8 +65,7 @@ struct RootView: View {
         case .rugby:
             RugbyGameView()
         case .connect4:
-            // Not built yet — the hub blocks selection, but fail safe to the hub.
-            MainHubView()
+            Connect4View()
         }
     }
 }

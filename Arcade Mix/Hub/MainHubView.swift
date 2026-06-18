@@ -22,7 +22,13 @@ struct MainHubView: View {
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(GameInfo.catalog) { game in
                         Button {
-                            coordinator.showStartMenu(game.id)
+                            // Connect 4 owns its own mode-picker, so it skips the
+                            // score-based start menu and opens directly.
+                            if game.id == .connect4 {
+                                coordinator.open(game.id)
+                            } else {
+                                coordinator.showStartMenu(game.id)
+                            }
                         } label: {
                             GameTileView(game: game, topScore: viewModel.topScores[game.id])
                         }

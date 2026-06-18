@@ -1,860 +1,1217 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "Auth_SignIn" : {
-      "comment" : "Account menu item shown to a guest: go to the sign-in screen.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihlásit se"
+  "sourceLanguage": "en",
+  "strings": {
+    "Auth_SignIn": {
+      "comment": "Account menu item shown to a guest: go to the sign-in screen.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihlásit se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign In"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign In"
           }
         }
       }
     },
-    "Login_Guest" : {
-      "comment" : "Button: enter the app without signing in (works offline).",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pokračovat bez přihlášení"
+    "Login_Guest": {
+      "comment": "Button: enter the app without signing in (works offline).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokračovat bez přihlášení"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue without signing in"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue without signing in"
           }
         }
       }
     },
-    "Login_Guest_Note" : {
-      "comment" : "Caption under the guest button: scores aren't saved without an account.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skóre se neuloží"
+    "Login_Guest_Note": {
+      "comment": "Caption under the guest button: scores aren't saved without an account.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skóre se neuloží"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your scores won't be saved"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your scores won't be saved"
           }
         }
       }
     },
-    "AFL_Behind" : {
-      "comment" : "Scored a behind (1 point) in AFL.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Behind!"
+    "AFL_Behind": {
+      "comment": "Scored a behind (1 point) in AFL.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behind!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Behind!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behind!"
           }
         }
       }
     },
-    "AFL_Goal" : {
-      "comment" : "Scored a goal (6 points) in AFL.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gól!"
+    "AFL_Goal": {
+      "comment": "Scored a goal (6 points) in AFL.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gól!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Goal!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goal!"
           }
         }
       }
     },
-    "AFL_Handpass" : {
-      "comment" : "Button label: handpass the ball to the best-placed teammate.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihrávka"
+    "AFL_Handpass": {
+      "comment": "Button label: handpass the ball to the best-placed teammate.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihrávka"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Handpass"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Handpass"
           }
         }
       }
     },
-    "AFL_Intercepted" : {
-      "comment" : "Handpass was intercepted by an opponent (game over).",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zachyceno!"
+    "AFL_Intercepted": {
+      "comment": "Handpass was intercepted by an opponent (game over).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zachyceno!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Intercepted!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intercepted!"
           }
         }
       }
     },
-    "AFL_Mark" : {
-      "comment" : "Player took a Mark (caught the ball in the air).",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chyceno!"
+    "AFL_Mark": {
+      "comment": "Player took a Mark (caught the ball in the air).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chyceno!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mark!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark!"
           }
         }
       }
     },
-    "AFL_Saved" : {
-      "comment" : "Goalkeeper blocked the set shot.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zákrok brankáře!"
+    "AFL_Saved": {
+      "comment": "Goalkeeper blocked the set shot.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zákrok brankáře!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saved!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved!"
           }
         }
       }
     },
-    "AFL_SetShot" : {
-      "comment" : "Set shot scoring phase title.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Střela na branku"
+    "AFL_SetShot": {
+      "comment": "Set shot scoring phase title.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Střela na branku"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set Shot"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set Shot"
           }
         }
       }
     },
-    "AFL_Swipe_Hint" : {
-      "comment" : "Instruction telling the player how to kick during a set shot.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Švihni pro kop"
+    "AFL_Swipe_Hint": {
+      "comment": "Instruction telling the player how to kick during a set shot.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Švihni pro kop"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Swipe to kick"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swipe to kick"
           }
         }
       }
     },
-    "AFL_Tackled" : {
-      "comment" : "Player was tackled while carrying the ball (game over).",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skolen!"
+    "AFL_Tackled": {
+      "comment": "Player was tackled while carrying the ball (game over).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skolen!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tackled!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tackled!"
           }
         }
       }
     },
-    "App_Title" : {
-      "comment" : "App name.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arcade Mix"
+    "App_Title": {
+      "comment": "App name.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arcade Mix"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arcade Mix"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arcade Mix"
           }
         }
       }
     },
-    "Auth_SignOut" : {
-      "comment" : "Sign out menu item.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Odhlásit se"
+    "Auth_SignOut": {
+      "comment": "Sign out menu item.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odhlásit se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign Out"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign Out"
           }
         }
       }
     },
-    "Common_Back" : {
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zpět"
+    "Common_Back": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zpět"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Back"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
           }
         }
       }
     },
-    "Common_MainMenu" : {
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hlavní menu"
+    "Common_MainMenu": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hlavní menu"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Main Menu"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Main Menu"
           }
         }
       }
     },
-    "Common_Retry" : {
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zkusit znovu"
+    "Common_Retry": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkusit znovu"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retry"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry"
           }
         }
       }
     },
-    "Game_AFL_Subtitle" : {
-      "comment" : "AFL game tile subtitle.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vysokoenergetická arkáda"
+    "Game_AFL_Subtitle": {
+      "comment": "AFL game tile subtitle.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vysokoenergetická arkáda"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "High-energy arcade footy"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High-energy arcade footy"
           }
         }
       }
     },
-    "Game_AFL_Title" : {
-      "comment" : "AFL game tile title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "AFL Arkáda"
+    "Game_AFL_Title": {
+      "comment": "AFL game tile title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AFL Arkáda"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "AFL Arcade"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AFL Arcade"
           }
         }
       }
     },
-    "Game_ComingSoon" : {
-      "comment" : "Badge shown on games that are not yet available.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Již brzy"
+    "Game_ComingSoon": {
+      "comment": "Badge shown on games that are not yet available.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Již brzy"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Coming Soon"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coming Soon"
           }
         }
       }
     },
-    "Game_Connect4_Subtitle" : {
-      "comment" : "Connect 4 game tile subtitle.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PvP souboj 1 na 1"
+    "Game_Connect4_Subtitle": {
+      "comment": "Connect 4 game tile subtitle.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PvP souboj 1 na 1"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1v1 PvP showdown"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1v1 PvP showdown"
           }
         }
       }
     },
-    "Game_Connect4_Title" : {
-      "comment" : "Connect 4 game tile title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Čtyři v řadě"
+    "Game_Connect4_Title": {
+      "comment": "Connect 4 game tile title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čtyři v řadě"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connect 4"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect 4"
           }
         }
       }
     },
-    "Game_Over" : {
-      "comment" : "Game over overlay title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konec hry"
+    "Game_Over": {
+      "comment": "Game over overlay title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konec hry"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Game Over"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Game Over"
           }
         }
       }
     },
-    "Game_Rugby_Subtitle" : {
-      "comment" : "Rugby League game tile subtitle.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Polož try a proměň ho"
+    "Game_Rugby_Subtitle": {
+      "comment": "Rugby League game tile subtitle.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polož try a proměň ho"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Score tries and convert"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Score tries and convert"
           }
         }
       }
     },
-    "Game_Rugby_Title" : {
-      "comment" : "Rugby League game tile title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rugby Arkáda"
+    "Game_Rugby_Title": {
+      "comment": "Rugby League game tile title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rugby Arkáda"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rugby Arcade"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rugby Arcade"
           }
         }
       }
     },
-    "HighScore_None" : {
-      "comment" : "Shown on a game tile when there are no high scores yet.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zatím žádné skóre"
+    "HighScore_None": {
+      "comment": "Shown on a game tile when there are no high scores yet.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím žádné skóre"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No scores yet"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No scores yet"
           }
         }
       }
     },
-    "HighScores_Title" : {
-      "comment" : "High scores screen title.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nejlepší skóre"
+    "HighScores_Title": {
+      "comment": "High scores screen title.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejlepší skóre"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "High Scores"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High Scores"
           }
         }
       }
     },
-    "Hub_Title" : {
-      "comment" : "Main hub navigation title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vyber hru"
+    "Hub_Title": {
+      "comment": "Main hub navigation title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyber hru"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose a Game"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a Game"
           }
         }
       }
     },
-    "Login_Apple" : {
-      "comment" : "Sign in with Apple button (system-provided text usually overrides this).",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihlásit se přes Apple"
+    "Login_Apple": {
+      "comment": "Sign in with Apple button (system-provided text usually overrides this).",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihlásit se přes Apple"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign in with Apple"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with Apple"
           }
         }
       }
     },
-    "Login_Button" : {
-      "comment" : "Sign-in button label.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihlásit se"
+    "Login_Button": {
+      "comment": "Sign-in button label.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihlásit se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign In"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign In"
           }
         }
       }
     },
-    "Login_Email" : {
-      "comment" : "Email text field placeholder.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-mail"
+    "Login_Email": {
+      "comment": "Email text field placeholder.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-mail"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Email"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email"
           }
         }
       }
     },
-    "Login_Error" : {
-      "comment" : "Generic sign-in failure message.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihlášení se nezdařilo. Zkus to znovu."
+    "Login_Error": {
+      "comment": "Generic sign-in failure message.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihlášení se nezdařilo. Zkus to znovu."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign-in failed. Please try again."
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-in failed. Please try again."
           }
         }
       }
     },
-    "Login_Password" : {
-      "comment" : "Password text field placeholder.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Heslo"
+    "Login_Password": {
+      "comment": "Password text field placeholder.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heslo"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
           }
         }
       }
     },
-    "Login_SignIn" : {
-      "comment" : "Email sign-in button.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihlásit se"
+    "Login_SignIn": {
+      "comment": "Email sign-in button.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihlásit se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign In"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign In"
           }
         }
       }
     },
-    "Login_SignUp" : {
-      "comment" : "Email sign-up button.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vytvořit účet"
+    "Login_SignUp": {
+      "comment": "Email sign-up button.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vytvořit účet"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create Account"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create Account"
           }
         }
       }
     },
-    "Login_Title" : {
-      "comment" : "Login screen title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vítej v Arcade Mix"
+    "Login_Title": {
+      "comment": "Login screen title.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vítej v Arcade Mix"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to Arcade Mix"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome to Arcade Mix"
           }
         }
       }
     },
-    "Login_Toggle_ToSignIn" : {
-      "comment" : "Switches the email form to sign-in mode.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Už máš účet? Přihlas se"
+    "Login_Toggle_ToSignIn": {
+      "comment": "Switches the email form to sign-in mode.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Už máš účet? Přihlas se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Already have an account? Sign in"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already have an account? Sign in"
           }
         }
       }
     },
-    "Login_Toggle_ToSignUp" : {
-      "comment" : "Switches the email form to sign-up mode.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nemáš účet? Zaregistruj se"
+    "Login_Toggle_ToSignUp": {
+      "comment": "Switches the email form to sign-up mode.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nemáš účet? Zaregistruj se"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No account? Sign up"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No account? Sign up"
           }
         }
       }
     },
-    "Menu_Play" : {
-      "comment" : "Generic play button.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hrát"
+    "Menu_Play": {
+      "comment": "Generic play button.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hrát"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Play"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play"
           }
         }
       }
     },
-    "Rugby_Conversion" : {
-      "comment" : "Kicked a successful conversion (2 points) in Rugby.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Proměněno!"
+    "Rugby_Conversion": {
+      "comment": "Kicked a successful conversion (2 points) in Rugby.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proměněno!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conversion!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversion!"
           }
         }
       }
     },
-    "Rugby_Held" : {
-      "comment" : "Tackled but still in the set — play the ball.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Držen!"
+    "Rugby_Held": {
+      "comment": "Tackled but still in the set — play the ball.",
+      "extractionState": "stale",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Držen!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Held!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Held!"
           }
         }
       }
     },
-    "Rugby_Missed" : {
-      "comment" : "Missed the conversion kick in Rugby.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vedle!"
+    "Rugby_Missed": {
+      "comment": "Missed the conversion kick in Rugby.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedle!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Missed!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missed!"
           }
         }
       }
     },
-    "Rugby_Pass" : {
-      "comment" : "Button label: pass the ball backward to the best-placed teammate.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Přihrávka"
+    "Rugby_Pass": {
+      "comment": "Button label: pass the ball backward to the best-placed teammate.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přihrávka"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pass"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pass"
           }
         }
       }
     },
-    "Rugby_Tackle_Count" : {
-      "comment" : "HUD: how many tackles into the six-tackle set the player is.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skládka %lld / 6"
+    "Rugby_Tackle_Count": {
+      "comment": "HUD: how many tackles into the six-tackle set the player is.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skládka %lld / 6"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tackle %lld / 6"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tackle %lld / 6"
           }
         }
       }
     },
-    "Rugby_Try" : {
-      "comment" : "Scored a try (4 points) in Rugby.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Try!"
+    "Rugby_Try": {
+      "comment": "Scored a try (4 points) in Rugby.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Try!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try!"
           }
         }
       }
     },
-    "Rugby_Turnover" : {
-      "comment" : "Tackled on the last play of the set — turnover, game over.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ztráta!"
+    "Rugby_Turnover": {
+      "comment": "Tackled on the last play of the set — turnover, game over.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ztráta!"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turnover!"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turnover!"
           }
         }
       }
     },
-    "Score_Label" : {
-      "comment" : "In-game score readout. %lld is the score value.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skóre: %lld"
+    "Score_Label": {
+      "comment": "In-game score readout. %lld is the score value.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skóre: %lld"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Score: %lld"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Score: %lld"
           }
         }
       }
     },
-    "StartMenu_Start" : {
-      "comment" : "Start button on a game's pre-play menu.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start"
+    "StartMenu_Start": {
+      "comment": "Start button on a game's pre-play menu.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
           }
         }
       }
     },
-    "StartMenu_TopScore" : {
-      "comment" : "Label for the all-time top score across all users on a game's pre-play menu.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nejlepší vůbec"
+    "StartMenu_TopScore": {
+      "comment": "Label for the all-time top score across all users on a game's pre-play menu.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejlepší vůbec"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All-Time Best"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All-Time Best"
           }
         }
       }
     },
-    "StartMenu_YourBest" : {
-      "comment" : "Label for the player's personal best score on a game's pre-play menu.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tvé nejlepší"
+    "StartMenu_YourBest": {
+      "comment": "Label for the player's personal best score on a game's pre-play menu.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvé nejlepší"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Best"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Best"
+          }
+        }
+      }
+    },
+    "Connect4_VsComputer": {
+      "comment": "Computer opponent menu header.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vs Computer"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proti počítači"
+          }
+        }
+      }
+    },
+    "Connect4_VsFriend": {
+      "comment": "Pass-and-play button.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vs Friend"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proti příteli"
+          }
+        }
+      }
+    },
+    "Connect4_Difficulty_Easy": {
+      "comment": "AI difficulty.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Easy"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lehká"
+          }
+        }
+      }
+    },
+    "Connect4_Difficulty_Medium": {
+      "comment": "AI difficulty.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Medium"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Střední"
+          }
+        }
+      }
+    },
+    "Connect4_Difficulty_Hard": {
+      "comment": "AI difficulty.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hard"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Těžká"
+          }
+        }
+      }
+    },
+    "Connect4_Difficulty_Impossible": {
+      "comment": "AI difficulty.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nemožná"
+          }
+        }
+      }
+    },
+    "Connect4_Turn_You": {
+      "comment": "Turn indicator (vs AI, human).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your turn"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj tah"
+          }
+        }
+      }
+    },
+    "Connect4_Turn_Computer": {
+      "comment": "Turn indicator (vs AI, computer).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Computer's turn"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tah počítače"
+          }
+        }
+      }
+    },
+    "Connect4_Turn_Red": {
+      "comment": "Turn indicator (pass-and-play, red).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Red's turn"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tah červeného"
+          }
+        }
+      }
+    },
+    "Connect4_Turn_Yellow": {
+      "comment": "Turn indicator (pass-and-play, yellow).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yellow's turn"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tah žlutého"
+          }
+        }
+      }
+    },
+    "Connect4_Thinking": {
+      "comment": "Shown while the AI computes.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Computer is thinking…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Počítač přemýšlí…"
+          }
+        }
+      }
+    },
+    "Connect4_CoinFlip_Red": {
+      "comment": "Coin-flip opener banner.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coin flip: Red goes first"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los: začíná červený"
+          }
+        }
+      }
+    },
+    "Connect4_CoinFlip_Yellow": {
+      "comment": "Coin-flip opener banner.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coin flip: Yellow goes first"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los: začíná žlutý"
+          }
+        }
+      }
+    },
+    "Connect4_Win_You": {
+      "comment": "Result (vs AI, human wins).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You win!"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyhráváš!"
+          }
+        }
+      }
+    },
+    "Connect4_Win_Computer": {
+      "comment": "Result (vs AI, computer wins).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Computer wins"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Počítač vyhrál"
+          }
+        }
+      }
+    },
+    "Connect4_Win_Red": {
+      "comment": "Result (pass-and-play, red wins).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Red wins!"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Červený vyhrál!"
+          }
+        }
+      }
+    },
+    "Connect4_Win_Yellow": {
+      "comment": "Result (pass-and-play, yellow wins).",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yellow wins!"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žlutý vyhrál!"
+          }
+        }
+      }
+    },
+    "Connect4_Draw": {
+      "comment": "Result, drawn game.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's a draw"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remíza"
+          }
+        }
+      }
+    },
+    "Connect4_Rematch": {
+      "comment": "Play again button.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rematch"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odveta"
+          }
+        }
+      }
+    },
+    "Connect4_Record": {
+      "comment": "Win/loss/draw record. %1=wins %2=losses %3=draws.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lldW · %2$lldL · %3$lldD"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lldV · %2$lldP · %3$lldR"
+          }
+        }
+      }
+    },
+    "Connect4_NoGames": {
+      "comment": "Tile/menu when no games played yet.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No games yet"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím žádné hry"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

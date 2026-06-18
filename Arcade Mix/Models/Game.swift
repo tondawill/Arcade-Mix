@@ -57,7 +57,7 @@ struct GameInfo: Identifiable {
             id: .connect4,
             titleKey: "Game_Connect4_Title",
             subtitleKey: "Game_Connect4_Subtitle",
-            status: .comingSoon,
+            status: .available,
             systemImage: "circle.grid.3x3.fill",
             accentColor: .blue
         )
