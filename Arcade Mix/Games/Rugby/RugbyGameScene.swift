@@ -212,6 +212,10 @@ final class RugbyGameScene: BaseGameScene {
     private func playTheBall() {
         guard let ap = activePlayer else { return }
         let lineX = min(ap.position.x + defensiveLineDistance, scoringLineX)
+        // Tackled too close to the try line for a full retreat? Pull the play-the-ball back
+        // so the defence still gets its onside distance instead of bunching on the line.
+        let carrierX = min(ap.position.x, lineX - defensiveLineDistance)
+        ap.position = CGPoint(x: carrierX, y: ap.position.y)
         for opp in opponents {
             opp.position = CGPoint(x: lineX, y: opp.position.y)
         }

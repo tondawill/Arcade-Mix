@@ -478,8 +478,8 @@ class BaseGameScene: SKScene {
             opponents.append(opp)
         }
 
-        // Back line: hold station just in front of the scoring line to catch a runner who
-        // beats the chasers. A darker shade marks them out. Spread evenly across the field.
+        // Back line: a darker-shaded goal-side cordon that boxes the carrier in (see
+        // updateLineDefenders). Spawn them spread along the line; they push up from there.
         let spread = max(linerCount, 1)
         for i in 0..<linerCount {
             let y = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(spread)
@@ -490,25 +490,34 @@ class BaseGameScene: SKScene {
         }
     }
 
-    /// X where the back line holds — just in front of the scoring line, so a runner must
-    /// beat them to score.
+    /// X where the back line first spawns — just in front of the scoring line; they then
+    /// push up to box the carrier (see `updateLineDefenders`).
     private var lineDefenderX: CGFloat { max(scoringLineX - playerSide * 1.5, margin) }
 
     private static let lineDefenderColor = SKColor(red: 0.55, green: 0.10, blue: 0.10, alpha: 1)
 
-    /// Move the back line each frame: hold an evenly-spread zone at the scoring line,
-    /// leaning toward the carrier's lane to cut off the run, and tackle on contact.
+    /// Goal-side cordon geometry: how far ahead of the carrier the box sits, and how wide a
+    /// fan it spreads (0 rad = straight toward the scoring line).
+    private let lineDefenderBoxRadius: CGFloat = 190
+    private let lineDefenderArc: CGFloat = .pi * 8 / 9   // 160° fan on the goal side
+
+    /// Move the back line each frame: fan out over a goal-side arc centred on the carrier so
+    /// they keep the carrier's lane and use their numbers to box in the forward and lateral
+    /// escape routes (instead of sitting in a flat line at the scoring line). Tackle on contact.
     private func updateLineDefenders(_ dt: CGFloat) {
         guard !opponentsFrozen, dt > 0, let ap = activePlayer, !lineDefenders.isEmpty else { return }
-        let lineX = lineDefenderX
         let speed = effectiveOpponentSpeed
-        let usableHeight = fieldSize.height - 2 * margin
+        let carrier = ap.position
         let count = lineDefenders.count
 
         for (i, d) in lineDefenders.enumerated() {
-            let homeY = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
-            let targetY = homeY + (ap.position.y - homeY) * 0.5   // hold a zone, lean toward the carrier
-            var move = unitVector(from: d.position, to: CGPoint(x: lineX, y: targetY))
+            // Spread evenly across the arc; the box stays goal-side and clamps to the line so
+            // they never drop in behind the carrier or chase past the scoring line.
+            let frac = count == 1 ? 0.5 : CGFloat(i) / CGFloat(count - 1)
+            let angle = -lineDefenderArc / 2 + frac * lineDefenderArc
+            let tx = min(carrier.x + cos(angle) * lineDefenderBoxRadius, scoringLineX - playerSide / 2)
+            let ty = carrier.y + sin(angle) * lineDefenderBoxRadius
+            var move = unitVector(from: d.position, to: CGPoint(x: tx, y: ty))
             for other in lineDefenders where other !== d && distance(d.position, other.position) < config.opponentSeparation {
                 let away = unitVector(from: other.position, to: d.position)
                 move.dx += away.dx
