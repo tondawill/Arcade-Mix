@@ -39,9 +39,8 @@ struct SportConfig {
     var margin: CGFloat
 
     // Movement speeds
-    var playerSpeed: CGFloat
+    var playerSpeed: CGFloat        // teammates also run at this pace (keep up with the carrier)
     var opponentSpeed: CGFloat
-    var teammateSpeed: CGFloat
     var teammateLeadAhead: CGFloat
     var teammateLineBuffer: CGFloat  // stay this far short of the scoring line
     var teammateOpenRadius: CGFloat
@@ -99,7 +98,6 @@ extension SportConfig {
         margin: 120,
         playerSpeed: 480,
         opponentSpeed: 400,
-        teammateSpeed: 380,
         teammateLeadAhead: 280,
         teammateLineBuffer: 120,
         teammateOpenRadius: 220,
@@ -145,7 +143,6 @@ extension SportConfig {
         margin: 120,
         playerSpeed: 480,
         opponentSpeed: 480,                 // defenders keep pace with the carrier
-        teammateSpeed: 380,
         teammateLeadAhead: 280,
         teammateLineBuffer: 120,
         teammateOpenRadius: 220,

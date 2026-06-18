@@ -650,8 +650,10 @@ class BaseGameScene: SKScene {
 
             let mag = hypot(move.dx, move.dy)
             guard mag > 0 else { continue }
-            let nx = mate.position.x + move.dx / mag * config.teammateSpeed * dt
-            let ny = mate.position.y + move.dy / mag * config.teammateSpeed * dt
+            // Teammates run at the carrier's pace so they keep up and advance with the play
+            // instead of trailing off the back.
+            let nx = mate.position.x + move.dx / mag * config.playerSpeed * dt
+            let ny = mate.position.y + move.dy / mag * config.playerSpeed * dt
             mate.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
                                     y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
         }
