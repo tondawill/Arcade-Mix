@@ -73,7 +73,8 @@ struct SportConfig {
 
     // Defenders
     var startingDefenders: Int
-    var maxDefenders: Int
+    var maxDefenders: Int           // total cap (chasers + back-line defenders)
+    var maxChasers: Int             // of the total, how many press/mark; the rest hold the line
     var surroundRadiusBase: CGFloat
     var surroundRadiusMin: CGFloat
     var markGoalSideOffset: CGFloat
@@ -120,7 +121,8 @@ extension SportConfig {
         arriveRadius: 52,
         passTapRadius: 200,
         startingDefenders: 4,
-        maxDefenders: 10,
+        maxDefenders: 15,
+        maxChasers: 10,
         surroundRadiusBase: 150,
         surroundRadiusMin: 110,
         markGoalSideOffset: 46,
@@ -165,7 +167,8 @@ extension SportConfig {
         arriveRadius: 52,
         passTapRadius: 200,
         startingDefenders: 4,
-        maxDefenders: 10,
+        maxDefenders: 15,
+        maxChasers: 10,
         surroundRadiusBase: 150,
         surroundRadiusMin: 110,
         markGoalSideOffset: 46,

@@ -30,6 +30,12 @@ final class AFLGameScene: BaseGameScene {
         fatalError("init(coder:) is not supported")
     }
 
+    // MARK: - Kick-off
+
+    /// Slow the players during the kick-in so getting under the ball to mark takes more
+    /// commitment — it was too easy to stroll into a mark at full pace. (Rugby unchanged.)
+    override var aerialPlayerSpeedFactor: CGFloat { 0.6 }
+
     // MARK: - Set-shot staging
 
     /// Inner gap = goal, inner→outer = behind; plus a keeper that dwells on the ground

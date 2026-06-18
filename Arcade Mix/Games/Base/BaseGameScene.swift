@@ -62,7 +62,8 @@ class BaseGameScene: SKScene {
 
     var activePlayer: SKNode?
     var teammates: [SKNode] = []          // friendlies that are NOT currently active
-    var opponents: [SKNode] = []
+    var opponents: [SKNode] = []          // pressing defenders that chase the carrier / mark outlets
+    var lineDefenders: [SKNode] = []      // back line that holds near the scoring line to catch a runner
     var ball: SKNode?
     private(set) var hasPossession: Bool = false
 
@@ -76,6 +77,17 @@ class BaseGameScene: SKScene {
         didSet { onScoreChanged?(score) }
     }
     func addScore(_ n: Int) { score += n }
+
+    /// Squad size at the start: the controlled player plus this many teammates. The squad
+    /// then gains a teammate every 30 points (see `topUpTeammates`), but stops once the
+    /// difficulty has plateaued so reinforcements don't outpace a defence that can't grow.
+    private let baseTeammateCount = 3
+    private var targetTeammateCount: Int { baseTeammateCount + min(score, difficultyPlateauScore) / 30 }
+
+    /// Hook: the score beyond which no difficulty lever still increases — teammate growth
+    /// stops here. Default (AFL): the defender count caps at 66 (aggression already maxed at
+    /// 60, and there's no speed ramp). Rugby overrides it to its later, speed-ramp plateau.
+    var difficultyPlateauScore: Int { 66 }
 
     // MARK: - Callbacks to SwiftUI HUD
 
@@ -111,6 +123,10 @@ class BaseGameScene: SKScene {
     private var fieldBuilt = false
     private var setShotLayer: SKNode?
     private var tackleCooldown: TimeInterval = 0
+
+    /// An "X" drawn on the ground at the kicked-in ball's landing spot, shown for the
+    /// whole aerial flight so the player knows where to run.
+    private weak var landingMarker: SKNode?
 
     // MARK: - Swipe tracking (staged kick)
 
@@ -235,8 +251,9 @@ class BaseGameScene: SKScene {
     // MARK: - Reset / spawn
 
     private func resetMatch() {
-        (([activePlayer, ball] + teammates + opponents).compactMap { $0 }).forEach { $0.removeFromParent() }
+        (([activePlayer, ball] + teammates + opponents + lineDefenders).compactMap { $0 }).forEach { $0.removeFromParent() }
         setShotLayer?.removeFromParent(); setShotLayer = nil
+        removeLandingMarker()
         holdLabel?.removeFromParent(); holdLabel = nil
         onResumeFromPause = nil
         resumeArmed = false
@@ -245,16 +262,21 @@ class BaseGameScene: SKScene {
 
         teammates.removeAll()
         opponents.removeAll()
+        lineDefenders.removeAll()
         hasPossession = false
         opponentsFrozen = false
         score = 0
 
         let active = makeFriendly(at: .zero)
-        let mates = [makeFriendly(at: .zero), makeFriendly(at: .zero), makeFriendly(at: .zero)]
-        ([active] + mates).forEach { addChild($0) }
+        addChild(active)
         activePlayer = active
-        teammates = mates
-        refreshFriendlyRoles(([active] + mates))
+        teammates = []
+        for _ in 0..<baseTeammateCount {
+            let mate = makeFriendly(at: .zero)
+            addChild(mate)
+            teammates.append(mate)
+        }
+        refreshFriendlyRoles([active] + teammates)
         placePlayersRandomly()
 
         let b = makeBall(at: .zero)
@@ -268,16 +290,31 @@ class BaseGameScene: SKScene {
     /// Reposition (without recreating) for the next possession after a staged kick.
     func beginNewPossession() {
         setShotLayer?.removeFromParent(); setShotLayer = nil
-        opponents.forEach { $0.removeFromParent() }
+        (opponents + lineDefenders).forEach { $0.removeFromParent() }
         opponents.removeAll()
+        lineDefenders.removeAll()
         opponentsFrozen = false
         hasPossession = false
 
+        topUpTeammates()
         placePlayersRandomly()
 
         configureFieldCamera()
         centerCameraOnActive(snap: true)
         beginAerial()
+    }
+
+    /// Reinforcements: the squad gains a teammate every 30 points. Called at the start of a
+    /// possession so newly earned mates join for the next set (then `placePlayersRandomly`
+    /// positions them).
+    private func topUpTeammates() {
+        guard teammates.count < targetTeammateCount, let active = activePlayer else { return }
+        while teammates.count < targetTeammateCount {
+            let mate = makeFriendly(at: .zero)
+            addChild(mate)
+            teammates.append(mate)
+        }
+        refreshFriendlyRoles([active] + teammates)
     }
 
     /// Hook: where the active player and teammates start each possession.
@@ -329,7 +366,13 @@ class BaseGameScene: SKScene {
         ball.removeAllActions()
         ball.position = flightStart
         ball.setScale(config.minFlightScale)
+        showLandingMarker(at: flightEnd)
     }
+
+    /// Hook: carrier movement speed during the kickoff flight, relative to normal. Default
+    /// 1.0 (Rugby is unchanged); AFL slows the chase so getting under the ball to take the
+    /// mark demands more commitment.
+    var aerialPlayerSpeedFactor: CGFloat { 1.0 }
 
     /// Hook: set `flightStart` / `flightEnd` for the kicked-in ball. Default = AFL
     /// (kicked from the back-left toward midfield).
@@ -341,11 +384,47 @@ class BaseGameScene: SKScene {
         flightEnd = CGPoint(x: targetX, y: targetY)
     }
 
+    // MARK: - Landing marker
+
+    /// Drop a pulsing "X" on the ground at `point` (the kicked ball's landing spot) so the
+    /// player can read where to run during the aerial flight. Replaces any existing marker.
+    private func showLandingMarker(at point: CGPoint) {
+        removeLandingMarker()
+
+        let arm: CGFloat = playerSide * 0.7
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: -arm, y: -arm)); path.addLine(to: CGPoint(x: arm, y: arm))
+        path.move(to: CGPoint(x: -arm, y: arm)); path.addLine(to: CGPoint(x: arm, y: -arm))
+
+        let cross = SKShapeNode(path: path)
+        cross.name = "landingMarker"
+        cross.strokeColor = .white
+        cross.lineWidth = 9
+        cross.lineCap = .round
+        cross.glowWidth = 2
+        cross.position = point
+        cross.zPosition = 1   // on the ground, beneath players (z 5) and the ball (z 8)
+        cross.run(.repeatForever(.sequence([
+            .scale(to: 1.18, duration: 0.45),
+            .scale(to: 1.0, duration: 0.45)
+        ])))
+        addChild(cross)
+        landingMarker = cross
+    }
+
+    private func removeLandingMarker() {
+        landingMarker?.removeFromParent()
+        landingMarker = nil
+        // Belt-and-braces: clear any stray marker if the weak ref was lost.
+        childNode(withName: "landingMarker")?.removeFromParent()
+    }
+
     /// Common cleanup before the catch hook fires.
     private func handleAerialCatch(by node: SKNode) {
         airborne = false
         ballVelocity = .zero
         ball?.removeAllActions(); ball?.setScale(1.0)
+        removeLandingMarker()
         onAerialCaught(by: node)
     }
 
@@ -385,15 +464,67 @@ class BaseGameScene: SKScene {
 
     func spawnOpponents() {
         opponentsFrozen = false
-        // A wall of defenders on the scoring line, ahead of the player. Count grows with
-        // the score: 4, then +1 every 6 points (capped).
-        let count = min(config.startingDefenders + score / 6, config.maxDefenders)
+        // Difficulty ramps the total with the score: 4, then +1 every 6 points (capped).
+        let total = min(config.startingDefenders + score / 6, config.maxDefenders)
+        let chaserCount = min(total, config.maxChasers)
+        let linerCount = total - chaserCount          // overflow above the chaser cap → back line
         let usableHeight = fieldSize.height - 2 * margin
-        for i in 0..<count {
-            let y = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
+
+        // Chasers: the pressing wall that hunts the carrier and marks pass outlets.
+        for i in 0..<chaserCount {
+            let y = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(chaserCount)
             let opp = makeOpponent(at: CGPoint(x: scoringLineX, y: y))
             addChild(opp)
             opponents.append(opp)
+        }
+
+        // Back line: hold station just in front of the scoring line to catch a runner who
+        // beats the chasers. A darker shade marks them out. Spread evenly across the field.
+        let spread = max(linerCount, 1)
+        for i in 0..<linerCount {
+            let y = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(spread)
+            let d = makeOpponent(at: CGPoint(x: lineDefenderX, y: y))
+            d.color = Self.lineDefenderColor
+            addChild(d)
+            lineDefenders.append(d)
+        }
+    }
+
+    /// X where the back line holds — just in front of the scoring line, so a runner must
+    /// beat them to score.
+    private var lineDefenderX: CGFloat { max(scoringLineX - playerSide * 1.5, margin) }
+
+    private static let lineDefenderColor = SKColor(red: 0.55, green: 0.10, blue: 0.10, alpha: 1)
+
+    /// Move the back line each frame: hold an evenly-spread zone at the scoring line,
+    /// leaning toward the carrier's lane to cut off the run, and tackle on contact.
+    private func updateLineDefenders(_ dt: CGFloat) {
+        guard !opponentsFrozen, dt > 0, let ap = activePlayer, !lineDefenders.isEmpty else { return }
+        let lineX = lineDefenderX
+        let speed = effectiveOpponentSpeed
+        let usableHeight = fieldSize.height - 2 * margin
+        let count = lineDefenders.count
+
+        for (i, d) in lineDefenders.enumerated() {
+            let homeY = margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
+            let targetY = homeY + (ap.position.y - homeY) * 0.5   // hold a zone, lean toward the carrier
+            var move = unitVector(from: d.position, to: CGPoint(x: lineX, y: targetY))
+            for other in lineDefenders where other !== d && distance(d.position, other.position) < config.opponentSeparation {
+                let away = unitVector(from: other.position, to: d.position)
+                move.dx += away.dx
+                move.dy += away.dy
+            }
+            let mag = hypot(move.dx, move.dy)
+            if mag > 0 {
+                let nx = d.position.x + move.dx / mag * speed * dt
+                let ny = d.position.y + move.dy / mag * speed * dt
+                d.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
+                                     y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
+            }
+            if hasPossession, distance(d.position, ap.position) < config.tackleRadius {
+                registerTackle(at: ap.position)
+                return
+            }
         }
     }
 
@@ -1099,6 +1230,7 @@ class BaseGameScene: SKScene {
                 handleAerialCatch(by: ap)
             } else if p >= 1 {
                 airborne = false
+                removeLandingMarker()
                 onAerialLanded(at: ballGround)
             }
 
@@ -1110,6 +1242,7 @@ class BaseGameScene: SKScene {
                 updateTeammateAppearance()
                 updatePassAim()
                 updateOpponentChase(dt)
+                updateLineDefenders(dt)
                 checkScoringLine()
             } else if let ap = activePlayer, let b = ball, distance(ap.position, b.position) < config.pickupRadius {
                 gainPossession(by: ap)
@@ -1118,6 +1251,7 @@ class BaseGameScene: SKScene {
         case .passing:
             moveBall(dt)
             updateOpponentChase(dt)
+            updateLineDefenders(dt)
             if let b = ball {
                 for opp in opponents where distance(opp.position, b.position) < config.interceptRadius {
                     showFloatingLabel(String(localized: "AFL_Intercepted"))
@@ -1150,8 +1284,9 @@ class BaseGameScene: SKScene {
     private func applyJoystick(_ dt: CGFloat) {
         let move = (joystickVector.dx != 0 || joystickVector.dy != 0) ? joystickVector : keyboardVector
         guard dt > 0, let ap = activePlayer, move.dx != 0 || move.dy != 0 else { return }
-        let nx = ap.position.x + move.dx * config.playerSpeed * dt
-        let ny = ap.position.y + move.dy * config.playerSpeed * dt
+        let speed = config.playerSpeed * (state == .aerial ? aerialPlayerSpeedFactor : 1)
+        let nx = ap.position.x + move.dx * speed * dt
+        let ny = ap.position.y + move.dy * speed * dt
         ap.position = CGPoint(x: min(max(nx, playerSide / 2), fieldSize.width - playerSide / 2),
                               y: min(max(ny, playerSide / 2), fieldSize.height - playerSide / 2))
     }
@@ -1168,8 +1303,11 @@ class BaseGameScene: SKScene {
         let p = max(0, min(1, flightElapsed / flightDuration))
         ballGround = CGPoint(x: flightStart.x + (flightEnd.x - flightStart.x) * p,
                              y: flightStart.y + (flightEnd.y - flightStart.y) * p)
-        let lift = sin(p * .pi) * config.aerialArcHeight
-        let scale = config.minFlightScale + (config.maxFlightScale - config.minFlightScale) * p
+        // One parabolic arc (0 → 1 → 0) drives both height and size: the ball rises toward
+        // the overhead camera (grows), peaks at mid-flight, then falls back down (shrinks).
+        let arc = sin(p * .pi)
+        let lift = arc * config.aerialArcHeight
+        let scale = config.minFlightScale + (config.maxFlightScale - config.minFlightScale) * arc
         b.position = CGPoint(x: ballGround.x, y: ballGround.y + lift)
         b.setScale(scale)
         return p

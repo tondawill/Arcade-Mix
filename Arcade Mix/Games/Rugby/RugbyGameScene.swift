@@ -22,7 +22,7 @@ final class RugbyGameScene: BaseGameScene {
     // MARK: - Tunables
 
     private let tackleSetSize = 6
-    private let looseBallRollBack: ClosedRange<CGFloat> = 160...320   // distance the ball rolls away
+    private let looseBallRollBack: ClosedRange<CGFloat> = 360...640   // distance the ball rolls away (missing the catch is costly)
     private let looseBallRollSide: ClosedRange<CGFloat> = -220...220  // sideways drift
     private let defensiveLineDistance: CGFloat = 280                   // onside line set in front of the attacker (~10m)
 
@@ -58,6 +58,12 @@ final class RugbyGameScene: BaseGameScene {
         guard score > speedRampStartScore else { return base }
         let bonus = CGFloat(score - speedRampStartScore) * speedRampPerPoint
         return min(base + bonus, maxOpponentSpeed)
+    }
+
+    /// Rugby's last-growing lever is defender speed, which ramps until it hits its cap — so
+    /// teammate reinforcements keep coming until that score (later than AFL's count cap).
+    override var difficultyPlateauScore: Int {
+        speedRampStartScore + Int((maxOpponentSpeed - config.opponentSpeed) / speedRampPerPoint)
     }
 
     // MARK: - Start positions
@@ -96,7 +102,9 @@ final class RugbyGameScene: BaseGameScene {
         let destX = max(m, point.x - .random(in: looseBallRollBack))
         let destY = min(max(point.y + .random(in: looseBallRollSide), m), h - m)
         ball?.removeAllActions()
-        ball?.run(.move(to: CGPoint(x: destX, y: destY), duration: 0.5))
+        let roll = SKAction.move(to: CGPoint(x: destX, y: destY), duration: 0.8)
+        roll.timingMode = .easeOut   // decelerate, like a ball losing pace as it rolls
+        ball?.run(roll)
         enterPlayOn(resetBall: false)   // keep the roll animation alive
     }
 
@@ -197,19 +205,15 @@ final class RugbyGameScene: BaseGameScene {
         }
     }
 
-    /// Play-the-ball restart: keep possession at the tackle spot and reset the defence to
-    /// an onside line a set distance in front of the attacker, evenly spread across the
-    /// field (as in rugby league, where the line must retreat ~10m and be square).
+    /// Play-the-ball restart: keep possession at the tackle spot and retreat the defence
+    /// ~10m onside. Defenders move straight back — X only, keeping their current Y — so any
+    /// bunching the attacker drew them into is preserved. That rewards pulling defenders
+    /// onto the carrier and then passing to a teammate they've left unmarked.
     private func playTheBall() {
         guard let ap = activePlayer else { return }
         let lineX = min(ap.position.x + defensiveLineDistance, scoringLineX)
-        let usableHeight = config.fieldSize.height - 2 * config.margin
-        // Keep each defender's vertical order so they slot into the line without crossing.
-        let line = opponents.sorted { $0.position.y < $1.position.y }
-        let count = max(line.count, 1)
-        for (i, opp) in line.enumerated() {
-            let y = config.margin + (CGFloat(i) + 0.5) * usableHeight / CGFloat(count)
-            opp.position = CGPoint(x: lineX, y: y)
+        for opp in opponents {
+            opp.position = CGPoint(x: lineX, y: opp.position.y)
         }
     }
 }
