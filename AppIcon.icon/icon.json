@@ -8,7 +8,13 @@
         {
           "glass" : true,
           "image-name" : "Icon_FG.png",
-          "name" : "Icon_FG"
+          "name" : "Icon_FG",
+          "opacity-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : 1
+            }
+          ]
         }
       ],
       "shadow" : {
@@ -23,8 +29,12 @@
     {
       "layers" : [
         {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
+          "hidden" : false,
           "image-name" : "Icon_MG.png",
-          "name" : "Icon_MG"
+          "name" : "Icon_MG",
+          "opacity" : 1
         }
       ],
       "shadow" : {
