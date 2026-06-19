@@ -115,7 +115,8 @@ struct GameInfo: Identifiable {
                     .init(icon: "figure.rugby", textKey: "Rugby_HowTo_Rule_Gather"),
                     .init(icon: "flag.checkered", textKey: "Rugby_HowTo_Rule_Try", diagram: .pitch(tryLine: true)),
                     .init(icon: "scope", textKey: "Rugby_HowTo_Rule_Convert", diagram: .goalPosts(rugby: true)),
-                    .init(icon: "exclamationmark.triangle.fill", textKey: "Rugby_HowTo_Rule_Tackles")
+                    .init(icon: "exclamationmark.triangle.fill", textKey: "Rugby_HowTo_Rule_Tackles"),
+                    .init(icon: "hand.draw.fill", textKey: "Rugby_HowTo_Rule_Advanced")
                 ]
             )
         ),

@@ -1620,6 +1620,23 @@
         }
       }
     },
+    "Rugby_HowTo_Rule_Advanced": {
+      "comment": "Rugby rule: the optional Advanced Mode.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced Mode: after each tackle, drag your teammates to where you want them, then press Continue to restart play."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokročilý režim: po každém skolení přetáhni spoluhráče tam, kam chceš, a pak stiskni Pokračovat pro pokračování hry."
+          }
+        }
+      }
+    },
     "Connect4_HowTo_Control_Drop": {
       "comment": "Connect 4 control.",
       "localizations": {
