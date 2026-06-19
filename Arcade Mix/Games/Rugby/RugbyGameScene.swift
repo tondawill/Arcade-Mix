@@ -236,6 +236,11 @@ final class RugbyGameScene: BaseGameScene {
         for opp in opponents {
             opp.position = CGPoint(x: lineX, y: opp.position.y)
         }
+        // The back line must be onside too: anyone the box brought up in front of the 10m
+        // line retreats onto it (the ones holding deep near the try line stay put).
+        for d in lineDefenders where d.position.x < lineX {
+            d.position = CGPoint(x: lineX, y: d.position.y)
+        }
         // Support runners reset into open backward positions for the restart.
         positionTeammatesForSupport()
     }
