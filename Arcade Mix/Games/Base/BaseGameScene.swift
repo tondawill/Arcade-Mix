@@ -139,6 +139,8 @@ class BaseGameScene: SKScene {
     private var resumeArmed = false            // true once all fingers have lifted since pausing
     private var onResumeFromPause: (() -> Void)?
     private weak var holdLabel: SKNode?
+    private(set) var isInteractiveRestart = false   // dragging teammates before a restart
+    private weak var draggedNode: SKNode?
 
     // MARK: - Lifecycle
 
@@ -1076,8 +1078,30 @@ class BaseGameScene: SKScene {
         showHoldLabel(label)
     }
 
+    /// Like `pauseForRestart`, but instead of resuming on the next touch it lets the player
+    /// drag teammates into position and waits for an explicit `continueInteractiveRestart()`.
+    /// Used by Rugby's Advanced Mode play-the-ball.
+    func pauseForPositioning(label: String, onResume: @escaping () -> Void) {
+        guard state == .playOn else { return }
+        state = .paused
+        onResumeFromPause = onResume
+        resetTouchTracking()             // drop the joystick
+        resumeArmed = false              // a touch drags a teammate, it never resumes play
+        isInteractiveRestart = true
+        showHoldLabel(label)
+    }
+
+    func continueInteractiveRestart() {
+        guard state == .paused, isInteractiveRestart else { return }
+        isInteractiveRestart = false
+        draggedNode = nil
+        resumeFromPause()
+    }
+
     private func resumeFromPause() {
         guard state == .paused else { return }
+        isInteractiveRestart = false
+        draggedNode = nil
         holdLabel?.removeFromParent(); holdLabel = nil
         resumeArmed = false
         state = .playOn
@@ -1126,6 +1150,15 @@ class BaseGameScene: SKScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { touchesDown.insert(touch) }
+
+        // Interactive restart (Advanced Mode): grab the teammate under the finger to drag it,
+        // and never resume on touch — play restarts only via continueInteractiveRestart().
+        if state == .paused, isInteractiveRestart {
+            if let touch = touches.first {
+                draggedNode = teammate(at: touch.location(in: self), requireEligible: false)
+            }
+            return
+        }
 
         // Paused (e.g. play-the-ball): a fresh press, after every finger has lifted,
         // restarts play. We then fall through so that same press immediately grabs the
@@ -1176,6 +1209,12 @@ class BaseGameScene: SKScene {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if state == .paused, isInteractiveRestart {
+            if let mate = draggedNode, let touch = touches.first {
+                mate.position = clampedToField(touch.location(in: self))
+            }
+            return
+        }
         if state == .kicking { return }
         guard let touch = touches.first(where: { $0 === activeTouch }),
               let anchor = joystickAnchor else { return }
@@ -1203,6 +1242,13 @@ class BaseGameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { touchesDown.remove(touch) }
 
+        // Interactive restart: lifting a finger just drops the dragged teammate; play resumes
+        // only via the Continue button (continueInteractiveRestart).
+        if state == .paused, isInteractiveRestart {
+            draggedNode = nil
+            return
+        }
+
         // Arm the restart once the screen is clear of fingers.
         if state == .paused {
             if touchesDown.isEmpty { resumeArmed = true }
@@ -1227,6 +1273,11 @@ class BaseGameScene: SKScene {
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches { touchesDown.remove(touch) }
+
+        if state == .paused, isInteractiveRestart {
+            draggedNode = nil
+            return
+        }
 
         if state == .paused {
             if touchesDown.isEmpty { resumeArmed = true }

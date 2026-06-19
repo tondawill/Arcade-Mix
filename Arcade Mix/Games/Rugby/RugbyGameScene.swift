@@ -38,6 +38,11 @@ final class RugbyGameScene: BaseGameScene {
     private(set) var tackleCount = 0
     var onTackleCountChanged: ((Int) -> Void)?
 
+    /// Advanced Mode: after a tackle, play freezes and the player drags their teammates into
+    /// position before pressing Continue, instead of the AI auto-placing them.
+    var advancedMode = false
+    var onPositioningChanged: ((Bool) -> Void)?
+
     // MARK: - Init
 
     init(size: CGSize) {
@@ -198,9 +203,20 @@ final class RugbyGameScene: BaseGameScene {
             return
         }
 
-        // Stop play and show "Tackled"; the player lifts and re-presses to play the ball.
-        pauseForRestart(label: String(localized: "AFL_Tackled")) { [weak self] in
-            self?.playTheBall()
+        if advancedMode {
+            // Set the restart layout first (carrier pulled onside, defenders retreated, an
+            // initial support shape), then freeze so the player can drag their teammates to
+            // exactly where they want them before pressing Continue.
+            playTheBall()
+            onPositioningChanged?(true)
+            pauseForPositioning(label: String(localized: "Rugby_Positioning")) { [weak self] in
+                self?.onPositioningChanged?(false)
+            }
+        } else {
+            // Stop play and show "Tackled"; the player lifts and re-presses to play the ball.
+            pauseForRestart(label: String(localized: "AFL_Tackled")) { [weak self] in
+                self?.playTheBall()
+            }
         }
     }
 

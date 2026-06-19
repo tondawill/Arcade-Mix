@@ -17,6 +17,9 @@ struct RugbyGameView: View {
 
     @StateObject private var model = RugbyGameModel()
 
+    private enum Phase { case modeSelect, playing }
+    @State private var phase: Phase = .modeSelect
+
     @FocusState private var keyboardFocused: Bool
     @State private var upHeld = false
     @State private var downHeld = false
@@ -33,6 +36,90 @@ struct RugbyGameView: View {
 
     var body: some View {
         ZStack {
+            switch phase {
+            case .modeSelect:
+                modeSelect
+            case .playing:
+                gameScreen
+            }
+        }
+        .statusBarHidden()
+        .onChange(of: model.isGameOver) { _, isOver in
+            guard isOver, model.score > 0, let user = backend.currentUser else { return }
+            let finalScore = model.score
+            Task { try? await backend.highScores.submit(score: finalScore, for: .rugby, user: user) }
+        }
+    }
+
+    // MARK: - Mode selection
+
+    private var modeSelect: some View {
+        VStack(spacing: 24) {
+            VStack(spacing: 10) {
+                Image(systemName: "figure.rugby")
+                    .font(.system(size: 52, weight: .semibold))
+                    .foregroundStyle(.green)
+                Text("Game_Rugby_Title")
+                    .font(.largeTitle.bold())
+                    .foregroundStyle(.white)
+                    .shrinkToFit()
+            }
+
+            VStack(spacing: 12) {
+                Button {
+                    start(advanced: false)
+                } label: {
+                    modeLabel("Rugby_Mode_Normal", systemImage: "figure.run")
+                }
+                Button {
+                    start(advanced: true)
+                } label: {
+                    modeLabel("Rugby_Mode_Advanced", systemImage: "hand.draw.fill")
+                }
+            }
+        }
+        .padding(28)
+        .frame(maxWidth: 520)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.ignoresSafeArea())
+        .overlay(alignment: .topLeading) {
+            Button {
+                coordinator.returnToHub()
+            } label: {
+                Label("Common_Back", systemImage: "chevron.left")
+                    .labelStyle(.titleAndIcon)
+                    .shrinkToFit()
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(.ultraThinMaterial, in: Capsule())
+            }
+            .padding()
+        }
+    }
+
+    private func modeLabel(_ titleKey: LocalizedStringKey, systemImage: String) -> some View {
+        HStack {
+            Label(titleKey, systemImage: systemImage).bold().shrinkToFit()
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 14)
+        .frame(maxWidth: .infinity)
+        .background(.white.opacity(0.10), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .foregroundStyle(.white)
+    }
+
+    private func start(advanced: Bool) {
+        model.start(advanced: advanced)
+        phase = .playing
+        keyboardFocused = true
+    }
+
+    // MARK: - Game screen
+
+    private var gameScreen: some View {
+        ZStack {
             SpriteView(scene: model.scene)
                 .ignoresSafeArea()
                 .focusable()
@@ -47,17 +134,7 @@ struct RugbyGameView: View {
                 gameOverPanel
             }
         }
-        .statusBarHidden()
         .defersSystemGestures(on: .bottom)   // keep the bottom edge for passing/running, not a home-swipe
-        .onAppear {
-            model.start()
-            keyboardFocused = true
-        }
-        .onChange(of: model.isGameOver) { _, isOver in
-            guard isOver, model.score > 0, let user = backend.currentUser else { return }
-            let finalScore = model.score
-            Task { try? await backend.highScores.submit(score: finalScore, for: .rugby, user: user) }
-        }
     }
 
     // MARK: - Keyboard movement
@@ -143,16 +220,30 @@ struct RugbyGameView: View {
             if !model.isGameOver {
                 HStack {
                     Spacer()
-                    Button {
-                        model.scene.passToAimedTeammate()
-                    } label: {
-                        Label("Rugby_Pass", systemImage: "hand.point.up.left.fill")
-                            .labelStyle(.titleAndIcon)
-                            .font(.headline)
-                            .shrinkToFit()
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 12)
-                            .background(.ultraThinMaterial, in: Capsule())
+                    if model.isPositioning {
+                        Button {
+                            model.scene.continueInteractiveRestart()
+                        } label: {
+                            Label("Rugby_Continue", systemImage: "play.fill")
+                                .labelStyle(.titleAndIcon)
+                                .font(.headline)
+                                .shrinkToFit()
+                                .padding(.horizontal, 18)
+                                .padding(.vertical, 12)
+                                .background(.ultraThinMaterial, in: Capsule())
+                        }
+                    } else {
+                        Button {
+                            model.scene.passToAimedTeammate()
+                        } label: {
+                            Label("Rugby_Pass", systemImage: "hand.point.up.left.fill")
+                                .labelStyle(.titleAndIcon)
+                                .font(.headline)
+                                .shrinkToFit()
+                                .padding(.horizontal, 18)
+                                .padding(.vertical, 12)
+                                .background(.ultraThinMaterial, in: Capsule())
+                        }
                     }
                 }
                 .padding()
@@ -201,6 +292,8 @@ final class RugbyGameModel: ObservableObject {
     @Published var score: Int = 0
     @Published var tackleCount: Int = 0
     @Published var isGameOver: Bool = false
+    /// Advanced Mode: true while play is frozen for the player to drag their teammates.
+    @Published var isPositioning: Bool = false
 
     let scene: RugbyGameScene
 
@@ -213,12 +306,16 @@ final class RugbyGameModel: ObservableObject {
         scene.onTackleCountChanged = { [weak self] count in
             self?.tackleCount = count
         }
+        scene.onPositioningChanged = { [weak self] positioning in
+            self?.isPositioning = positioning
+        }
         scene.onGameOver = { [weak self] in
             self?.isGameOver = true
         }
     }
 
-    func start() {
+    func start(advanced: Bool) {
+        scene.advancedMode = advanced
         scene.startMatch()
     }
 
@@ -226,6 +323,7 @@ final class RugbyGameModel: ObservableObject {
         isGameOver = false
         score = 0
         tackleCount = 0
+        isPositioning = false
         scene.startMatch()
     }
 }

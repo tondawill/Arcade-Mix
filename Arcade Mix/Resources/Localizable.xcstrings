@@ -719,6 +719,57 @@
         }
       }
     },
+    "Rugby_Continue": {
+      "comment": "Advanced Mode button: restart play after positioning teammates.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokračovat"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "Rugby_Mode_Advanced": {
+      "comment": "Rugby mode picker: Advanced Mode, where you drag teammates into position after a tackle.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokročilý"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced"
+          }
+        }
+      }
+    },
+    "Rugby_Mode_Normal": {
+      "comment": "Rugby mode picker: standard play.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normální"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normal"
+          }
+        }
+      }
+    },
     "Rugby_Pass": {
       "comment": "Button label: pass the ball backward to the best-placed teammate.",
       "localizations": {
@@ -732,6 +783,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pass"
+          }
+        }
+      }
+    },
+    "Rugby_Positioning": {
+      "comment": "Advanced Mode hold label shown while the player drags teammates before restarting.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozestav tým, pak Pokračovat"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag your team, then Continue"
           }
         }
       }
