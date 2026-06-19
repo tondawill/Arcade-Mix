@@ -496,10 +496,12 @@ class BaseGameScene: SKScene {
 
     private static let lineDefenderColor = SKColor(red: 0.55, green: 0.10, blue: 0.10, alpha: 1)
 
-    /// Goal-side cordon geometry: how far ahead of the carrier the box sits, and how wide a
-    /// fan it spreads (0 rad = straight toward the scoring line).
+    /// Goal-side cordon geometry: how far ahead of the carrier the box sits, how wide a fan
+    /// it spreads (0 rad = straight toward the scoring line), and the furthest up-field the
+    /// line will advance — they hold this far in front of the line until the carrier nears.
     private let lineDefenderBoxRadius: CGFloat = 190
     private let lineDefenderArc: CGFloat = .pi * 8 / 9   // 160° fan on the goal side
+    private let lineDefenderHoldDepth: CGFloat = 300     // hold this far in front of the scoring line
 
     /// Move the back line each frame: fan out over a goal-side arc centred on the carrier so
     /// they keep the carrier's lane and use their numbers to box in the forward and lateral
@@ -509,13 +511,17 @@ class BaseGameScene: SKScene {
         let speed = effectiveOpponentSpeed
         let carrier = ap.position
         let count = lineDefenders.count
+        // Don't advance past the hold line until the carrier comes up — otherwise the box,
+        // centred on the carrier, drags the back line too far up the field.
+        let holdX = scoringLineX - lineDefenderHoldDepth
 
         for (i, d) in lineDefenders.enumerated() {
-            // Spread evenly across the arc; the box stays goal-side and clamps to the line so
-            // they never drop in behind the carrier or chase past the scoring line.
+            // Spread evenly across the arc; the box stays goal-side, holds near the scoring
+            // line when the carrier is deep, and never chases past the line itself.
             let frac = count == 1 ? 0.5 : CGFloat(i) / CGFloat(count - 1)
             let angle = -lineDefenderArc / 2 + frac * lineDefenderArc
-            let tx = min(carrier.x + cos(angle) * lineDefenderBoxRadius, scoringLineX - playerSide / 2)
+            let boxX = carrier.x + cos(angle) * lineDefenderBoxRadius
+            let tx = min(max(boxX, holdX), scoringLineX - playerSide / 2)
             let ty = carrier.y + sin(angle) * lineDefenderBoxRadius
             var move = unitVector(from: d.position, to: CGPoint(x: tx, y: ty))
             for other in lineDefenders where other !== d && distance(d.position, other.position) < config.opponentSeparation {
