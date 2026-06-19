@@ -1313,6 +1313,380 @@
           }
         }
       }
+    },
+    "HowToPlay_Title": {
+      "comment": "How to Play sheet title.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How to Play"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak hrát"
+          }
+        }
+      }
+    },
+    "HowToPlay_Controls": {
+      "comment": "How to Play section header.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controls"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovládání"
+          }
+        }
+      }
+    },
+    "HowToPlay_Rules": {
+      "comment": "How to Play section header.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rules"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pravidla"
+          }
+        }
+      }
+    },
+    "Common_Done": {
+      "comment": "Dismiss button.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hotovo"
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Control_Move": {
+      "comment": "AFL control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag anywhere to move (or WASD / arrow keys)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Control_Pass": {
+      "comment": "AFL control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap a teammate or the Pass button to handpass."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepni na spoluhráče nebo na Přihrávku pro ruční přihrávku."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Control_Kick": {
+      "comment": "AFL control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On a set shot, swipe up to kick."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Při střele švihni nahoru pro kop."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Rule_Mark": {
+      "comment": "AFL rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catch the kick-in on the full to take a mark."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chyť nakopnutý míč ze vzduchu pro mark."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Rule_SetShot": {
+      "comment": "AFL rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run across the forward line to earn a set shot."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přeběhni útočnou čáru pro střelu na branku."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Rule_Score": {
+      "comment": "AFL rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swipe straight up for a goal (6); off-centre is a behind (1)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Švihni rovně nahoru pro gól (6); mimo střed je behind (1)."
+          }
+        }
+      }
+    },
+    "AFL_HowTo_Rule_Tackle": {
+      "comment": "AFL rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don't get caught by a defender — a tackle ends the game."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenech se chytit obráncem — skolení ukončí hru."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Control_Move": {
+      "comment": "Rugby control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drag anywhere to move (or WASD / arrow keys)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Control_Pass": {
+      "comment": "Rugby control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap a teammate or the Pass button — passes go backward only."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepni na spoluhráče nebo na Přihrávku — přihrává se jen dozadu."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Control_Kick": {
+      "comment": "Rugby control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On a conversion, swipe up to kick."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Při proměně švihni nahoru pro kop."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Rule_Gather": {
+      "comment": "Rugby rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gather the kick-in, then run at the try line."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seber nakopnutý míč a běž k brankové čáře."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Rule_Try": {
+      "comment": "Rugby rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cross the try line to score a try (+4)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přejdi brankovou čáru pro try (+4)."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Rule_Convert": {
+      "comment": "Rugby rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick the conversion between the posts (+2)."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proměň kop mezi tyčemi (+2)."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Rule_Tackles": {
+      "comment": "Rugby rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You get a six-tackle set; being tackled on the last is a turnover."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máš šest skolení; skolení v posledním je ztráta míče."
+          }
+        }
+      }
+    },
+    "Connect4_HowTo_Control_Drop": {
+      "comment": "Connect 4 control.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap a column to drop your disc."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepni na sloupec pro vhození žetonu."
+          }
+        }
+      }
+    },
+    "Connect4_HowTo_Rule_Modes": {
+      "comment": "Connect 4 rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play vs Computer (four levels) or a friend on one device."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hraj proti počítači (čtyři úrovně) nebo příteli na jednom zařízení."
+          }
+        }
+      }
+    },
+    "Connect4_HowTo_Rule_CoinFlip": {
+      "comment": "Connect 4 rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A coin flip decides who goes first."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los rozhodne, kdo začíná."
+          }
+        }
+      }
+    },
+    "Connect4_HowTo_Rule_Win": {
+      "comment": "Connect 4 rule.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Line up four of your discs in a row — any direction — to win."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spoj čtyři své žetony v řadě — v jakémkoli směru — a vyhraj."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

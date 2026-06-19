@@ -16,6 +16,7 @@ struct GameStartMenuView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @EnvironmentObject private var backend: BackendProvider
     @StateObject private var viewModel = GameStartMenuViewModel()
+    @State private var showHelp = false
 
     private var info: GameInfo? { GameInfo.catalog.first { $0.id == gameID } }
 
@@ -41,6 +42,21 @@ struct GameStartMenuView: View {
                     .background(.black.opacity(0.18), in: Circle())
             }
             .padding(20)
+        }
+        .overlay(alignment: .topTrailing) {
+            Button {
+                showHelp = true
+            } label: {
+                Image(systemName: "questionmark")
+                    .font(.title2.bold())
+                    .foregroundStyle(.white)
+                    .padding(14)
+                    .background(.black.opacity(0.18), in: Circle())
+            }
+            .padding(20)
+        }
+        .sheet(isPresented: $showHelp) {
+            if let info { HowToPlayView(info: info) }
         }
         .task {
             await viewModel.load(gameID: gameID,
