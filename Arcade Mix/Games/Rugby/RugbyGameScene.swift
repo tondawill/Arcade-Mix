@@ -22,8 +22,7 @@ final class RugbyGameScene: BaseGameScene {
     // MARK: - Tunables
 
     private let tackleSetSize = 6
-    private let looseBallRollBack: ClosedRange<CGFloat> = 360...640   // distance the ball rolls away (missing the catch is costly)
-    private let looseBallRollSide: ClosedRange<CGFloat> = -220...220  // sideways drift
+    private let looseBallRollSide: ClosedRange<CGFloat> = -220...220  // sideways drift on a missed gather
     private let defensiveLineDistance: CGFloat = 280                   // onside line set in front of the attacker (~10m)
 
     // Speed ramp: only kicks in once the count (maxed by score 36) and blocking
@@ -81,11 +80,11 @@ final class RugbyGameScene: BaseGameScene {
 
     // MARK: - Kick-off
 
-    /// Ball is kicked in from the try-line end back toward the receiver's half.
+    /// Ball is kicked in from the try-line end and comes down around halfway.
     override func configureKickoffFlight() {
         let w = config.fieldSize.width, h = config.fieldSize.height, m = config.margin
         flightStart = CGPoint(x: w - m, y: .random(in: m...(h - m)))
-        flightEnd = CGPoint(x: .random(in: m...(w * 0.45)), y: .random(in: m...(h - m)))
+        flightEnd = CGPoint(x: .random(in: (w * 0.45)...(w * 0.55)), y: .random(in: m...(h - m)))
     }
 
     /// No Mark: catching on the full just gives clean possession and starts the set.
@@ -94,16 +93,16 @@ final class RugbyGameScene: BaseGameScene {
         enterPlayOn()
     }
 
-    /// Missed gather: the ball rolls further from the try line and to a random side, then
-    /// settles as a loose ball to chase (possession is still up for grabs).
+    /// Missed gather: from around halfway the ball skids really fast down to the left end,
+    /// so you have to sprint back and chase it down (possession is still up for grabs).
     override func onAerialLanded(at point: CGPoint) {
         ball?.setScale(1.0)
-        let m = config.margin, h = config.fieldSize.height
-        let destX = max(m, point.x - .random(in: looseBallRollBack))
+        let m = config.margin, w = config.fieldSize.width, h = config.fieldSize.height
+        let destX = CGFloat.random(in: m...(w * 0.15))
         let destY = min(max(point.y + .random(in: looseBallRollSide), m), h - m)
         ball?.removeAllActions()
-        let roll = SKAction.move(to: CGPoint(x: destX, y: destY), duration: 0.8)
-        roll.timingMode = .easeOut   // decelerate, like a ball losing pace as it rolls
+        let roll = SKAction.move(to: CGPoint(x: destX, y: destY), duration: 0.45)
+        roll.timingMode = .easeOut   // skids fast, then settles at the end
         ball?.run(roll)
         enterPlayOn(resetBall: false)   // keep the roll animation alive
     }

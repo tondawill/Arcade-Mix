@@ -148,7 +148,7 @@ extension SportConfig {
         teammateOpenRadius: 220,
         teammateSpread: 200,
         handpassSpeed: 1500,
-        kickoffSpeed: 760,
+        kickoffSpeed: 1300,                 // fast kick-in flight (lands around halfway)
         playerSide: 60,
         ballRadius: 22,
         aerialArcHeight: 360,
