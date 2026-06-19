@@ -142,7 +142,7 @@ extension SportConfig {
         scoringLineX: 2650,                 // try line at the very end (posts sit at the edge)
         margin: 120,
         playerSpeed: 480,
-        opponentSpeed: 480,                 // defenders keep pace with the carrier
+        opponentSpeed: 400,                 // start slower than the player (480); the speed ramp catches them up
         teammateLeadAhead: 280,
         teammateLineBuffer: 120,
         teammateOpenRadius: 220,

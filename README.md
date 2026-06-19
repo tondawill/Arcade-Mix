@@ -20,29 +20,32 @@ are planned.
 
 The SpriteKit sports games (AFL, Rugby) get harder as your score climbs — several levers
 ramp together, all score-driven. The table below is for **Rugby**, which uses every lever.
-**AFL** is identical except it has **no speed ramp** (defenders hold ~400) and all scaling
-plateaus at score **66**, so AFL teammates cap at **5**.
+**AFL** is identical except it has **no speed ramp** (defenders hold a constant ~400) and
+all scaling plateaus at score **66**, so AFL teammates cap at **5**.
+
+Both games' defenders start **slower than the player** (400 vs the player's 480); in Rugby
+the speed ramp catches them up (matching the player around score 80) and past.
 
 | Score | Defenders (chasers + back line) | Teammates | Carrier pressure | Defender speed |
 |------:|:--------------------------------|:---------:|:-----------------|:---------------|
-| 0–5    | 4 (4 + 0)          | 3 | 1 engages the carrier; 1 outlet left open; widest containment ring | 480 |
-| 6–29   | 5 → 8 (+1 / 6 pts) | 3 | same as above | 480 |
-| 30–35  | 9 (9 + 0)          | 4 | aggression starts climbing → ring tightening | 480 |
-| 36–41  | 10 (10 + 0)        | 4 | ring tightening | 480 |
-| 42–44  | 11 (10 + **1**)    | 4 | back line appears; still 1 engager | 480 |
-| 45–47  | 11 (10 + 1)        | 4 | **2 defenders** engage the carrier | 480 |
-| 48–53  | 12 (10 + **2**)    | 4 | **every outlet marked** | 480 |
-| 54–59  | 13 (10 + **3**)    | 4 | ring near tightest | 480 |
-| 60–65  | 14 (10 + **4**)    | 5 | tightest ring; aggression maxed | 480, then **+4 / pt** from 61 |
+| 0–5    | 4 (4 + 0)          | 3 | 1 engages the carrier; 1 outlet left open; widest containment ring | 400 |
+| 6–29   | 5 → 8 (+1 / 6 pts) | 3 | same as above | 400 |
+| 30–35  | 9 (9 + 0)          | 4 | aggression starts climbing → ring tightening | 400 |
+| 36–41  | 10 (10 + 0)        | 4 | ring tightening | 400 |
+| 42–44  | 11 (10 + **1**)    | 4 | back line appears; still 1 engager | 400 |
+| 45–47  | 11 (10 + 1)        | 4 | **2 defenders** engage the carrier | 400 |
+| 48–53  | 12 (10 + **2**)    | 4 | **every outlet marked** | 400 |
+| 54–59  | 13 (10 + **3**)    | 4 | ring near tightest | 400 |
+| 60–65  | 14 (10 + **4**)    | 5 | tightest ring; aggression maxed | 400, then **+4 / pt** from 61 |
 | 66–89  | 15 (10 + **5**)    | 5 | max pressure | ramping |
 | 90–119 | 15                 | 6 | max pressure | ramping |
-| 120–129| 15                 | 7 | max pressure | ramping |
-| 130+   | 15                 | 7 | max pressure | **760** (capped) |
+| 120–149| 15                 | 7 | max pressure | ramping |
+| 150+   | 15                 | 8 | max pressure | **760** (capped) |
 
 **Milestones:** back line from score 42, second engager at 45, all outlets marked from 48,
-peak aggression + speed ramp at 60–61, full 15 defenders from 66, top speed from 130.
-Teammates start at 3 and gain one every 30 points — 4 (30) → 5 (60) → 6 (90) → 7 (120) —
-capped at each game's difficulty plateau (AFL 5, Rugby 7).
+peak aggression + speed ramp at 60–61, full 15 defenders from 66, top speed from 150.
+Teammates start at 3 and gain one every 30 points — 4 (30) → 5 (60) → 6 (90) → 7 (120) →
+8 (150) — capped at each game's difficulty plateau (AFL 5, Rugby 8).
 
 ## Requirements
 
