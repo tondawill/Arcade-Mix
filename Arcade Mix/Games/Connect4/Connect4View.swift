@@ -42,6 +42,7 @@ struct Connect4View: View {
                 Text("Game_Connect4_Title")
                     .font(.largeTitle.bold())
                     .foregroundStyle(.white)
+                    .shrinkToFit()
                 recordCaption
             }
 
@@ -49,6 +50,7 @@ struct Connect4View: View {
                 Text("Connect4_VsComputer")
                     .font(.headline)
                     .foregroundStyle(.white.opacity(0.85))
+                    .shrinkToFit()
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 ForEach(Difficulty.allCases) { difficulty in
@@ -56,7 +58,7 @@ struct Connect4View: View {
                         vm.selectMode(.ai(difficulty))
                     } label: {
                         HStack {
-                            Text(difficulty.titleKey).bold()
+                            Text(difficulty.titleKey).bold().shrinkToFit()
                             Spacer()
                             Image(systemName: difficulty.iconName)
                         }
@@ -74,6 +76,7 @@ struct Connect4View: View {
             } label: {
                 Label("Connect4_VsFriend", systemImage: "person.2.fill")
                     .font(.headline)
+                    .shrinkToFit()
                     .padding(.vertical, 16)
                     .frame(maxWidth: .infinity)
                     .background(Color.blue, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -93,10 +96,12 @@ struct Connect4View: View {
                         record.wins, record.losses, record.draws))
                 .font(.subheadline.monospacedDigit())
                 .foregroundStyle(.white.opacity(0.7))
+                .shrinkToFit()
         } else {
             Text("Connect4_NoGames")
                 .font(.subheadline)
                 .foregroundStyle(.white.opacity(0.6))
+                .shrinkToFit()
         }
     }
 
@@ -135,10 +140,12 @@ struct Connect4View: View {
                 Text(statusText)
                     .font(.title3.bold())
                     .foregroundStyle(.white)
+                    .shrinkToFit()
             }
             Text(coinFlipText)
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.55))
+                .shrinkToFit()
         }
         .frame(maxWidth: .infinity)
     }
@@ -164,19 +171,20 @@ struct Connect4View: View {
             Text(resultTitle)
                 .font(.largeTitle.bold())
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.7)
 
             HStack(spacing: 16) {
                 Button {
                     vm.rematch()
                 } label: {
-                    Text("Connect4_Rematch").bold().frame(minWidth: 120)
+                    Text("Connect4_Rematch").bold().shrinkToFit().frame(minWidth: 120)
                 }
                 .buttonStyle(.borderedProminent)
 
                 Button {
                     coordinator.returnToHub()
                 } label: {
-                    Text("Common_MainMenu").frame(minWidth: 120)
+                    Text("Common_MainMenu").shrinkToFit().frame(minWidth: 120)
                 }
                 .buttonStyle(.bordered)
             }

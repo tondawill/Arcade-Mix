@@ -1049,11 +1049,12 @@ class BaseGameScene: SKScene {
         label.fontSize = 64
         label.fontColor = .white
         label.verticalAlignmentMode = .center
-        label.setScale(cameraNode.xScale)
+        let scale = fittedLabelScale(label, peakGrowth: 1.12)
+        label.setScale(scale)
         label.zPosition = 100
         label.run(.repeatForever(.sequence([
-            .scale(to: 1.12 * cameraNode.xScale, duration: 0.5),
-            .scale(to: cameraNode.xScale, duration: 0.5)
+            .scale(to: 1.12 * scale, duration: 0.5),
+            .scale(to: scale, duration: 0.5)
         ])))
         cameraNode.addChild(label)
         holdLabel = label
@@ -1395,21 +1396,33 @@ class BaseGameScene: SKScene {
         label.fontName = "AvenirNext-Heavy"
         label.fontSize = 64
         label.fontColor = .white
-        label.setScale(cameraNode.xScale)
-        label.position = CGPoint(x: 0, y: size.height * 0.28 * cameraNode.yScale)
+        let scale = fittedLabelScale(label, peakGrowth: 1.3)
+        label.setScale(scale)
+        label.position = CGPoint(x: 0, y: size.height * 0.28)
         label.zPosition = 100
         cameraNode.addChild(label)
         label.run(.sequence([
-            .group([.scale(to: 1.3 * cameraNode.xScale, duration: 0.5), .fadeOut(withDuration: 1.0)]),
+            .group([.scale(to: 1.3 * scale, duration: 0.5), .fadeOut(withDuration: 1.0)]),
             .removeFromParent()
         ]))
+    }
+
+    /// Scale for a centred on-screen label. Camera children live in point/screen space and
+    /// are NOT affected by the camera's scale, so the base is 1 (font points = screen
+    /// points). It's reduced only if the word would render wider than ~90% of the view, to
+    /// keep long / localized text fully on screen. `peakGrowth` reserves headroom for a
+    /// label that scales up during its animation so it stays on screen at the peak too.
+    private func fittedLabelScale(_ label: SKLabelNode, peakGrowth: CGFloat = 1.0) -> CGFloat {
+        let naturalWidth = label.frame.width          // width at scale 1, in points
+        let maxWidth = size.width * 0.9 / peakGrowth
+        guard naturalWidth > maxWidth, naturalWidth > 0 else { return 1 }
+        return maxWidth / naturalWidth
     }
 
     func whistleFeedback() {
         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         let flash = SKSpriteNode(color: SKColor.white.withAlphaComponent(0.45),
-                                 size: CGSize(width: size.width * cameraNode.xScale,
-                                              height: size.height * cameraNode.yScale))
+                                 size: CGSize(width: size.width, height: size.height))
         flash.zPosition = 99
         cameraNode.addChild(flash)
         flash.run(.sequence([.fadeOut(withDuration: 0.35), .removeFromParent()]))

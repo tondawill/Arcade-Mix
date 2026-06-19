@@ -61,6 +61,7 @@ struct GameStartMenuView: View {
                         .font(.largeTitle.bold())
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.7)
                 }
             }
 
@@ -84,6 +85,7 @@ struct GameStartMenuView: View {
             } label: {
                 Text("StartMenu_Start")
                     .font(.title2.bold())
+                    .shrinkToFit()
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
             }
@@ -103,20 +105,24 @@ struct GameStartMenuView: View {
             Label { Text(title) } icon: { Image(systemName: icon) }
                 .font(.subheadline.bold())
                 .foregroundStyle(.white.opacity(0.95))
+                .shrinkToFit()
             if let score {
                 Text(verbatim: "\(score)")
                     .font(.system(size: 40, weight: .heavy, design: .rounded))
                     .foregroundStyle(.white)
+                    .shrinkToFit()
                 if let subtitle, !subtitle.isEmpty {
                     Text(verbatim: subtitle)
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.85))
                         .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                 }
             } else {
                 Text("HighScore_None")
                     .font(.title3.bold())
                     .foregroundStyle(.white.opacity(0.9))
+                    .shrinkToFit()
             }
         }
         .frame(maxWidth: .infinity)

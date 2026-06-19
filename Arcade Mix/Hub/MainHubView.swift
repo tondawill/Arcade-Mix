@@ -26,6 +26,7 @@ struct MainHubView: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 Text(category.titleKey)
                                     .font(.title2.bold())
+                                    .shrinkToFit()
                                     .padding(.horizontal, 4)
 
                                 LazyVGrid(columns: columns, spacing: 16) {

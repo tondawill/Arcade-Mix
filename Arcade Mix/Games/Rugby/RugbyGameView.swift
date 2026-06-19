@@ -48,6 +48,7 @@ struct RugbyGameView: View {
             }
         }
         .statusBarHidden()
+        .defersSystemGestures(on: .bottom)   // keep the bottom edge for passing/running, not a home-swipe
         .onAppear {
             model.start()
             keyboardFocused = true
@@ -113,6 +114,7 @@ struct RugbyGameView: View {
                 } label: {
                     Label("Common_Back", systemImage: "chevron.left")
                         .labelStyle(.titleAndIcon)
+                        .shrinkToFit()
                         .padding(.horizontal, 14)
                         .padding(.vertical, 8)
                         .background(.ultraThinMaterial, in: Capsule())
@@ -122,12 +124,14 @@ struct RugbyGameView: View {
 
                 Text(tackleText)
                     .font(.headline.monospacedDigit())
+                    .shrinkToFit()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.ultraThinMaterial, in: Capsule())
 
                 Text(scoreText)
                     .font(.headline.monospacedDigit())
+                    .shrinkToFit()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.ultraThinMaterial, in: Capsule())
@@ -145,6 +149,7 @@ struct RugbyGameView: View {
                         Label("Rugby_Pass", systemImage: "hand.point.up.left.fill")
                             .labelStyle(.titleAndIcon)
                             .font(.headline)
+                            .shrinkToFit()
                             .padding(.horizontal, 18)
                             .padding(.vertical, 12)
                             .background(.ultraThinMaterial, in: Capsule())
@@ -162,22 +167,24 @@ struct RugbyGameView: View {
         VStack(spacing: 20) {
             Text("Game_Over")
                 .font(.largeTitle.bold())
+                .minimumScaleFactor(0.7)
 
             Text(scoreText)
                 .font(.title3.monospacedDigit())
+                .shrinkToFit()
 
             HStack(spacing: 16) {
                 Button {
                     model.restart()
                 } label: {
-                    Text("Common_Retry").bold().frame(minWidth: 120)
+                    Text("Common_Retry").bold().shrinkToFit().frame(minWidth: 120)
                 }
                 .buttonStyle(.borderedProminent)
 
                 Button {
                     coordinator.returnToHub()
                 } label: {
-                    Text("Common_MainMenu").frame(minWidth: 120)
+                    Text("Common_MainMenu").shrinkToFit().frame(minWidth: 120)
                 }
                 .buttonStyle(.bordered)
             }

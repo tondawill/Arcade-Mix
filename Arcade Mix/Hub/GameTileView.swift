@@ -26,11 +26,13 @@ struct GameTileView: View {
             Text(game.titleKey)
                 .font(.title2.bold())
                 .foregroundStyle(.white)
+                .shrinkToFit()
 
             Text(game.subtitleKey)
                 .font(.subheadline)
                 .foregroundStyle(.white.opacity(0.85))
                 .lineLimit(2)
+                .minimumScaleFactor(0.8)
 
             if !isComingSoon {
                 if game.id == .connect4 {
@@ -41,7 +43,7 @@ struct GameTileView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 180)
+        .frame(minHeight: 180)
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
@@ -75,6 +77,7 @@ struct GameTileView: View {
         }
         .font(.footnote)
         .foregroundStyle(.white.opacity(0.95))
+        .minimumScaleFactor(0.8)
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
         .background(.black.opacity(0.18), in: Capsule())
@@ -96,6 +99,7 @@ struct GameTileView: View {
         }
         .font(.footnote)
         .foregroundStyle(.white.opacity(0.95))
+        .minimumScaleFactor(0.8)
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
         .background(.black.opacity(0.18), in: Capsule())
