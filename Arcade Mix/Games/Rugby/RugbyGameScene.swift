@@ -210,7 +210,9 @@ final class RugbyGameScene: BaseGameScene {
             playTheBall()
             onPositioningChanged?(true)
             pauseForPositioning(label: String(localized: "Rugby_Positioning")) { [weak self] in
-                self?.onPositioningChanged?(false)
+                guard let self else { return }
+                self.onPositioningChanged?(false)
+                self.grantRestartGrace()
             }
         } else {
             // Stop play and show "Tackled"; the player lifts and re-presses to play the ball.
@@ -237,4 +239,18 @@ final class RugbyGameScene: BaseGameScene {
         // Support runners reset into open backward positions for the restart.
         positionTeammatesForSupport()
     }
+
+    /// Advanced Mode resumes via the Continue button, so the carrier isn't being driven the
+    /// instant play restarts (the player's finger is on the button, not the joystick). Hold
+    /// the defence for a beat so they can't sprint straight back in and tackle a stationary
+    /// carrier — otherwise that re-tackle inflates the count for a single tackle.
+    private func grantRestartGrace() {
+        freezeOpponents()
+        removeAction(forKey: restartGraceKey)
+        run(.sequence([.wait(forDuration: 0.9),
+                       .run { [weak self] in self?.unfreezeOpponents() }]),
+            withKey: restartGraceKey)
+    }
+
+    private let restartGraceKey = "rugbyRestartGrace"
 }

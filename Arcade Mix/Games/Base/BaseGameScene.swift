@@ -546,6 +546,7 @@ class BaseGameScene: SKScene {
     }
 
     func freezeOpponents() { opponentsFrozen = true }
+    func unfreezeOpponents() { opponentsFrozen = false }
 
     /// Hook: opponent chase speed. Default = the config value; a sport can ramp it with
     /// the score once the other difficulty levers (count, blocking) are maxed.
