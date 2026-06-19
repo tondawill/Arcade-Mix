@@ -13,6 +13,7 @@ import SwiftUI
 struct Connect4View: View {
     @EnvironmentObject private var coordinator: AppCoordinator
     @StateObject private var vm = Connect4ViewModel()
+    @State private var showHelp = false
 
     // Classic palette: bright blue board, dark backdrop showing through the holes.
     private static let backdrop = Color(red: 0.06, green: 0.09, blue: 0.16)
@@ -86,6 +87,12 @@ struct Connect4View: View {
         .padding(28)
         .frame(maxWidth: 520)
         .overlay(alignment: .topLeading) { backButton { coordinator.returnToHub() } }
+        .overlay(alignment: .topTrailing) { helpButton { showHelp = true } }
+        .sheet(isPresented: $showHelp) {
+            if let info = GameInfo.catalog.first(where: { $0.id == .connect4 }) {
+                HowToPlayView(info: info)
+            }
+        }
     }
 
     @ViewBuilder
@@ -210,6 +217,17 @@ struct Connect4View: View {
     private func backButton(action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: "chevron.left")
+                .font(.title2.bold())
+                .foregroundStyle(.white)
+                .padding(14)
+                .background(.white.opacity(0.12), in: Circle())
+        }
+        .padding(20)
+    }
+
+    private func helpButton(action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: "questionmark")
                 .font(.title2.bold())
                 .foregroundStyle(.white)
                 .padding(14)
