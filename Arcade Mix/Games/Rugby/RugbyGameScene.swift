@@ -218,5 +218,7 @@ final class RugbyGameScene: BaseGameScene {
         for opp in opponents {
             opp.position = CGPoint(x: lineX, y: opp.position.y)
         }
+        // Support runners reset into open backward positions for the restart.
+        positionTeammatesForSupport()
     }
 }

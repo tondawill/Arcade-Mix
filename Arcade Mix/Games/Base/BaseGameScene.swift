@@ -682,6 +682,45 @@ class BaseGameScene: SKScene {
     /// Hook: per-frame teammate appearance. Default no-op; Rugby greys out forward mates.
     func updateTeammateAppearance() {}
 
+    /// Snap teammates into good support shape around the carrier: one per lane at the support
+    /// depth (`teammateTargetX`), each shifted to the most open nearby spot. Called when play
+    /// restarts (e.g. Rugby's play-the-ball) so they reset to useful positions instead of
+    /// sitting wherever the tackle left them.
+    func positionTeammatesForSupport() {
+        guard let ap = activePlayer else { return }
+        let mates = teammates
+        let count = max(mates.count, 1)
+        let baseX = teammateTargetX(carrierX: ap.position.x)
+        let firstLaneY = ap.position.y - CGFloat(count - 1) / 2 * config.teammateSpread
+        let defenders = opponents + lineDefenders
+
+        for (i, mate) in mates.enumerated() {
+            let laneY = firstLaneY + CGFloat(i) * config.teammateSpread
+            mate.position = openestSpot(near: CGPoint(x: baseX, y: laneY), avoiding: defenders)
+        }
+    }
+
+    /// The most open of a few candidate spots near `point` — maximises the distance to the
+    /// nearest defender, clamped to the field.
+    private func openestSpot(near point: CGPoint, avoiding defenders: [SKNode]) -> CGPoint {
+        let step = config.teammateSpread * 0.5
+        var best = clampedToField(point)
+        var bestOpenness = -CGFloat.greatestFiniteMagnitude
+        for dx in [-step, 0, step] {
+            for dy in [-step, 0, step] {
+                let p = clampedToField(CGPoint(x: point.x + dx, y: point.y + dy))
+                let openness = defenders.map { distance(p, $0.position) }.min() ?? .greatestFiniteMagnitude
+                if openness > bestOpenness { bestOpenness = openness; best = p }
+            }
+        }
+        return best
+    }
+
+    private func clampedToField(_ p: CGPoint) -> CGPoint {
+        CGPoint(x: min(max(p.x, playerSide / 2), fieldSize.width - playerSide / 2),
+                y: min(max(p.y, playerSide / 2), fieldSize.height - playerSide / 2))
+    }
+
     // MARK: - Phase: Handpass / directional aim (open play)
 
     /// Movement direction used to aim a pass (joystick first, else keyboard).
