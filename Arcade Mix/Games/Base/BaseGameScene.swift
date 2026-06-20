@@ -508,9 +508,13 @@ class BaseGameScene: SKScene {
     /// Move the back line each frame: fan out over a goal-side arc centred on the carrier so
     /// they keep the carrier's lane and use their numbers to box in the forward and lateral
     /// escape routes (instead of sitting in a flat line at the scoring line). Tackle on contact.
+    /// Hook: back-line chase speed as a multiple of the pressing-defender speed. Default full
+    /// pace; a sport can slow its deep cordon (Rugby halves it).
+    var lineDefenderSpeedFactor: CGFloat { 1.0 }
+
     private func updateLineDefenders(_ dt: CGFloat) {
         guard !opponentsFrozen, dt > 0, let ap = activePlayer, !lineDefenders.isEmpty else { return }
-        let speed = effectiveOpponentSpeed
+        let speed = effectiveOpponentSpeed * lineDefenderSpeedFactor
         let carrier = ap.position
         let count = lineDefenders.count
         // Don't advance past the hold line until the carrier comes up — otherwise the box,

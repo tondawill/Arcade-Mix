@@ -70,6 +70,9 @@ final class RugbyGameScene: BaseGameScene {
         speedRampStartScore + Int((maxOpponentSpeed - config.opponentSpeed) / speedRampPerPoint)
     }
 
+    /// The deep back-line cordon chases at half the pressing defenders' pace.
+    override var lineDefenderSpeedFactor: CGFloat { 0.5 }
+
     // MARK: - Start positions
 
     /// Receiver waits in their own half; support runners stay behind so they are valid
@@ -233,16 +236,44 @@ final class RugbyGameScene: BaseGameScene {
         // so the defence still gets its onside distance instead of bunching on the line.
         let carrierX = min(ap.position.x, lineX - defensiveLineDistance)
         ap.position = CGPoint(x: carrierX, y: ap.position.y)
-        for opp in opponents {
-            opp.position = CGPoint(x: lineX, y: opp.position.y)
-        }
-        // The back line must be onside too: anyone the box brought up in front of the 10m
-        // line retreats onto it (the ones holding deep near the try line stay put).
-        for d in lineDefenders where d.position.x < lineX {
-            d.position = CGPoint(x: lineX, y: d.position.y)
+        if advancedMode {
+            // Advanced Mode: the player is about to position their team against the defence, so
+            // form a clear, evenly-spread onside line (not the bunched clump the chase leaves)
+            // — they need to see exactly where the defenders will be.
+            spreadOpponentsOnLine(atX: lineX)
+        } else {
+            // Normal mode: defenders retreat straight back (X only), keeping their Y so any
+            // bunching the attacker drew them into is preserved and rewards passing wide.
+            for opp in opponents {
+                opp.position = CGPoint(x: lineX, y: opp.position.y)
+            }
+            // The back line must be onside too: anyone the box brought up in front of the 10m
+            // line retreats onto it (the ones holding deep near the try line stay put).
+            for d in lineDefenders where d.position.x < lineX {
+                d.position = CGPoint(x: lineX, y: d.position.y)
+            }
         }
         // Support runners reset into open backward positions for the restart.
         positionTeammatesForSupport()
+    }
+
+    /// Form clear onside lines the player can plan against: the pressing defenders spread
+    /// evenly across the field on the 10m line, and the back line spreads as a deeper cordon
+    /// near the try line (kept deep, per its role).
+    private func spreadOpponentsOnLine(atX lineX: CGFloat) {
+        spread(opponents, atX: lineX)
+        if !lineDefenders.isEmpty {
+            let backX = max(lineX, scoringLineX - config.playerSide * 2)
+            spread(lineDefenders, atX: backX)
+        }
+    }
+
+    private func spread(_ defenders: [SKNode], atX x: CGFloat) {
+        let n = max(defenders.count, 1)
+        let usable = config.fieldSize.height - 2 * config.margin
+        for (i, d) in defenders.enumerated() {
+            d.position = CGPoint(x: x, y: config.margin + (CGFloat(i) + 0.5) * usable / CGFloat(n))
+        }
     }
 
     /// Advanced Mode resumes via the Continue button, so the carrier isn't being driven the
