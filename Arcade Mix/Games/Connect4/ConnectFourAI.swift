@@ -20,14 +20,25 @@ enum Difficulty: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    /// Look-ahead depth for the minimax tiers. `easy` ignores this (it uses the heuristic
-    /// policy instead).
+    /// Max look-ahead depth for the minimax tiers. `easy` ignores this (it uses the
+    /// heuristic policy instead). Impossible's cap is high because iterative deepening
+    /// stops it on the clock (`timeBudget`), not the depth, so it never stalls.
     var searchDepth: Int {
         switch self {
         case .easy: return 0
         case .medium: return 4
         case .hard: return 6
-        case .impossible: return 10
+        case .impossible: return 14
+        }
+    }
+
+    /// Wall-clock budget for the search. The lower tiers finish their fixed depth long
+    /// before this; Impossible is bounded by it so a move always lands within ~1s.
+    var timeBudget: TimeInterval {
+        switch self {
+        case .easy: return 0
+        case .medium, .hard: return 5      // generous — their shallow depth completes first
+        case .impossible: return 0.8
         }
     }
 }
@@ -65,7 +76,8 @@ struct ConnectFourAI {
         if difficulty == .easy {
             return easyMove(among: columns, on: board, for: disc)
         }
-        return searchMove(on: board, for: disc, depth: difficulty.searchDepth)
+        let deadline = Date().addingTimeInterval(difficulty.timeBudget)
+        return searchMove(on: board, for: disc, maxDepth: difficulty.searchDepth, deadline: deadline)
     }
 
     /// A column where `disc` wins outright this move, if one exists.
@@ -100,10 +112,43 @@ struct ConnectFourAI {
         return bag.randomElement()
     }
 
-    // MARK: - Minimax (negamax + alpha-beta)
+    // MARK: - Minimax (iterative deepening + negamax + alpha-beta)
 
-    /// Root search: returns the best column for `disc` at the given depth.
-    private static func searchMove(on board: ConnectFourBoard, for disc: Disc, depth: Int) -> Int? {
+    /// Carries the time deadline through the recursion. The node counter keeps the (slightly
+    /// costly) clock check to roughly once every few thousand nodes.
+    private final class SearchContext {
+        let deadline: Date
+        var nodes = 0
+        var timedOut = false
+        init(deadline: Date) { self.deadline = deadline }
+
+        func checkTime() {
+            nodes += 1
+            if nodes & 0x7FF == 0, Date() >= deadline { timedOut = true }
+        }
+    }
+
+    /// Iterative deepening up to `maxDepth`, bounded by `deadline`: search depth 1, 2, 3 …
+    /// and keep the best move from the deepest *completed* depth. A timed-out iteration is
+    /// discarded, so the AI always returns within the budget instead of stalling.
+    private static func searchMove(on board: ConnectFourBoard, for disc: Disc,
+                                   maxDepth: Int, deadline: Date) -> Int? {
+        // Fallback so there's always a move (depth-1 below normally replaces it instantly).
+        var best = board.availableColumns.min(by: { abs($0 - 3) < abs($1 - 3) })
+        let ctx = SearchContext(deadline: deadline)
+
+        for depth in 1...maxDepth {
+            let column = rootSearch(board, for: disc, depth: depth, ctx: ctx)
+            if ctx.timedOut { break }             // incomplete — keep the previous depth's move
+            if let column { best = column }
+            if Date() >= deadline { break }
+        }
+        return best
+    }
+
+    /// Best column for `disc` at a fixed `depth`.
+    private static func rootSearch(_ board: ConnectFourBoard, for disc: Disc,
+                                   depth: Int, ctx: SearchContext) -> Int? {
         var bestColumn: Int?
         var bestScore = Int.min
         var alpha = Int.min + 1
@@ -116,8 +161,9 @@ struct ConnectFourAI {
             if next.isWinningMove(column: column, row: row) {
                 score = winScore + depth          // immediate win — can't be beaten
             } else {
-                score = -negamax(next, depth: depth - 1, alpha: -beta, beta: -alpha, disc: disc.opponent)
+                score = -negamax(next, depth: depth - 1, alpha: -beta, beta: -alpha, disc: disc.opponent, ctx: ctx)
             }
+            if ctx.timedOut { break }
             if score > bestScore {
                 bestScore = score
                 bestColumn = column
@@ -132,7 +178,10 @@ struct ConnectFourAI {
                                 depth: Int,
                                 alpha: Int,
                                 beta: Int,
-                                disc: Disc) -> Int {
+                                disc: Disc,
+                                ctx: SearchContext) -> Int {
+        ctx.checkTime()
+        if ctx.timedOut { return 0 }
         if board.isFull { return 0 }              // draw
         if depth == 0 { return heuristic(board, for: disc) }
 
@@ -145,8 +194,9 @@ struct ConnectFourAI {
             if next.isWinningMove(column: column, row: row) {
                 score = winScore + depth          // prefer faster wins (deeper depth left)
             } else {
-                score = -negamax(next, depth: depth - 1, alpha: -beta, beta: -alpha, disc: disc.opponent)
+                score = -negamax(next, depth: depth - 1, alpha: -beta, beta: -alpha, disc: disc.opponent, ctx: ctx)
             }
+            if ctx.timedOut { return value }
             value = max(value, score)
             alpha = max(alpha, value)
             if alpha >= beta { break }            // alpha-beta cutoff

@@ -127,14 +127,15 @@ struct Connect4View: View {
             BoardView(vm: vm)
                 .padding(.horizontal, 16)
 
-            Spacer(minLength: 0)
-        }
-        .padding(.vertical, 12)
-        .overlay {
+            // Result panel sits below the board (not over it) so the highlighted winning
+            // line stays visible — you can see how the game was won.
             if vm.phase == .finished {
                 resultCard
             }
+
+            Spacer(minLength: 0)
         }
+        .padding(.vertical, 12)
     }
 
     private var statusBar: some View {
@@ -196,10 +197,11 @@ struct Connect4View: View {
                 .buttonStyle(.bordered)
             }
         }
-        .padding(32)
+        .padding(.horizontal, 28)
+        .padding(.vertical, 20)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .shadow(radius: 20)
-        .padding(24)
+        .padding(.horizontal, 24)
     }
 
     private var resultTitle: LocalizedStringResource {
