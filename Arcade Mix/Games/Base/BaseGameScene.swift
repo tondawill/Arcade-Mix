@@ -731,6 +731,11 @@ class BaseGameScene: SKScene {
         (joystickVector.dx != 0 || joystickVector.dy != 0) ? joystickVector : keyboardVector
     }
 
+    /// True while the player is actively steering the carrier (joystick or keyboard).
+    var hasMovementInput: Bool {
+        currentMoveVector.dx != 0 || currentMoveVector.dy != 0
+    }
+
     /// The eligible teammate closest to the line projected from the carrier in `dir` — the
     /// FC-style "pass where you're pointing". Mates in front only; nil if none.
     private func directionalPassTarget(dir: CGVector) -> SKNode? {

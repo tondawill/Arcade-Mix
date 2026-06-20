@@ -247,15 +247,33 @@ final class RugbyGameScene: BaseGameScene {
 
     /// Advanced Mode resumes via the Continue button, so the carrier isn't being driven the
     /// instant play restarts (the player's finger is on the button, not the joystick). Hold
-    /// the defence for a beat so they can't sprint straight back in and tackle a stationary
-    /// carrier — otherwise that re-tackle inflates the count for a single tackle.
+    /// the defence on its onside line until the carrier actually starts moving — so they don't
+    /// pounce on a stationary carrier and inflate the tackle count, but also don't sit visibly
+    /// frozen once the player takes control. A safety cap lets them back in if the player just
+    /// sits there.
     private func grantRestartGrace() {
+        restartGraceActive = true
         freezeOpponents()
         removeAction(forKey: restartGraceKey)
-        run(.sequence([.wait(forDuration: 0.9),
-                       .run { [weak self] in self?.unfreezeOpponents() }]),
+        run(.sequence([.wait(forDuration: 1.2),
+                       .run { [weak self] in self?.endRestartGrace() }]),
             withKey: restartGraceKey)
     }
 
+    private func endRestartGrace() {
+        guard restartGraceActive else { return }
+        restartGraceActive = false
+        removeAction(forKey: restartGraceKey)
+        unfreezeOpponents()
+    }
+
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        // Release the defence the moment the player starts running, so the onside line never
+        // looks frozen in normal play.
+        if restartGraceActive, hasMovementInput { endRestartGrace() }
+    }
+
+    private var restartGraceActive = false
     private let restartGraceKey = "rugbyRestartGrace"
 }
