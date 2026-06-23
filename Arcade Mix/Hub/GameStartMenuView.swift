@@ -26,9 +26,14 @@ struct GameStartMenuView: View {
                 .fill((info?.accentColor ?? .accentColor).gradient)
                 .ignoresSafeArea()
 
-            content
-                .padding(.horizontal, 40)
-                .frame(maxWidth: 720)
+            // Scale the layout to the available height so it always fits without scrolling,
+            // even on short landscape screens (e.g. iPhone SE). Centered in the space.
+            GeometryReader { proxy in
+                content(scale: max(0.75, min(1, proxy.size.height / 470)))
+                    .padding(.horizontal, 40)
+                    .frame(maxWidth: 720)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
         }
         .statusBarHidden()
         .overlay(alignment: .topLeading) {
@@ -66,49 +71,75 @@ struct GameStartMenuView: View {
     }
 
     @ViewBuilder
-    private var content: some View {
-        VStack(spacing: 28) {
-            VStack(spacing: 12) {
+    private func content(scale: CGFloat) -> some View {
+        VStack(spacing: 22 * scale) {
+            VStack(spacing: 10 * scale) {
                 if let info {
                     Image(systemName: info.systemImage)
-                        .font(.system(size: 56, weight: .semibold))
+                        .font(.system(size: 52 * scale, weight: .semibold))
                         .foregroundStyle(.white)
                     Text(info.titleKey)
-                        .font(.largeTitle.bold())
+                        .font(.system(size: 34 * scale, weight: .bold))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                         .minimumScaleFactor(0.7)
                 }
             }
 
-            HStack(spacing: 16) {
+            HStack(spacing: 16 * scale) {
                 scoreCard(title: "StartMenu_YourBest",
                           icon: "person.fill",
                           score: viewModel.personalBest?.score,
-                          subtitle: nil)
+                          subtitle: nil,
+                          scale: scale)
                 scoreCard(title: "StartMenu_TopScore",
                           icon: "trophy.fill",
                           score: viewModel.topScore?.score,
-                          subtitle: viewModel.topScore?.displayName)
+                          subtitle: viewModel.topScore?.displayName,
+                          scale: scale)
             }
             .opacity(viewModel.isLoading ? 0.4 : 1)
             .overlay {
                 if viewModel.isLoading { ProgressView().tint(.white) }
             }
 
-            Button {
-                coordinator.open(gameID)
-            } label: {
-                Text("StartMenu_Start")
-                    .font(.title2.bold())
-                    .shrinkToFit()
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
+            VStack(spacing: 12 * scale) {
+                Button {
+                    coordinator.open(gameID)
+                } label: {
+                    Text("StartMenu_Start")
+                        .font(.system(size: 22 * scale, weight: .bold))
+                        .shrinkToFit()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16 * scale)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.white)
+                .foregroundStyle(info?.accentColor ?? .accentColor)
+                .controlSize(.large)
+
+                // Rugby only: a smaller, dimmed shortcut straight into Advanced Mode.
+                if gameID == .rugby {
+                    Button {
+                        coordinator.open(.rugby, rugbyAdvanced: true)
+                    } label: {
+                        HStack(spacing: 8 * scale) {
+                            Label("Rugby_Mode_Advanced", systemImage: "hand.draw.fill")
+                                .font(.system(size: 15 * scale, weight: .bold))
+                                .shrinkToFit()
+                            Text("Rugby_Mode_InProgress")
+                                .font(.system(size: 11 * scale, weight: .bold))
+                                .padding(.horizontal, 7 * scale)
+                                .padding(.vertical, 2 * scale)
+                                .background(.white.opacity(0.18), in: Capsule())
+                        }
+                        .foregroundStyle(.white.opacity(0.8))
+                        .padding(.vertical, 10 * scale)
+                        .frame(maxWidth: .infinity)
+                        .background(.black.opacity(0.18), in: Capsule())
+                    }
+                }
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.white)
-            .foregroundStyle(info?.accentColor ?? .accentColor)
-            .controlSize(.large)
         }
     }
 
@@ -116,33 +147,34 @@ struct GameStartMenuView: View {
     private func scoreCard(title: LocalizedStringResource,
                            icon: String,
                            score: Int?,
-                           subtitle: String?) -> some View {
-        VStack(spacing: 8) {
+                           subtitle: String?,
+                           scale: CGFloat) -> some View {
+        VStack(spacing: 8 * scale) {
             Label { Text(title) } icon: { Image(systemName: icon) }
-                .font(.subheadline.bold())
+                .font(.system(size: 15 * scale, weight: .bold))
                 .foregroundStyle(.white.opacity(0.95))
                 .shrinkToFit()
             if let score {
                 Text(verbatim: "\(score)")
-                    .font(.system(size: 40, weight: .heavy, design: .rounded))
+                    .font(.system(size: 40 * scale, weight: .heavy, design: .rounded))
                     .foregroundStyle(.white)
                     .shrinkToFit()
                 if let subtitle, !subtitle.isEmpty {
                     Text(verbatim: subtitle)
-                        .font(.caption)
+                        .font(.system(size: 12 * scale))
                         .foregroundStyle(.white.opacity(0.85))
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                 }
             } else {
                 Text("HighScore_None")
-                    .font(.title3.bold())
+                    .font(.system(size: 20 * scale, weight: .bold))
                     .foregroundStyle(.white.opacity(0.9))
                     .shrinkToFit()
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
+        .padding(.vertical, 18 * scale)
         .background(.black.opacity(0.18), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 }

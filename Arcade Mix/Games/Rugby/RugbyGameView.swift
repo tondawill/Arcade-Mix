@@ -17,8 +17,7 @@ struct RugbyGameView: View {
 
     @StateObject private var model = RugbyGameModel()
 
-    private enum Phase { case modeSelect, playing }
-    @State private var phase: Phase = .modeSelect
+    @State private var started = false
 
     @FocusState private var keyboardFocused: Bool
     @State private var upHeld = false
@@ -35,93 +34,20 @@ struct RugbyGameView: View {
     }
 
     var body: some View {
-        ZStack {
-            switch phase {
-            case .modeSelect:
-                modeSelect
-            case .playing:
-                gameScreen
-            }
-        }
+        gameScreen
         .statusBarHidden()
+        .onAppear {
+            // The mode is chosen on the Start Menu; launch straight into the match.
+            guard !started else { return }
+            started = true
+            model.start(advanced: coordinator.rugbyAdvanced)
+            keyboardFocused = true
+        }
         .onChange(of: model.isGameOver) { _, isOver in
             guard isOver, model.score > 0, let user = backend.currentUser else { return }
             let finalScore = model.score
             Task { try? await backend.highScores.submit(score: finalScore, for: .rugby, user: user) }
         }
-    }
-
-    // MARK: - Mode selection
-
-    private var modeSelect: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 10) {
-                Image(systemName: "figure.rugby")
-                    .font(.system(size: 52, weight: .semibold))
-                    .foregroundStyle(.green)
-                Text("Game_Rugby_Title")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
-                    .shrinkToFit()
-            }
-
-            VStack(spacing: 12) {
-                Button {
-                    start(advanced: false)
-                } label: {
-                    modeLabel("Rugby_Mode_Normal", systemImage: "figure.run")
-                }
-                Button {
-                    start(advanced: true)
-                } label: {
-                    modeLabel("Rugby_Mode_Advanced", systemImage: "hand.draw.fill", badge: "Rugby_Mode_InProgress")
-                }
-            }
-        }
-        .padding(28)
-        .frame(maxWidth: 520)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.ignoresSafeArea())
-        .overlay(alignment: .topLeading) {
-            Button {
-                coordinator.returnToHub()
-            } label: {
-                Label("Common_Back", systemImage: "chevron.left")
-                    .labelStyle(.titleAndIcon)
-                    .shrinkToFit()
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 8)
-                    .background(.ultraThinMaterial, in: Capsule())
-            }
-            .padding()
-        }
-    }
-
-    private func modeLabel(_ titleKey: LocalizedStringKey, systemImage: String,
-                           badge: LocalizedStringKey? = nil) -> some View {
-        HStack(spacing: 10) {
-            Label(titleKey, systemImage: systemImage).bold().shrinkToFit()
-            if let badge {
-                Text(badge)
-                    .font(.caption2.bold())
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(.white.opacity(0.18), in: Capsule())
-            }
-            Spacer()
-            Image(systemName: "chevron.right")
-        }
-        .padding(.horizontal, 18)
-        .padding(.vertical, 14)
-        .frame(maxWidth: .infinity)
-        .background(.white.opacity(0.10), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .foregroundStyle(.white)
-    }
-
-    private func start(advanced: Bool) {
-        model.start(advanced: advanced)
-        phase = .playing
-        keyboardFocused = true
     }
 
     // MARK: - Game screen

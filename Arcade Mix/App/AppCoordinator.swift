@@ -23,6 +23,10 @@ final class AppCoordinator: ObservableObject {
 
     @Published private(set) var route: AppRoute = .hub
 
+    /// Launch variant chosen on the Start Menu: Rugby's Advanced Mode. Set by `open` and
+    /// read by `RugbyGameView` when it starts the match; reset to `false` on every open.
+    @Published private(set) var rugbyAdvanced = false
+
     /// Show a game's pre-play Start Menu, rotating to that game's orientation so the
     /// player can reorient before any action begins.
     func showStartMenu(_ game: GameID) {
@@ -30,8 +34,10 @@ final class AppCoordinator: ObservableObject {
         applyOrientation(for: route)
     }
 
-    /// Open a game, locking orientation to whatever that game requires.
-    func open(_ game: GameID) {
+    /// Open a game, locking orientation to whatever that game requires. `rugbyAdvanced`
+    /// launches Rugby straight into Advanced Mode (ignored by other games).
+    func open(_ game: GameID, rugbyAdvanced: Bool = false) {
+        self.rugbyAdvanced = rugbyAdvanced
         route = .game(game)
         applyOrientation(for: route)
     }
