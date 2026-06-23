@@ -74,7 +74,7 @@ struct RugbyGameView: View {
                 Button {
                     start(advanced: true)
                 } label: {
-                    modeLabel("Rugby_Mode_Advanced", systemImage: "hand.draw.fill")
+                    modeLabel("Rugby_Mode_Advanced", systemImage: "hand.draw.fill", badge: "Rugby_Mode_InProgress")
                 }
             }
         }
@@ -97,9 +97,17 @@ struct RugbyGameView: View {
         }
     }
 
-    private func modeLabel(_ titleKey: LocalizedStringKey, systemImage: String) -> some View {
-        HStack {
+    private func modeLabel(_ titleKey: LocalizedStringKey, systemImage: String,
+                           badge: LocalizedStringKey? = nil) -> some View {
+        HStack(spacing: 10) {
             Label(titleKey, systemImage: systemImage).bold().shrinkToFit()
+            if let badge {
+                Text(badge)
+                    .font(.caption2.bold())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(.white.opacity(0.18), in: Capsule())
+            }
             Spacer()
             Image(systemName: "chevron.right")
         }

@@ -57,8 +57,15 @@ struct HowToPlay {
         let textKey: LocalizedStringResource
         var diagram: RuleDiagram? = nil         // optional drawn illustration for a key rule
     }
+    /// One row of the "Getting harder" table: a score milestone and what changes at it.
+    struct DifficultyStep: Identifiable {
+        let id = UUID()
+        let whenKey: LocalizedStringResource    // left column — the score milestone
+        let effectKey: LocalizedStringResource  // right column — what ramps up
+    }
     let controls: [Item]
     let rules: [Item]
+    var difficulty: [DifficultyStep] = []       // optional: shown as a table when non-empty
 }
 
 /// Display metadata for a single hub tile. All user-facing text is a
@@ -72,6 +79,16 @@ struct GameInfo: Identifiable {
     let systemImage: String
     let accentColor: Color
     let howToPlay: HowToPlay
+
+    /// The score-driven difficulty ramp shared by the field sports (AFL & Rugby); Rugby
+    /// appends its defender speed-up. Mirrors the levers in `BaseGameScene` (defender count
+    /// every 6 pts, pressing aggression 30–60, +1 teammate every 30 pts).
+    private static let sportDifficulty: [HowToPlay.DifficultyStep] = [
+        .init(whenKey: "HowTo_Diff_Start_When", effectKey: "HowTo_Diff_Start_What"),
+        .init(whenKey: "HowTo_Diff_Defenders_When", effectKey: "HowTo_Diff_Defenders_What"),
+        .init(whenKey: "HowTo_Diff_Press_When", effectKey: "HowTo_Diff_Press_What"),
+        .init(whenKey: "HowTo_Diff_Teammates_When", effectKey: "HowTo_Diff_Teammates_What")
+    ]
 
     /// Games rendered by the hub, in display order.
     static let catalog: [GameInfo] = [
@@ -94,7 +111,8 @@ struct GameInfo: Identifiable {
                     .init(icon: "flag.fill", textKey: "AFL_HowTo_Rule_SetShot", diagram: .pitch(tryLine: false)),
                     .init(icon: "scope", textKey: "AFL_HowTo_Rule_Score", diagram: .goalPosts(rugby: false)),
                     .init(icon: "exclamationmark.triangle.fill", textKey: "AFL_HowTo_Rule_Tackle")
-                ]
+                ],
+                difficulty: sportDifficulty
             )
         ),
         GameInfo(
@@ -117,6 +135,9 @@ struct GameInfo: Identifiable {
                     .init(icon: "scope", textKey: "Rugby_HowTo_Rule_Convert", diagram: .goalPosts(rugby: true)),
                     .init(icon: "exclamationmark.triangle.fill", textKey: "Rugby_HowTo_Rule_Tackles"),
                     .init(icon: "hand.draw.fill", textKey: "Rugby_HowTo_Rule_Advanced")
+                ],
+                difficulty: sportDifficulty + [
+                    .init(whenKey: "Rugby_HowTo_Diff_Speed_When", effectKey: "Rugby_HowTo_Diff_Speed_What")
                 ]
             )
         ),

@@ -19,6 +19,9 @@ struct HowToPlayView: View {
                 VStack(alignment: .leading, spacing: 28) {
                     section(title: "HowToPlay_Controls", items: info.howToPlay.controls)
                     section(title: "HowToPlay_Rules", items: info.howToPlay.rules)
+                    if !info.howToPlay.difficulty.isEmpty {
+                        difficultySection(info.howToPlay.difficulty)
+                    }
                 }
                 .padding(24)
                 .frame(maxWidth: 560, alignment: .leading)
@@ -63,6 +66,30 @@ struct HowToPlayView: View {
                             .font(.body)
                             .fixedSize(horizontal: false, vertical: true)
                         Spacer(minLength: 0)
+                    }
+                }
+            }
+        }
+    }
+
+    /// A two-column table — score milestone on the left, what ramps up on the right — so the
+    /// player can see how the game escalates as they score.
+    @ViewBuilder
+    private func difficultySection(_ steps: [HowToPlay.DifficultyStep]) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("HowToPlay_Difficulty")
+                .font(.title2.bold())
+
+            Grid(alignment: .leadingFirstTextBaseline, horizontalSpacing: 16, verticalSpacing: 14) {
+                ForEach(steps) { step in
+                    GridRow {
+                        Text(step.whenKey)
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(info.accentColor)
+                            .gridColumnAlignment(.leading)
+                        Text(step.effectKey)
+                            .font(.body)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }

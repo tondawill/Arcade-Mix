@@ -1704,6 +1704,210 @@
           }
         }
       }
+    },
+    "Rugby_Mode_InProgress": {
+      "comment": "Badge on the Rugby Advanced mode button: the feature is still being built.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozpracováno"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In progress"
+          }
+        }
+      }
+    },
+    "HowToPlay_Difficulty": {
+      "comment": "How to Play section header for the difficulty table.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zvyšování obtížnosti"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting harder"
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Start_When": {
+      "comment": "Difficulty table, left column: at kick-off.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Začátek"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Start_What": {
+      "comment": "Difficulty table, right column.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Honí tě čtyři obránci."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Four defenders chase you down."
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Defenders_When": {
+      "comment": "Difficulty table, left column: score milestone.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Každých 6 bodů"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every 6 pts"
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Defenders_What": {
+      "comment": "Difficulty table, right column.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidá se další obránce, až do patnácti."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Another defender joins the line, up to fifteen."
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Press_When": {
+      "comment": "Difficulty table, left column: score range.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30–60 bodů"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30–60 pts"
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Press_What": {
+      "comment": "Difficulty table, right column.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obránci přitvrdí a zavírají přihrávací uličky."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Defenders press tighter and shut down your passing lanes."
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Teammates_When": {
+      "comment": "Difficulty table, left column: score milestone.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Každých 30 bodů"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every 30 pts"
+          }
+        }
+      }
+    },
+    "HowTo_Diff_Teammates_What": {
+      "comment": "Difficulty table, right column.",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do týmu se přidá nový spoluhráč."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A fresh teammate joins your squad."
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Diff_Speed_When": {
+      "comment": "Difficulty table, left column: score milestone (rugby only).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "60+ bodů"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "60+ pts"
+          }
+        }
+      }
+    },
+    "Rugby_HowTo_Diff_Speed_What": {
+      "comment": "Difficulty table, right column (rugby only).",
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obránci zrychlí na plný sprint."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Defenders accelerate to a full sprint."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
