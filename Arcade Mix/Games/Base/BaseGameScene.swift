@@ -801,12 +801,12 @@ class BaseGameScene: SKScene {
         handpass(to: target)
     }
 
-    /// Keyboard Q/E: cycle the pass target while carrying, or — during the kickoff —
-    /// switch the controlled player to the teammate above / below.
+    /// Keyboard Q/E: cycle the pass target while carrying, or — during the kickoff or
+    /// while chasing a loose ball — switch the controlled player to the teammate above / below.
     func nudgeSelection(by step: Int) {
         if state == .playOn, hasPossession {
             cyclePassTarget(by: step)
-        } else if state == .aerial, let ap = activePlayer {
+        } else if (state == .aerial || (state == .playOn && !hasPossession)), let ap = activePlayer {
             let options = teammates.sorted { $0.position.y < $1.position.y }
             guard !options.isEmpty else { return }
             let target = step >= 0
@@ -1206,11 +1206,20 @@ class BaseGameScene: SKScene {
                     joystickAnchor = location
                     joystickVector = .zero
                     pendingPass = hasPossession ? teammate(at: location) : nil
+                    // Loose ball: tap a teammate to take control and chase it down —
+                    // the same finger then steers them via the joystick.
+                    if !hasPossession, let mate = teammate(at: location, requireEligible: false) {
+                        setActivePlayer(mate)
+                    }
                     if pendingPass == nil { showJoystickVisual(at: location) }
                 } else if hasPossession {
                     if let target = teammate(at: location) ?? bestPassTarget() {
                         handpass(to: target)
                     }
+                } else if let mate = teammate(at: location, requireEligible: false) {
+                    // Second finger while chasing a loose ball: switch to the tapped
+                    // teammate, keep steering with the joystick finger.
+                    setActivePlayer(mate)
                 }
             case .passing, .paused, .gameOver:
                 break
