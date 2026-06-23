@@ -15,6 +15,7 @@ enum GameID: String, CaseIterable, Identifiable {
     case afl
     case rugby
     case connect4
+    case brickBreaker
 
     var id: String { rawValue }
 }
@@ -30,6 +31,7 @@ enum GameStatus {
 enum GameCategory: String, CaseIterable, Identifiable {
     case sport
     case board
+    case arcade
 
     var id: String { rawValue }
 
@@ -37,6 +39,7 @@ enum GameCategory: String, CaseIterable, Identifiable {
         switch self {
         case .sport: return "Hub_Category_Sport"
         case .board: return "Hub_Category_Board"
+        case .arcade: return "Hub_Category_Arcade"
         }
     }
 }
@@ -157,6 +160,34 @@ struct GameInfo: Identifiable {
                     .init(icon: "person.2.fill", textKey: "Connect4_HowTo_Rule_Modes"),
                     .init(icon: "dice.fill", textKey: "Connect4_HowTo_Rule_CoinFlip"),
                     .init(icon: "circle.grid.3x3.fill", textKey: "Connect4_HowTo_Rule_Win", diagram: .connectFour)
+                ]
+            )
+        ),
+        GameInfo(
+            id: .brickBreaker,
+            category: .arcade,
+            titleKey: "Game_BrickBreaker_Title",
+            subtitleKey: "Game_BrickBreaker_Subtitle",
+            status: .available,
+            systemImage: "rectangle.grid.1x2.fill",
+            accentColor: .purple,
+            howToPlay: HowToPlay(
+                controls: [
+                    .init(icon: "hand.draw.fill", textKey: "BrickBreaker_HowTo_Control_Move"),
+                    .init(icon: "hand.tap.fill", textKey: "BrickBreaker_HowTo_Control_Launch")
+                ],
+                rules: [
+                    .init(icon: "square.grid.3x3.fill", textKey: "BrickBreaker_HowTo_Rule_Clear"),
+                    .init(icon: "heart.fill", textKey: "BrickBreaker_HowTo_Rule_Lives"),
+                    .init(icon: "bolt.fill", textKey: "BrickBreaker_HowTo_Rule_PowerUps"),
+                    .init(icon: "link", textKey: "BrickBreaker_HowTo_Rule_Chain"),
+                    .init(icon: "exclamationmark.triangle.fill", textKey: "BrickBreaker_HowTo_Rule_Hazard"),
+                    .init(icon: "arrow.down.to.line", textKey: "BrickBreaker_HowTo_Rule_Crunch")
+                ],
+                difficulty: [
+                    .init(whenKey: "BrickBreaker_Diff_Density_When", effectKey: "BrickBreaker_Diff_Density_What"),
+                    .init(whenKey: "BrickBreaker_Diff_Armor_When", effectKey: "BrickBreaker_Diff_Armor_What"),
+                    .init(whenKey: "BrickBreaker_Diff_Scarcity_When", effectKey: "BrickBreaker_Diff_Scarcity_What")
                 ]
             )
         )

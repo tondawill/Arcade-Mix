@@ -66,6 +66,8 @@ struct RootView: View {
             RugbyGameView()
         case .connect4:
             Connect4View()
+        case .brickBreaker:
+            BrickBreakerGameView()
         }
     }
 }

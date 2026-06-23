@@ -326,6 +326,261 @@
         }
       }
     },
+    "BrickBreaker_Diff_Armor_What" : {
+      "comment" : "Difficulty table right column: armour phase.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objeví se odolnější pevné cihly a nezničitelný titan."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tougher strong bricks and indestructible titanium appear."
+          }
+        }
+      }
+    },
+    "BrickBreaker_Diff_Armor_When" : {
+      "comment" : "Difficulty table left column: mid levels.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úrovně 4–6"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levels 4–6"
+          }
+        }
+      }
+    },
+    "BrickBreaker_Diff_Density_What" : {
+      "comment" : "Difficulty table right column: density phase.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihly se zahušťují, ale bonusy padají často."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bricks pack in tighter, but power-ups drop often."
+          }
+        }
+      }
+    },
+    "BrickBreaker_Diff_Density_When" : {
+      "comment" : "Difficulty table left column: early levels.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úrovně 1–3"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levels 1–3"
+          }
+        }
+      }
+    },
+    "BrickBreaker_Diff_Scarcity_What" : {
+      "comment" : "Difficulty table right column: scarcity phase.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonusů ubývá a zeď se začne sunout dolů."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Power-ups grow scarce and the wall starts crunching down."
+          }
+        }
+      }
+    },
+    "BrickBreaker_Diff_Scarcity_When" : {
+      "comment" : "Difficulty table left column: late levels.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úrovně 7+"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levels 7+"
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Control_Launch" : {
+      "comment" : "How to play: launch the ball.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klepnutím vystřelíš míček z pálky."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to launch the ball off the paddle."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Control_Move" : {
+      "comment" : "How to play: paddle control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tažením vlevo a vpravo pohybuj pálkou."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag left and right to move the paddle."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_Chain" : {
+      "comment" : "How to play rule: colour-chain.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonus Řetěz nabije míček: zasáhni cihlu a všechny spojené cihly stejné barvy se roztříští."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Chain power-up arms the ball: hit a brick and every connected brick of the same colour shatters."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_Clear" : {
+      "comment" : "How to play rule: clear the bricks.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozbij každou zničitelnou cihlu a vyčisti úroveň — každá další je hustší."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smash every breakable brick to clear the level — each level packs in more."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_Crunch" : {
+      "comment" : "How to play rule: the crunch.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ve vyšších úrovních se zeď sune dolů. Když dosáhne pálky, hra končí — vyčisti ji rychle."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On later levels the wall creeps down. If it reaches the paddle, it is game over — clear it fast."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_Hazard" : {
+      "comment" : "How to play rule: hazard bricks.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tmavě červené nebezpečné cihly zanechají červené pole, které na pár vteřin zpomalí míček."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark-red hazard bricks leave a red field that slows the ball for a few seconds."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_Lives" : {
+      "comment" : "How to play rule: lives.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máš tři míčky. Když mineš pálkou, jeden ztratíš; když ztratíš všechny, hra končí."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have three balls. Miss with the paddle and you lose one; lose them all and it is game over."
+          }
+        }
+      }
+    },
+    "BrickBreaker_HowTo_Rule_PowerUps" : {
+      "comment" : "How to play rule: power-ups.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Některé cihly upustí bonusy: chyť je pro více míčků, širší pálku nebo pomalejší míček."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some bricks drop power-ups: catch them for multi-ball, a wider paddle, or a slower ball."
+          }
+        }
+      }
+    },
+    "BrickBreaker_Level_Label" : {
+      "comment" : "HUD label showing the current level number. %lld is the level.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úr. %lld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lvl %lld"
+          }
+        }
+      }
+    },
     "Common_Back" : {
       "localizations" : {
         "cs" : {
@@ -850,6 +1105,40 @@
         }
       }
     },
+    "Game_BrickBreaker_Subtitle" : {
+      "comment" : "Brick Breaker game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odrážej, nič, řetěz reakcí"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bounce, smash, chain-react"
+          }
+        }
+      }
+    },
+    "Game_BrickBreaker_Title" : {
+      "comment" : "Brick Breaker game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brick Breaker"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brick Breaker"
+          }
+        }
+      }
+    },
     "Game_ComingSoon" : {
       "comment" : "Badge shown on games that are not yet available.",
       "localizations" : {
@@ -983,6 +1272,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "High Scores"
+          }
+        }
+      }
+    },
+    "HowToPlay_Controls" : {
+      "comment" : "How to Play section header.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ovládání"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls"
+          }
+        }
+      }
+    },
+    "HowToPlay_Difficulty" : {
+      "comment" : "How to Play section header for the difficulty table.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zvyšování obtížnosti"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting harder"
+          }
+        }
+      }
+    },
+    "HowToPlay_Rules" : {
+      "comment" : "How to Play section header.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pravidla"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
+          }
+        }
+      }
+    },
+    "HowToPlay_Title" : {
+      "comment" : "How to Play sheet title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jak hrát"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Play"
           }
         }
       }
@@ -1123,70 +1480,19 @@
         }
       }
     },
-    "HowToPlay_Controls" : {
-      "comment" : "How to Play section header.",
+    "Hub_Category_Arcade" : {
+      "comment" : "Hub section header for arcade games.",
       "localizations" : {
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ovládání"
+            "value" : "Arkáda"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Controls"
-          }
-        }
-      }
-    },
-    "HowToPlay_Difficulty" : {
-      "comment" : "How to Play section header for the difficulty table.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zvyšování obtížnosti"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Getting harder"
-          }
-        }
-      }
-    },
-    "HowToPlay_Rules" : {
-      "comment" : "How to Play section header.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pravidla"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rules"
-          }
-        }
-      }
-    },
-    "HowToPlay_Title" : {
-      "comment" : "How to Play sheet title.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jak hrát"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "How to Play"
+            "value" : "Arcade"
           }
         }
       }
