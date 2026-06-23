@@ -70,8 +70,8 @@ final class RugbyGameScene: BaseGameScene {
         speedRampStartScore + Int((maxOpponentSpeed - config.opponentSpeed) / speedRampPerPoint)
     }
 
-    /// The deep back-line cordon chases at half the pressing defenders' pace.
-    override var lineDefenderSpeedFactor: CGFloat { 0.5 }
+    /// The deep back-line cordon chases at three-quarters the pressing defenders' pace.
+    override var lineDefenderSpeedFactor: CGFloat { 0.75 }
 
     // MARK: - Start positions
 
