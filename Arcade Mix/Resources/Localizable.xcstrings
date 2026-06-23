@@ -1,1914 +1,1915 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "Auth_SignIn": {
-      "comment": "Account menu item shown to a guest: go to the sign-in screen.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihlásit se"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "AFL_Behind" : {
+      "comment" : "Scored a behind (1 point) in AFL.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behind!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign In"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behind!"
           }
         }
       }
     },
-    "Login_Guest": {
-      "comment": "Button: enter the app without signing in (works offline).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pokračovat bez přihlášení"
+    "AFL_Goal" : {
+      "comment" : "Scored a goal (6 points) in AFL.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gól!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue without signing in"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal!"
           }
         }
       }
     },
-    "Login_Guest_Note": {
-      "comment": "Caption under the guest button: scores aren't saved without an account.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skóre se neuloží"
+    "AFL_Handpass" : {
+      "comment" : "Button label: handpass the ball to the best-placed teammate.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihrávka"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your scores won't be saved"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Handpass"
           }
         }
       }
     },
-    "AFL_Behind": {
-      "comment": "Scored a behind (1 point) in AFL.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Behind!"
+    "AFL_HowTo_Control_Kick" : {
+      "comment" : "AFL control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Při střele švihni nahoru pro kop."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Behind!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On a set shot, swipe up to kick."
           }
         }
       }
     },
-    "AFL_Goal": {
-      "comment": "Scored a goal (6 points) in AFL.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gól!"
+    "AFL_HowTo_Control_Move" : {
+      "comment" : "AFL control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Goal!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag anywhere to move (or WASD / arrow keys)."
           }
         }
       }
     },
-    "AFL_Handpass": {
-      "comment": "Button label: handpass the ball to the best-placed teammate.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihrávka"
+    "AFL_HowTo_Control_Pass" : {
+      "comment" : "AFL control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klepni na spoluhráče nebo na Přihrávku pro ruční přihrávku."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Handpass"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a teammate or the Pass button to handpass."
           }
         }
       }
     },
-    "AFL_Intercepted": {
-      "comment": "Handpass was intercepted by an opponent (game over).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zachyceno!"
+    "AFL_HowTo_Rule_Mark" : {
+      "comment" : "AFL rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyť nakopnutý míč ze vzduchu pro mark."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Intercepted!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catch the kick-in on the full to take a mark."
           }
         }
       }
     },
-    "AFL_Mark": {
-      "comment": "Player took a Mark (caught the ball in the air).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chyceno!"
+    "AFL_HowTo_Rule_Score" : {
+      "comment" : "AFL rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Švihni rovně nahoru pro gól (6); mimo střed je behind (1)."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mark!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe straight up for a goal (6); off-centre is a behind (1)."
           }
         }
       }
     },
-    "AFL_Saved": {
-      "comment": "Goalkeeper blocked the set shot.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zákrok brankáře!"
+    "AFL_HowTo_Rule_SetShot" : {
+      "comment" : "AFL rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přeběhni útočnou čáru pro střelu na branku."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saved!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run across the forward line to earn a set shot."
           }
         }
       }
     },
-    "AFL_SetShot": {
-      "comment": "Set shot scoring phase title.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Střela na branku"
+    "AFL_HowTo_Rule_Tackle" : {
+      "comment" : "AFL rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenech se chytit obráncem — skolení ukončí hru."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Set Shot"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't get caught by a defender — a tackle ends the game."
           }
         }
       }
     },
-    "AFL_Swipe_Hint": {
-      "comment": "Instruction telling the player how to kick during a set shot.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Švihni pro kop"
+    "AFL_Intercepted" : {
+      "comment" : "Handpass was intercepted by an opponent (game over).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zachyceno!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Swipe to kick"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intercepted!"
           }
         }
       }
     },
-    "AFL_Tackled": {
-      "comment": "Player was tackled while carrying the ball (game over).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skolen!"
+    "AFL_Mark" : {
+      "comment" : "Player took a Mark (caught the ball in the air).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyceno!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tackled!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark!"
           }
         }
       }
     },
-    "App_Title": {
-      "comment": "App name.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arcade Mix"
+    "AFL_Saved" : {
+      "comment" : "Goalkeeper blocked the set shot.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zákrok brankáře!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arcade Mix"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved!"
           }
         }
       }
     },
-    "Auth_SignOut": {
-      "comment": "Sign out menu item.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Odhlásit se"
+    "AFL_SetShot" : {
+      "comment" : "Set shot scoring phase title.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Střela na branku"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign Out"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Shot"
           }
         }
       }
     },
-    "Common_Back": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zpět"
+    "AFL_Swipe_Hint" : {
+      "comment" : "Instruction telling the player how to kick during a set shot.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Švihni pro kop"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Back"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe to kick"
           }
         }
       }
     },
-    "Common_MainMenu": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hlavní menu"
+    "AFL_Tackled" : {
+      "comment" : "Player was tackled while carrying the ball (game over).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skolen!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Main Menu"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tackled!"
           }
         }
       }
     },
-    "Common_Retry": {
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zkusit znovu"
+    "App_Title" : {
+      "comment" : "App name.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade Mix"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Retry"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arcade Mix"
           }
         }
       }
     },
-    "Game_AFL_Subtitle": {
-      "comment": "AFL game tile subtitle.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vysokoenergetická arkáda"
+    "Auth_SignIn" : {
+      "comment" : "Account menu item shown to a guest: go to the sign-in screen.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "High-energy arcade footy"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
           }
         }
       }
     },
-    "Game_AFL_Title": {
-      "comment": "AFL game tile title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AFL Arkáda"
+    "Auth_SignOut" : {
+      "comment" : "Sign out menu item.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odhlásit se"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AFL Arcade"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
           }
         }
       }
     },
-    "Game_ComingSoon": {
-      "comment": "Badge shown on games that are not yet available.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Již brzy"
+    "Common_Back" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zpět"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coming Soon"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
           }
         }
       }
     },
-    "Game_Connect4_Subtitle": {
-      "comment": "Connect 4 game tile subtitle.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "PvP souboj 1 na 1"
+    "Common_Done" : {
+      "comment" : "Dismiss button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotovo"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1v1 PvP showdown"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         }
       }
     },
-    "Game_Connect4_Title": {
-      "comment": "Connect 4 game tile title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Čtyři v řadě"
+    "Common_MainMenu" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hlavní menu"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connect 4"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main Menu"
           }
         }
       }
     },
-    "Game_Over": {
-      "comment": "Game over overlay title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Konec hry"
+    "Common_Retry" : {
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zkusit znovu"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Game Over"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
           }
         }
       }
     },
-    "Game_Rugby_Subtitle": {
-      "comment": "Rugby League game tile subtitle.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Polož try a proměň ho"
+    "Connect4_CoinFlip_Red" : {
+      "comment" : "Coin-flip opener banner.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los: začíná červený"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Score tries and convert"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coin flip: Red goes first"
           }
         }
       }
     },
-    "Game_Rugby_Title": {
-      "comment": "Rugby League game tile title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rugby Arkáda"
+    "Connect4_CoinFlip_Yellow" : {
+      "comment" : "Coin-flip opener banner.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los: začíná žlutý"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rugby Arcade"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coin flip: Yellow goes first"
           }
         }
       }
     },
-    "HighScore_None": {
-      "comment": "Shown on a game tile when there are no high scores yet.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zatím žádné skóre"
+    "Connect4_Difficulty_Easy" : {
+      "comment" : "AI difficulty.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lehká"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No scores yet"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy"
           }
         }
       }
     },
-    "HighScores_Title": {
-      "comment": "High scores screen title.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nejlepší skóre"
+    "Connect4_Difficulty_Hard" : {
+      "comment" : "AI difficulty.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Těžká"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "High Scores"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hard"
           }
         }
       }
     },
-    "Hub_Title": {
-      "comment": "Main hub navigation title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vyber hru"
+    "Connect4_Difficulty_Impossible" : {
+      "comment" : "AI difficulty.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemožná"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Choose a Game"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible"
           }
         }
       }
     },
-    "Login_Apple": {
-      "comment": "Sign in with Apple button (system-provided text usually overrides this).",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihlásit se přes Apple"
+    "Connect4_Difficulty_Medium" : {
+      "comment" : "AI difficulty.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Střední"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign in with Apple"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
           }
         }
       }
     },
-    "Login_Button": {
-      "comment": "Sign-in button label.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihlásit se"
+    "Connect4_Draw" : {
+      "comment" : "Result, drawn game.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remíza"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign In"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's a draw"
           }
         }
       }
     },
-    "Login_Email": {
-      "comment": "Email text field placeholder.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "E-mail"
+    "Connect4_HowTo_Control_Drop" : {
+      "comment" : "Connect 4 control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klepni na sloupec pro vhození žetonu."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Email"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a column to drop your disc."
           }
         }
       }
     },
-    "Login_Error": {
-      "comment": "Generic sign-in failure message.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihlášení se nezdařilo. Zkus to znovu."
+    "Connect4_HowTo_Rule_CoinFlip" : {
+      "comment" : "Connect 4 rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Los rozhodne, kdo začíná."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign-in failed. Please try again."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A coin flip decides who goes first."
           }
         }
       }
     },
-    "Login_Password": {
-      "comment": "Password text field placeholder.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Heslo"
+    "Connect4_HowTo_Rule_Modes" : {
+      "comment" : "Connect 4 rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hraj proti počítači (čtyři úrovně) nebo příteli na jednom zařízení."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Password"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play vs Computer (four levels) or a friend on one device."
           }
         }
       }
     },
-    "Login_SignIn": {
-      "comment": "Email sign-in button.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihlásit se"
+    "Connect4_HowTo_Rule_Win" : {
+      "comment" : "Connect 4 rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spoj čtyři své žetony v řadě — v jakémkoli směru — a vyhraj."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign In"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Line up four of your discs in a row — any direction — to win."
           }
         }
       }
     },
-    "Login_SignUp": {
-      "comment": "Email sign-up button.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vytvořit účet"
+    "Connect4_NoGames" : {
+      "comment" : "Tile/menu when no games played yet.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatím žádné hry"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create Account"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No games yet"
           }
         }
       }
     },
-    "Login_Title": {
-      "comment": "Login screen title.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vítej v Arcade Mix"
+    "Connect4_Record" : {
+      "comment" : "Win/loss/draw record. %1=wins %2=losses %3=draws.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lldV · %2$lldP · %3$lldR"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Welcome to Arcade Mix"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lldW · %2$lldL · %3$lldD"
           }
         }
       }
     },
-    "Login_Toggle_ToSignIn": {
-      "comment": "Switches the email form to sign-in mode.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Už máš účet? Přihlas se"
+    "Connect4_Rematch" : {
+      "comment" : "Play again button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odveta"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Already have an account? Sign in"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rematch"
           }
         }
       }
     },
-    "Login_Toggle_ToSignUp": {
-      "comment": "Switches the email form to sign-up mode.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nemáš účet? Zaregistruj se"
+    "Connect4_Thinking" : {
+      "comment" : "Shown while the AI computes.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Počítač přemýšlí…"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No account? Sign up"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer is thinking…"
           }
         }
       }
     },
-    "Menu_Play": {
-      "comment": "Generic play button.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hrát"
+    "Connect4_Turn_Computer" : {
+      "comment" : "Turn indicator (vs AI, computer).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tah počítače"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer's turn"
           }
         }
       }
     },
-    "Rugby_Conversion": {
-      "comment": "Kicked a successful conversion (2 points) in Rugby.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proměněno!"
+    "Connect4_Turn_Red" : {
+      "comment" : "Turn indicator (pass-and-play, red).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tah červeného"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Conversion!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red's turn"
           }
         }
       }
     },
-    "Rugby_Held": {
-      "comment": "Tackled but still in the set — play the ball.",
-      "extractionState": "stale",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Držen!"
+    "Connect4_Turn_Yellow" : {
+      "comment" : "Turn indicator (pass-and-play, yellow).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tah žlutého"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Held!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow's turn"
           }
         }
       }
     },
-    "Rugby_Missed": {
-      "comment": "Missed the conversion kick in Rugby.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vedle!"
+    "Connect4_Turn_You" : {
+      "comment" : "Turn indicator (vs AI, human).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvůj tah"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Missed!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your turn"
           }
         }
       }
     },
-    "Rugby_Continue": {
-      "comment": "Advanced Mode button: restart play after positioning teammates.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pokračovat"
+    "Connect4_VsComputer" : {
+      "comment" : "Computer opponent menu header.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proti počítači"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Continue"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs Computer"
           }
         }
       }
     },
-    "Rugby_Mode_Advanced": {
-      "comment": "Rugby mode picker: Advanced Mode, where you drag teammates into position after a tackle.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pokročilý"
+    "Connect4_VsFriend" : {
+      "comment" : "Pass-and-play button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proti příteli"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Advanced"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs Friend"
           }
         }
       }
     },
-    "Rugby_Mode_Normal": {
-      "comment": "Rugby mode picker: standard play.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normální"
+    "Connect4_Win_Computer" : {
+      "comment" : "Result (vs AI, computer wins).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Počítač vyhrál"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normal"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computer wins"
           }
         }
       }
     },
-    "Rugby_Pass": {
-      "comment": "Button label: pass the ball backward to the best-placed teammate.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přihrávka"
+    "Connect4_Win_Red" : {
+      "comment" : "Result (pass-and-play, red wins).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Červený vyhrál!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pass"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red wins!"
           }
         }
       }
     },
-    "Rugby_Positioning": {
-      "comment": "Advanced Mode hold label shown while the player drags teammates before restarting.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rozestav tým, pak Pokračovat"
+    "Connect4_Win_Yellow" : {
+      "comment" : "Result (pass-and-play, yellow wins).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žlutý vyhrál!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Drag your team, then Continue"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow wins!"
           }
         }
       }
     },
-    "Rugby_Tackle_Count": {
-      "comment": "HUD: how many tackles into the six-tackle set the player is.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skládka %lld / 6"
+    "Connect4_Win_You" : {
+      "comment" : "Result (vs AI, human wins).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyhráváš!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tackle %lld / 6"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You win!"
           }
         }
       }
     },
-    "Rugby_Try": {
-      "comment": "Scored a try (4 points) in Rugby.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try!"
+    "Game_AFL_Subtitle" : {
+      "comment" : "AFL game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vysokoenergetická arkáda"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High-energy arcade footy"
           }
         }
       }
     },
-    "Rugby_Turnover": {
-      "comment": "Tackled on the last play of the set — turnover, game over.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ztráta!"
+    "Game_AFL_Title" : {
+      "comment" : "AFL game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AFL Arkáda"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Turnover!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AFL Arcade"
           }
         }
       }
     },
-    "Score_Label": {
-      "comment": "In-game score readout. %lld is the score value.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skóre: %lld"
+    "Game_ComingSoon" : {
+      "comment" : "Badge shown on games that are not yet available.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Již brzy"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Score: %lld"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coming Soon"
           }
         }
       }
     },
-    "StartMenu_Start": {
-      "comment": "Start button on a game's pre-play menu.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+    "Game_Connect4_Subtitle" : {
+      "comment" : "Connect 4 game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PvP souboj 1 na 1"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1v1 PvP showdown"
           }
         }
       }
     },
-    "StartMenu_TopScore": {
-      "comment": "Label for the all-time top score across all users on a game's pre-play menu.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nejlepší vůbec"
+    "Game_Connect4_Title" : {
+      "comment" : "Connect 4 game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čtyři v řadě"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All-Time Best"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect 4"
           }
         }
       }
     },
-    "StartMenu_YourBest": {
-      "comment": "Label for the player's personal best score on a game's pre-play menu.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tvé nejlepší"
+    "Game_Over" : {
+      "comment" : "Game over overlay title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konec hry"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your Best"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game Over"
           }
         }
       }
     },
-    "Connect4_VsComputer": {
-      "comment": "Computer opponent menu header.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "vs Computer"
+    "Game_Rugby_Subtitle" : {
+      "comment" : "Rugby League game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polož try a proměň ho"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proti počítači"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score tries and convert"
           }
         }
       }
     },
-    "Connect4_VsFriend": {
-      "comment": "Pass-and-play button.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "vs Friend"
+    "Game_Rugby_Title" : {
+      "comment" : "Rugby League game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rugby Arkáda"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proti příteli"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rugby Arcade"
           }
         }
       }
     },
-    "Connect4_Difficulty_Easy": {
-      "comment": "AI difficulty.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Easy"
+    "HighScore_None" : {
+      "comment" : "Shown on a game tile when there are no high scores yet.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatím žádné skóre"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lehká"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No scores yet"
           }
         }
       }
     },
-    "Connect4_Difficulty_Medium": {
-      "comment": "AI difficulty.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Medium"
+    "HighScores_Title" : {
+      "comment" : "High scores screen title.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nejlepší skóre"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Střední"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "High Scores"
           }
         }
       }
     },
-    "Connect4_Difficulty_Hard": {
-      "comment": "AI difficulty.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hard"
+    "HowTo_Diff_Defenders_What" : {
+      "comment" : "Difficulty table, right column.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přidá se další obránce, až do patnácti."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Těžká"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another defender joins the line, up to fifteen."
           }
         }
       }
     },
-    "Connect4_Difficulty_Impossible": {
-      "comment": "AI difficulty.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Impossible"
+    "HowTo_Diff_Defenders_When" : {
+      "comment" : "Difficulty table, left column: score milestone.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každých 6 bodů"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nemožná"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every 6 pts"
           }
         }
       }
     },
-    "Connect4_Turn_You": {
-      "comment": "Turn indicator (vs AI, human).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your turn"
+    "HowTo_Diff_Press_What" : {
+      "comment" : "Difficulty table, right column.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obránci přitvrdí a zavírají přihrávací uličky."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tvůj tah"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defenders press tighter and shut down your passing lanes."
           }
         }
       }
     },
-    "Connect4_Turn_Computer": {
-      "comment": "Turn indicator (vs AI, computer).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Computer's turn"
+    "HowTo_Diff_Press_When" : {
+      "comment" : "Difficulty table, left column: score range.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30–60 bodů"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tah počítače"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30–60 pts"
           }
         }
       }
     },
-    "Connect4_Turn_Red": {
-      "comment": "Turn indicator (pass-and-play, red).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Red's turn"
+    "HowTo_Diff_Start_What" : {
+      "comment" : "Difficulty table, right column.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Honí tě čtyři obránci."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tah červeného"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Four defenders chase you down."
           }
         }
       }
     },
-    "Connect4_Turn_Yellow": {
-      "comment": "Turn indicator (pass-and-play, yellow).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yellow's turn"
+    "HowTo_Diff_Start_When" : {
+      "comment" : "Difficulty table, left column: at kick-off.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začátek"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tah žlutého"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         }
       }
     },
-    "Connect4_Thinking": {
-      "comment": "Shown while the AI computes.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Computer is thinking…"
+    "HowTo_Diff_Teammates_What" : {
+      "comment" : "Difficulty table, right column.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do týmu se přidá nový spoluhráč."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Počítač přemýšlí…"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fresh teammate joins your squad."
           }
         }
       }
     },
-    "Connect4_CoinFlip_Red": {
-      "comment": "Coin-flip opener banner.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coin flip: Red goes first"
+    "HowTo_Diff_Teammates_When" : {
+      "comment" : "Difficulty table, left column: score milestone.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každých 30 bodů"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los: začíná červený"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every 30 pts"
           }
         }
       }
     },
-    "Connect4_CoinFlip_Yellow": {
-      "comment": "Coin-flip opener banner.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coin flip: Yellow goes first"
+    "HowToPlay_Controls" : {
+      "comment" : "How to Play section header.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ovládání"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los: začíná žlutý"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controls"
           }
         }
       }
     },
-    "Connect4_Win_You": {
-      "comment": "Result (vs AI, human wins).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You win!"
+    "HowToPlay_Difficulty" : {
+      "comment" : "How to Play section header for the difficulty table.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zvyšování obtížnosti"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vyhráváš!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting harder"
           }
         }
       }
     },
-    "Connect4_Win_Computer": {
-      "comment": "Result (vs AI, computer wins).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Computer wins"
+    "HowToPlay_Rules" : {
+      "comment" : "How to Play section header.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pravidla"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Počítač vyhrál"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rules"
           }
         }
       }
     },
-    "Connect4_Win_Red": {
-      "comment": "Result (pass-and-play, red wins).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Red wins!"
+    "HowToPlay_Title" : {
+      "comment" : "How to Play sheet title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jak hrát"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Červený vyhrál!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Play"
           }
         }
       }
     },
-    "Connect4_Win_Yellow": {
-      "comment": "Result (pass-and-play, yellow wins).",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Yellow wins!"
+    "Hub_Category_Board" : {
+      "comment" : "Hub section header for board games.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deskové hry"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Žlutý vyhrál!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Board games"
           }
         }
       }
     },
-    "Connect4_Draw": {
-      "comment": "Result, drawn game.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "It's a draw"
+    "Hub_Category_Sport" : {
+      "comment" : "Hub section header for sports games.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sport"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Remíza"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sport"
           }
         }
       }
     },
-    "Connect4_Rematch": {
-      "comment": "Play again button.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rematch"
+    "Hub_Title" : {
+      "comment" : "Main hub navigation title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyber hru"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Odveta"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a Game"
           }
         }
       }
     },
-    "Connect4_Record": {
-      "comment": "Win/loss/draw record. %1=wins %2=losses %3=draws.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$lldW · %2$lldL · %3$lldD"
+    "Login_Apple" : {
+      "comment" : "Sign in with Apple button (system-provided text usually overrides this).",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se přes Apple"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$lldV · %2$lldP · %3$lldR"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Apple"
           }
         }
       }
     },
-    "Connect4_NoGames": {
-      "comment": "Tile/menu when no games played yet.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No games yet"
+    "Login_Button" : {
+      "comment" : "Sign-in button label.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zatím žádné hry"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
           }
         }
       }
     },
-    "Hub_Category_Sport": {
-      "comment": "Hub section header for sports games.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sport"
+    "Login_Email" : {
+      "comment" : "Email text field placeholder.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-mail"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sport"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
           }
         }
       }
     },
-    "Hub_Category_Board": {
-      "comment": "Hub section header for board games.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Board games"
+    "Login_Error" : {
+      "comment" : "Generic sign-in failure message.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlášení se nezdařilo. Zkus to znovu."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deskové hry"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in failed. Please try again."
           }
         }
       }
     },
-    "HowToPlay_Title": {
-      "comment": "How to Play sheet title.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "How to Play"
+    "Login_Guest" : {
+      "comment" : "Button: enter the app without signing in (works offline).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat bez přihlášení"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jak hrát"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue without signing in"
           }
         }
       }
     },
-    "HowToPlay_Controls": {
-      "comment": "How to Play section header.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Controls"
+    "Login_Guest_Note" : {
+      "comment" : "Caption under the guest button: scores aren't saved without an account.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skóre se neuloží"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ovládání"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your scores won't be saved"
           }
         }
       }
     },
-    "HowToPlay_Rules": {
-      "comment": "How to Play section header.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rules"
+    "Login_Password" : {
+      "comment" : "Password text field placeholder.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pravidla"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
           }
         }
       }
     },
-    "Common_Done": {
-      "comment": "Dismiss button.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Done"
+    "Login_SignIn" : {
+      "comment" : "Email sign-in button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihlásit se"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hotovo"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
           }
         }
       }
     },
-    "AFL_HowTo_Control_Move": {
-      "comment": "AFL control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Drag anywhere to move (or WASD / arrow keys)."
+    "Login_SignUp" : {
+      "comment" : "Email sign-up button.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvořit účet"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
           }
         }
       }
     },
-    "AFL_HowTo_Control_Pass": {
-      "comment": "AFL control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tap a teammate or the Pass button to handpass."
+    "Login_Title" : {
+      "comment" : "Login screen title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vítej v Arcade Mix"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klepni na spoluhráče nebo na Přihrávku pro ruční přihrávku."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Arcade Mix"
           }
         }
       }
     },
-    "AFL_HowTo_Control_Kick": {
-      "comment": "AFL control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On a set shot, swipe up to kick."
+    "Login_Toggle_ToSignIn" : {
+      "comment" : "Switches the email form to sign-in mode.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už máš účet? Přihlas se"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Při střele švihni nahoru pro kop."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already have an account? Sign in"
           }
         }
       }
     },
-    "AFL_HowTo_Rule_Mark": {
-      "comment": "AFL rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Catch the kick-in on the full to take a mark."
+    "Login_Toggle_ToSignUp" : {
+      "comment" : "Switches the email form to sign-up mode.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nemáš účet? Zaregistruj se"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chyť nakopnutý míč ze vzduchu pro mark."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No account? Sign up"
           }
         }
       }
     },
-    "AFL_HowTo_Rule_SetShot": {
-      "comment": "AFL rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Run across the forward line to earn a set shot."
+    "Menu_Play" : {
+      "comment" : "Generic play button.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hrát"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přeběhni útočnou čáru pro střelu na branku."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
           }
         }
       }
     },
-    "AFL_HowTo_Rule_Score": {
-      "comment": "AFL rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Swipe straight up for a goal (6); off-centre is a behind (1)."
+    "Rugby_Continue" : {
+      "comment" : "Advanced Mode button: restart play after positioning teammates.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Švihni rovně nahoru pro gól (6); mimo střed je behind (1)."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
           }
         }
       }
     },
-    "AFL_HowTo_Rule_Tackle": {
-      "comment": "AFL rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Don't get caught by a defender — a tackle ends the game."
+    "Rugby_Conversion" : {
+      "comment" : "Kicked a successful conversion (2 points) in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proměněno!"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nenech se chytit obráncem — skolení ukončí hru."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversion!"
           }
         }
       }
     },
-    "Rugby_HowTo_Control_Move": {
-      "comment": "Rugby control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Drag anywhere to move (or WASD / arrow keys)."
+    "Rugby_Held" : {
+      "comment" : "Tackled but still in the set — play the ball.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Držen!"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Held!"
           }
         }
       }
     },
-    "Rugby_HowTo_Control_Pass": {
-      "comment": "Rugby control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tap a teammate or the Pass button — passes go backward only."
+    "Rugby_HowTo_Control_Kick" : {
+      "comment" : "Rugby control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Při proměně švihni nahoru pro kop."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klepni na spoluhráče nebo na Přihrávku — přihrává se jen dozadu."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On a conversion, swipe up to kick."
           }
         }
       }
     },
-    "Rugby_HowTo_Control_Kick": {
-      "comment": "Rugby control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On a conversion, swipe up to kick."
+    "Rugby_HowTo_Control_Move" : {
+      "comment" : "Rugby control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táhni kdekoli pro pohyb (nebo WASD / šipky)."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Při proměně švihni nahoru pro kop."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag anywhere to move (or WASD / arrow keys)."
           }
         }
       }
     },
-    "Rugby_HowTo_Rule_Gather": {
-      "comment": "Rugby rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gather the kick-in, then run at the try line."
+    "Rugby_HowTo_Control_Pass" : {
+      "comment" : "Rugby control.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klepni na spoluhráče nebo na Přihrávku — přihrává se jen dozadu."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seber nakopnutý míč a běž k brankové čáře."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a teammate or the Pass button — passes go backward only."
           }
         }
       }
     },
-    "Rugby_HowTo_Rule_Try": {
-      "comment": "Rugby rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cross the try line to score a try (+4)."
+    "Rugby_HowTo_Diff_Speed_What" : {
+      "comment" : "Difficulty table, right column (rugby only).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obránci zrychlí na plný sprint."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přejdi brankovou čáru pro try (+4)."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defenders accelerate to a full sprint."
           }
         }
       }
     },
-    "Rugby_HowTo_Rule_Convert": {
-      "comment": "Rugby rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kick the conversion between the posts (+2)."
+    "Rugby_HowTo_Diff_Speed_When" : {
+      "comment" : "Difficulty table, left column: score milestone (rugby only).",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "60+ bodů"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Proměň kop mezi tyčemi (+2)."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "60+ pts"
           }
         }
       }
     },
-    "Rugby_HowTo_Rule_Tackles": {
-      "comment": "Rugby rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You get a six-tackle set; being tackled on the last is a turnover."
+    "Rugby_HowTo_Rule_Advanced" : {
+      "comment" : "Rugby rule: the optional Advanced Mode.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokročilý režim: po každém skolení přetáhni spoluhráče tam, kam chceš, a pak stiskni Pokračovat pro pokračování hry."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Máš šest skolení; skolení v posledním je ztráta míče."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced Mode: after each tackle, drag your teammates to where you want them, then press Continue to restart play."
           }
         }
       }
     },
-    "Rugby_HowTo_Rule_Advanced": {
-      "comment": "Rugby rule: the optional Advanced Mode.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Advanced Mode: after each tackle, drag your teammates to where you want them, then press Continue to restart play."
+    "Rugby_HowTo_Rule_Convert" : {
+      "comment" : "Rugby rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proměň kop mezi tyčemi (+2)."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pokročilý režim: po každém skolení přetáhni spoluhráče tam, kam chceš, a pak stiskni Pokračovat pro pokračování hry."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kick the conversion between the posts (+2)."
           }
         }
       }
     },
-    "Connect4_HowTo_Control_Drop": {
-      "comment": "Connect 4 control.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tap a column to drop your disc."
+    "Rugby_HowTo_Rule_Gather" : {
+      "comment" : "Rugby rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seber nakopnutý míč a běž k brankové čáře."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klepni na sloupec pro vhození žetonu."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gather the kick-in, then run at the try line."
           }
         }
       }
     },
-    "Connect4_HowTo_Rule_Modes": {
-      "comment": "Connect 4 rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play vs Computer (four levels) or a friend on one device."
+    "Rugby_HowTo_Rule_Tackles" : {
+      "comment" : "Rugby rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máš šest skolení; skolení v posledním je ztráta míče."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hraj proti počítači (čtyři úrovně) nebo příteli na jednom zařízení."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You get a six-tackle set; being tackled on the last is a turnover."
           }
         }
       }
     },
-    "Connect4_HowTo_Rule_CoinFlip": {
-      "comment": "Connect 4 rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A coin flip decides who goes first."
+    "Rugby_HowTo_Rule_Try" : {
+      "comment" : "Rugby rule.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přejdi brankovou čáru pro try (+4)."
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los rozhodne, kdo začíná."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cross the try line to score a try (+4)."
           }
         }
       }
     },
-    "Connect4_HowTo_Rule_Win": {
-      "comment": "Connect 4 rule.",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Line up four of your discs in a row — any direction — to win."
+    "Rugby_Missed" : {
+      "comment" : "Missed the conversion kick in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedle!"
           }
         },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spoj čtyři své žetony v řadě — v jakémkoli směru — a vyhraj."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missed!"
           }
         }
       }
     },
-    "Rugby_Mode_InProgress": {
-      "comment": "Badge on the Rugby Advanced mode button: the feature is still being built.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rozpracováno"
+    "Rugby_Mode_Advanced" : {
+      "comment" : "Rugby mode picker: Advanced Mode, where you drag teammates into position after a tackle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokročilý"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "In progress"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced"
           }
         }
       }
     },
-    "HowToPlay_Difficulty": {
-      "comment": "How to Play section header for the difficulty table.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zvyšování obtížnosti"
+    "Rugby_Mode_InProgress" : {
+      "comment" : "Badge on the Rugby Advanced mode button: the feature is still being built.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozpracováno"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Getting harder"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In progress"
           }
         }
       }
     },
-    "HowTo_Diff_Start_When": {
-      "comment": "Difficulty table, left column: at kick-off.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Začátek"
+    "Rugby_Mode_Normal" : {
+      "comment" : "Rugby mode picker: standard play.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Normální"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Normal"
           }
         }
       }
     },
-    "HowTo_Diff_Start_What": {
-      "comment": "Difficulty table, right column.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Honí tě čtyři obránci."
+    "Rugby_Pass" : {
+      "comment" : "Button label: pass the ball backward to the best-placed teammate.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přihrávka"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Four defenders chase you down."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pass"
           }
         }
       }
     },
-    "HowTo_Diff_Defenders_When": {
-      "comment": "Difficulty table, left column: score milestone.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Každých 6 bodů"
+    "Rugby_Positioning" : {
+      "comment" : "Advanced Mode hold label shown while the player drags teammates before restarting.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozestav tým, pak Pokračovat"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Every 6 pts"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag your team, then Continue"
           }
         }
       }
     },
-    "HowTo_Diff_Defenders_What": {
-      "comment": "Difficulty table, right column.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Přidá se další obránce, až do patnácti."
+    "Rugby_Tackle_Count" : {
+      "comment" : "HUD: how many tackles into the six-tackle set the player is.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skládka %lld / 6"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Another defender joins the line, up to fifteen."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tackle %lld / 6"
           }
         }
       }
     },
-    "HowTo_Diff_Press_When": {
-      "comment": "Difficulty table, left column: score range.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30–60 bodů"
+    "Rugby_Try" : {
+      "comment" : "Scored a try (4 points) in Rugby.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30–60 pts"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try!"
           }
         }
       }
     },
-    "HowTo_Diff_Press_What": {
-      "comment": "Difficulty table, right column.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obránci přitvrdí a zavírají přihrávací uličky."
+    "Rugby_Turnover" : {
+      "comment" : "Tackled on the last play of the set — turnover, game over.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ztráta!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Defenders press tighter and shut down your passing lanes."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turnover!"
           }
         }
       }
     },
-    "HowTo_Diff_Teammates_When": {
-      "comment": "Difficulty table, left column: score milestone.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Každých 30 bodů"
+    "Score_Label" : {
+      "comment" : "In-game score readout. %lld is the score value.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skóre: %lld"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Every 30 pts"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Score: %lld"
           }
         }
       }
     },
-    "HowTo_Diff_Teammates_What": {
-      "comment": "Difficulty table, right column.",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Do týmu se přidá nový spoluhráč."
+    "StartMenu_Start" : {
+      "comment" : "Start button on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A fresh teammate joins your squad."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         }
       }
     },
-    "Rugby_HowTo_Diff_Speed_When": {
-      "comment": "Difficulty table, left column: score milestone (rugby only).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "60+ bodů"
+    "StartMenu_TopScore" : {
+      "comment" : "Label for the all-time top score across all users on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nejlepší vůbec"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "60+ pts"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All-Time Best"
           }
         }
       }
     },
-    "Rugby_HowTo_Diff_Speed_What": {
-      "comment": "Difficulty table, right column (rugby only).",
-      "localizations": {
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obránci zrychlí na plný sprint."
+    "StartMenu_YourBest" : {
+      "comment" : "Label for the player's personal best score on a game's pre-play menu.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvé nejlepší"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Defenders accelerate to a full sprint."
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Best"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
