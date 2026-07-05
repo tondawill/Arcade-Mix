@@ -168,7 +168,6 @@ private struct BoardView: View {
     private static let bodyColor = Color(red: 0.30, green: 0.78, blue: 0.42)
     private static let headColor = Color(red: 0.56, green: 0.93, blue: 0.60)
     private static let foodColor = Color(red: 0.95, green: 0.32, blue: 0.32)
-    private static let bonusColor = Color(red: 1.0, green: 0.82, blue: 0.25)
 
     var body: some View {
         let cols = SnakeViewModel.columns
@@ -183,12 +182,12 @@ private struct BoardView: View {
 
                 // Pellet.
                 let food = vm.food
-                let inset = food.kind == .bonus ? cell * 0.28 : cell * 0.12
+                let inset = cell * 0.12
                 Circle()
-                    .fill(food.kind == .bonus ? Self.bonusColor : Self.foodColor)
+                    .fill(Self.foodColor)
                     .frame(width: cell - inset * 2, height: cell - inset * 2)
-                    .offset(x: CGFloat(food.cell.x) * cell + inset,
-                            y: CGFloat(food.cell.y) * cell + inset)
+                    .offset(x: CGFloat(food.x) * cell + inset,
+                            y: CGFloat(food.y) * cell + inset)
 
                 // Snake, head first.
                 ForEach(Array(vm.snake.enumerated()), id: \.offset) { index, seg in

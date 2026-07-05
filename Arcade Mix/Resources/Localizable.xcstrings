@@ -2318,23 +2318,6 @@
         }
       }
     },
-    "Snake_HowTo_Rule_Bonus" : {
-      "comment" : "How to play rule: bonus pellets are worth more.",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Malé zlaté sousto má vyšší hodnotu — seber ho, než zmizí."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Small golden pellets are worth more — grab them before they fade."
-          }
-        }
-      }
-    },
     "Snake_HowTo_Rule_Grow" : {
       "comment" : "How to play rule: each pellet grows the tail.",
       "localizations" : {

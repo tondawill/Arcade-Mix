@@ -44,26 +44,6 @@ final class SnakeViewModel: ObservableObject {
         }
     }
 
-    /// The single pellet on the board. `bonus` pellets are smaller, worth more, and expire
-    /// after `ttl` ticks (reverting to a regular pellet in place).
-    struct Food {
-        enum Kind {
-            case regular
-            case bonus
-
-            var points: Int {
-                switch self {
-                case .regular: return 10
-                case .bonus:   return 50
-                }
-            }
-        }
-
-        var cell: Point
-        var kind: Kind
-        var ttl: Int?
-    }
-
     // MARK: - Grid
 
     /// Portrait board with square cells; taller than it is wide.
@@ -74,7 +54,7 @@ final class SnakeViewModel: ObservableObject {
 
     @Published private(set) var snake: [Point] = []   // head first
     @Published private(set) var direction: Direction = .up
-    @Published private(set) var food = Food(cell: Point(x: 0, y: 0), kind: .regular, ttl: nil)
+    @Published private(set) var food = Point(x: 0, y: 0)
     @Published private(set) var score = 0
     @Published private(set) var isGameOver = false
 
@@ -84,8 +64,7 @@ final class SnakeViewModel: ObservableObject {
     private let baseInterval = 0.34    // slow & relaxed at the start
     private let minInterval = 0.11     // fastest the snake ever moves
     private let decrement = 0.006      // shaved off per extra segment — a gentle ramp
-    private let bonusChance = 0.15     // probability a fresh pellet is a bonus
-    private let bonusTTL = 45          // ticks a bonus survives before reverting
+    private let pointsPerFood = 10
 
     /// The next direction to apply — buffered so a mid-tick input can't reverse the snake
     /// into itself, and only one turn is honoured per tick.
@@ -163,7 +142,7 @@ final class SnakeViewModel: ObservableObject {
             return
         }
 
-        let ate = next == food.cell
+        let ate = next == food
         // Self collision. The tail cell frees up this tick unless we're growing, so it's
         // fair game when we're not eating.
         let body = ate ? snake : snake.dropLast()
@@ -174,28 +153,16 @@ final class SnakeViewModel: ObservableObject {
 
         snake.insert(next, at: 0)
         if ate {
-            score += food.kind.points
+            score += pointsPerFood
             spawnFood()
         } else {
             snake.removeLast()
-            ageBonus()
         }
     }
 
     private func gameOver() {
         isGameOver = true
         stop()
-    }
-
-    /// Count a bonus pellet down; when it lapses, drop back to a plain pellet in place.
-    private func ageBonus() {
-        guard food.kind == .bonus, var ttl = food.ttl else { return }
-        ttl -= 1
-        if ttl <= 0 {
-            food = Food(cell: food.cell, kind: .regular, ttl: nil)
-        } else {
-            food.ttl = ttl
-        }
     }
 
     private func spawnFood() {
@@ -207,12 +174,7 @@ final class SnakeViewModel: ObservableObject {
             }
         }
         guard let cell = free.randomElement() else { return }   // board full = effectively a win
-
-        if Double.random(in: 0..<1) < bonusChance {
-            food = Food(cell: cell, kind: .bonus, ttl: bonusTTL)
-        } else {
-            food = Food(cell: cell, kind: .regular, ttl: nil)
-        }
+        food = cell
     }
 
     /// Hashable key for occupancy lookups (Point stays a plain Equatable value type).

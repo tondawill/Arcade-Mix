@@ -209,7 +209,6 @@ struct GameInfo: Identifiable {
                 ],
                 rules: [
                     .init(icon: "circle.fill", textKey: "Snake_HowTo_Rule_Eat"),
-                    .init(icon: "sparkles", textKey: "Snake_HowTo_Rule_Bonus"),
                     .init(icon: "arrow.up.right.circle.fill", textKey: "Snake_HowTo_Rule_Grow"),
                     .init(icon: "exclamationmark.triangle.fill", textKey: "Snake_HowTo_Rule_Walls"),
                     .init(icon: "arrow.uturn.left", textKey: "Snake_HowTo_Rule_Self"),
