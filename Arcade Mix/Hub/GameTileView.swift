@@ -14,6 +14,7 @@ struct GameTileView: View {
     var topScore: HighScore? = nil
 
     private var isComingSoon: Bool { game.status == .comingSoon }
+    private var isInProgress: Bool { game.status == .inProgress }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -48,19 +49,33 @@ struct GameTileView: View {
         .background(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(game.accentColor.gradient)
+                // In-progress games sit behind a dark scrim so the tile reads as muted.
+                .overlay {
+                    if isInProgress {
+                        RoundedRectangle(cornerRadius: 24, style: .continuous)
+                            .fill(.black.opacity(0.28))
+                    }
+                }
         )
         .overlay(alignment: .topTrailing) {
             if isComingSoon {
-                Text("Game_ComingSoon")
-                    .font(.caption.bold())
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(.ultraThinMaterial, in: Capsule())
-                    .padding(12)
+                statusBadge("Game_ComingSoon")
+            } else if isInProgress {
+                statusBadge("Game_InProgress")
             }
         }
-        .opacity(isComingSoon ? 0.55 : 1)
+        .opacity(isComingSoon ? 0.55 : (isInProgress ? 0.65 : 1))
         .accessibilityElement(children: .combine)
+    }
+
+    /// The pill in the top-trailing corner ("Coming Soon" / "In Progress").
+    private func statusBadge(_ key: LocalizedStringResource) -> some View {
+        Text(key)
+            .font(.caption.bold())
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(.ultraThinMaterial, in: Capsule())
+            .padding(12)
     }
 
     @ViewBuilder

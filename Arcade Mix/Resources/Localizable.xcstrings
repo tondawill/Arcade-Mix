@@ -1156,6 +1156,23 @@
         }
       }
     },
+    "Game_InProgress" : {
+      "comment" : "Badge shown on games that are playable but still being polished.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozpracováno"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Progress"
+          }
+        }
+      }
+    },
     "Game_Connect4_Subtitle" : {
       "comment" : "Connect 4 game tile subtitle.",
       "localizations" : {

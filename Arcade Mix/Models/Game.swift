@@ -23,6 +23,8 @@ enum GameID: String, CaseIterable, Identifiable {
 /// Whether a game can be played yet.
 enum GameStatus {
     case available
+    /// Playable, but still being polished — shown with an "In Progress" badge.
+    case inProgress
     case comingSoon
 }
 
@@ -168,7 +170,7 @@ struct GameInfo: Identifiable {
             category: .arcade,
             titleKey: "Game_BrickBreaker_Title",
             subtitleKey: "Game_BrickBreaker_Subtitle",
-            status: .available,
+            status: .inProgress,
             systemImage: "rectangle.grid.1x2.fill",
             accentColor: .purple,
             howToPlay: HowToPlay(
