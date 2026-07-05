@@ -62,7 +62,8 @@ final class AppCoordinator: ObservableObject {
             mask = .landscape
             preferred = .landscapeRight
         case .hub, .game(.connect4), .startMenu(.connect4),
-             .game(.brickBreaker), .startMenu(.brickBreaker):
+             .game(.brickBreaker), .startMenu(.brickBreaker),
+             .game(.snake), .startMenu(.snake):
             mask = .portrait
             preferred = .portrait
         }

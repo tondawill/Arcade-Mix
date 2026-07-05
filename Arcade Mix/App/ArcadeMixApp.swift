@@ -68,6 +68,8 @@ struct RootView: View {
             Connect4View()
         case .brickBreaker:
             BrickBreakerGameView()
+        case .snake:
+            SnakeView()
         }
     }
 }

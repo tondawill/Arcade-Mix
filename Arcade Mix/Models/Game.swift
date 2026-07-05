@@ -16,6 +16,7 @@ enum GameID: String, CaseIterable, Identifiable {
     case rugby
     case connect4
     case brickBreaker
+    case snake
 
     var id: String { rawValue }
 }
@@ -190,6 +191,29 @@ struct GameInfo: Identifiable {
                     .init(whenKey: "BrickBreaker_Diff_Density_When", effectKey: "BrickBreaker_Diff_Density_What"),
                     .init(whenKey: "BrickBreaker_Diff_Armor_When", effectKey: "BrickBreaker_Diff_Armor_What"),
                     .init(whenKey: "BrickBreaker_Diff_Scarcity_When", effectKey: "BrickBreaker_Diff_Scarcity_What")
+                ]
+            )
+        ),
+        GameInfo(
+            id: .snake,
+            category: .arcade,
+            titleKey: "Game_Snake_Title",
+            subtitleKey: "Game_Snake_Subtitle",
+            status: .inProgress,
+            systemImage: "scribble.variable",
+            accentColor: .green,
+            howToPlay: HowToPlay(
+                controls: [
+                    .init(icon: "hand.draw.fill", textKey: "Snake_HowTo_Control_Swipe"),
+                    .init(icon: "keyboard", textKey: "Snake_HowTo_Control_Keys")
+                ],
+                rules: [
+                    .init(icon: "circle.fill", textKey: "Snake_HowTo_Rule_Eat"),
+                    .init(icon: "sparkles", textKey: "Snake_HowTo_Rule_Bonus"),
+                    .init(icon: "arrow.up.right.circle.fill", textKey: "Snake_HowTo_Rule_Grow"),
+                    .init(icon: "exclamationmark.triangle.fill", textKey: "Snake_HowTo_Rule_Walls"),
+                    .init(icon: "arrow.uturn.left", textKey: "Snake_HowTo_Rule_Self"),
+                    .init(icon: "speedometer", textKey: "Snake_HowTo_Rule_Speed")
                 ]
             )
         )

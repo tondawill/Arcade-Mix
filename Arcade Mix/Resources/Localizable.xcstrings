@@ -2232,6 +2232,176 @@
           }
         }
       }
+    },
+    "Game_Snake_Title" : {
+      "comment" : "Snake game tile title.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snake"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snake"
+          }
+        }
+      }
+    },
+    "Game_Snake_Subtitle" : {
+      "comment" : "Snake game tile subtitle.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roste s každým soustem — nekousni se do ocasu"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grow long — don't bite your tail"
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Control_Swipe" : {
+      "comment" : "How to play control: swipe to steer the snake.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Řiď hada tažením nahoru, dolů, doleva nebo doprava."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe up, down, left, or right to steer."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Control_Keys" : {
+      "comment" : "How to play control: steer with a hardware keyboard.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S připojenou klávesnicí ovládej hada šipkami."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "With a hardware keyboard, steer using the arrow keys."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Eat" : {
+      "comment" : "How to play rule: eat pellets to score and grow.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sbírej potravu, získávej body a prodlužuj hada."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eat pellets to score points and grow longer."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Bonus" : {
+      "comment" : "How to play rule: bonus pellets are worth more.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malé zlaté sousto má vyšší hodnotu — seber ho, než zmizí."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Small golden pellets are worth more — grab them before they fade."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Grow" : {
+      "comment" : "How to play rule: each pellet grows the tail.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každé sousto přidá článek k ocasu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every pellet adds a segment to your tail."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Walls" : {
+      "comment" : "How to play rule: a wall collision ends the game.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Náraz do zdi ukončí hru."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hitting a wall ends the game."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Self" : {
+      "comment" : "How to play rule: a self collision ends the game.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Náraz do vlastního ocasu ukončí hru."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running into your own tail ends the game."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Speed" : {
+      "comment" : "How to play rule: the snake speeds up as it grows.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čím delší had, tím rychleji se pohybuje."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The longer you get, the faster you go."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
