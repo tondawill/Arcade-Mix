@@ -18,12 +18,13 @@ final class SupabaseHighScoreService: HighScoreService {
         self.client = client
     }
 
-    func submit(score: Int, for gameID: GameID, user: AppUser) async throws -> HighScore {
+    func submit(score: Int, for gameID: GameID, difficulty: String?, user: AppUser) async throws -> HighScore {
         let payload = HighScoreInsert(
             gameID: gameID.rawValue,
             userID: user.id,
             displayName: user.leaderboardName,
-            score: score
+            score: score,
+            difficulty: difficulty
         )
         let inserted: HighScore = try await client
             .from(table)
@@ -34,23 +35,31 @@ final class SupabaseHighScoreService: HighScoreService {
         return inserted
     }
 
-    func topScores(for gameID: GameID, limit: Int) async throws -> [HighScore] {
-        try await client
+    func topScores(for gameID: GameID, difficulty: String?, limit: Int) async throws -> [HighScore] {
+        var query = client
             .from(table)
             .select()
             .eq("game_id", value: gameID.rawValue)
+        if let difficulty {
+            query = query.eq("difficulty", value: difficulty)
+        }
+        return try await query
             .order("score", ascending: false)
             .limit(limit)
             .execute()
             .value
     }
 
-    func personalBest(for gameID: GameID, userID: String) async throws -> HighScore? {
-        let rows: [HighScore] = try await client
+    func personalBest(for gameID: GameID, difficulty: String?, userID: String) async throws -> HighScore? {
+        var query = client
             .from(table)
             .select()
             .eq("game_id", value: gameID.rawValue)
             .eq("user_id", value: userID)
+        if let difficulty {
+            query = query.eq("difficulty", value: difficulty)
+        }
+        let rows: [HighScore] = try await query
             .order("score", ascending: false)
             .limit(1)
             .execute()

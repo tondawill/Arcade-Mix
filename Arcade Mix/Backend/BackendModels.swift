@@ -31,6 +31,9 @@ struct HighScore: Identifiable, Codable, Equatable {
     let displayName: String
     let score: Int
     let createdAt: Date
+    /// Optional per-game difficulty (e.g. Snake's "easy"/"medium"/"hard"). `nil` for games
+    /// with a single mode and for rows created before difficulty existed.
+    var difficulty: String? = nil
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -39,6 +42,7 @@ struct HighScore: Identifiable, Codable, Equatable {
         case displayName = "display_name"
         case score
         case createdAt = "created_at"
+        case difficulty
     }
 }
 
@@ -49,11 +53,13 @@ struct HighScoreInsert: Encodable {
     let userID: String
     let displayName: String
     let score: Int
+    var difficulty: String? = nil
 
     enum CodingKeys: String, CodingKey {
         case gameID = "game_id"
         case userID = "user_id"
         case displayName = "display_name"
         case score
+        case difficulty
     }
 }

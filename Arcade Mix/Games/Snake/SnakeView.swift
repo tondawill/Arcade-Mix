@@ -2,10 +2,12 @@
 //  SnakeView.swift
 //  Arcade Mix
 //
-//  Portrait SwiftUI host for classic Snake. A HUD (back / score) sits over a square-cell
-//  board drawn from `SnakeViewModel`. Steering is by swipe (primary) or the arrow keys on
-//  a hardware keyboard (secondary). Submits the final score to the high-score backend,
-//  keyed by `GameID.snake`, exactly like the other score games.
+//  Portrait SwiftUI host for Snake. Owns its own flow like Connect 4: a difficulty picker
+//  (Easy / Medium / Hard, each showing the global best) opening straight from the hub, then
+//  the game itself — a HUD (back / level / score) over a square-cell board drawn from
+//  `SnakeViewModel`, a tap-to-continue level-complete card, and the game-over panel.
+//  Steering is by swipe (primary) or the arrow keys / WASD on a hardware keyboard. The
+//  final score is submitted keyed by `GameID.snake` and the difficulty the run started on.
 //
 
 import SwiftUI
@@ -19,6 +21,12 @@ struct SnakeView: View {
     // Keyboard steering for Mac/Simulator; touch users swipe the board.
     @FocusState private var keyboardFocused: Bool
 
+    /// Difficulty-select vs. in-game. The game starts the moment a difficulty is picked.
+    @State private var started = false
+    /// Global best per difficulty, loaded for the select screen.
+    @State private var bests: [SnakeDifficulty: HighScore] = [:]
+    @State private var showHelp = false
+
     // Dark backdrop; the board grid sits a touch lighter on top of it.
     private static let backdrop = Color(red: 0.05, green: 0.09, blue: 0.07)
 
@@ -30,6 +38,123 @@ struct SnakeView: View {
         ZStack {
             Self.backdrop.ignoresSafeArea()
 
+            if started {
+                gameContent
+            } else {
+                difficultySelect
+            }
+        }
+        .statusBarHidden()
+        .onDisappear { vm.stop() }
+    }
+
+    // MARK: - Difficulty select
+
+    private var difficultySelect: some View {
+        VStack(spacing: 24) {
+            VStack(spacing: 10) {
+                Image(systemName: "scribble.variable")
+                    .font(.system(size: 52, weight: .semibold))
+                    .foregroundStyle(.green)
+                Text("Game_Snake_Title")
+                    .font(.largeTitle.bold())
+                    .foregroundStyle(.white)
+                    .shrinkToFit()
+                Text("Snake_ChooseDifficulty")
+                    .font(.subheadline)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .shrinkToFit()
+            }
+
+            VStack(spacing: 12) {
+                ForEach(SnakeDifficulty.allCases) { difficulty in
+                    Button {
+                        start(difficulty)
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(difficulty.titleKey).bold().shrinkToFit()
+                                bestCaption(for: difficulty)
+                            }
+                            Spacer()
+                            Image(systemName: Self.icon(for: difficulty))
+                        }
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 14)
+                        .frame(maxWidth: .infinity)
+                        .background(.white.opacity(0.10), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .foregroundStyle(.white)
+                    }
+                }
+            }
+        }
+        .padding(28)
+        .frame(maxWidth: 520)
+        .overlay(alignment: .topLeading) { circleButton("chevron.left") { coordinator.returnToHub() } }
+        .overlay(alignment: .topTrailing) { circleButton("questionmark") { showHelp = true } }
+        .sheet(isPresented: $showHelp) {
+            if let info = GameInfo.catalog.first(where: { $0.id == .snake }) {
+                HowToPlayView(info: info)
+            }
+        }
+        .task { await loadBests() }
+    }
+
+    @ViewBuilder
+    private func bestCaption(for difficulty: SnakeDifficulty) -> some View {
+        if let best = bests[difficulty] {
+            Text(String(format: String(localized: "Snake_GlobalBest"), best.score, best.displayName))
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.white.opacity(0.7))
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+        } else {
+            Text("HighScore_None")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.55))
+                .shrinkToFit()
+        }
+    }
+
+    private static func icon(for difficulty: SnakeDifficulty) -> String {
+        switch difficulty {
+        case .easy:   return "tortoise.fill"
+        case .medium: return "hare.fill"
+        case .hard:   return "flame.fill"
+        }
+    }
+
+    private func circleButton(_ systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.headline)
+                .foregroundStyle(.white)
+                .padding(12)
+                .background(.white.opacity(0.12), in: Circle())
+        }
+        .padding(20)
+    }
+
+    private func start(_ difficulty: SnakeDifficulty) {
+        vm.beginGame(difficulty: difficulty)
+        started = true
+        keyboardFocused = true
+    }
+
+    private func loadBests() async {
+        var result: [SnakeDifficulty: HighScore] = [:]
+        for difficulty in SnakeDifficulty.allCases {
+            if let best = try? await backend.highScores.topScore(for: .snake, difficulty: difficulty.rawValue) {
+                result[difficulty] = best
+            }
+        }
+        bests = result
+    }
+
+    // MARK: - Game
+
+    private var gameContent: some View {
+        ZStack {
             VStack(spacing: 16) {
                 hud
                 BoardView(vm: vm)
@@ -42,7 +167,11 @@ struct SnakeView: View {
                 gameOverPanel
             }
 
-            if vm.isPaused && !vm.isGameOver {
+            if vm.isLevelComplete {
+                levelCompletePanel
+            }
+
+            if vm.isPaused && !vm.isGameOver && !vm.isLevelComplete {
                 PausedOverlay(
                     onResume: { vm.resume(); keyboardFocused = true },
                     onRestart: { vm.restart(); keyboardFocused = true },
@@ -53,19 +182,15 @@ struct SnakeView: View {
         // Steer with a swipe anywhere on screen, not just over the board.
         .contentShape(Rectangle())
         .gesture(swipe)
-        .statusBarHidden()
         .focusable()
         .focused($keyboardFocused)
         .onKeyPress(phases: .down) { handleKey($0) }
-        .onAppear {
-            vm.start()
-            keyboardFocused = true
-        }
-        .onDisappear { vm.stop() }
+        .onAppear { keyboardFocused = true }
         .onChange(of: vm.isGameOver) { _, isOver in
             guard isOver, vm.score > 0, let user = backend.currentUser else { return }
             let finalScore = vm.score
-            Task { try? await backend.highScores.submit(score: finalScore, for: .snake, user: user) }
+            let difficulty = vm.startingDifficulty.rawValue
+            Task { try? await backend.highScores.submit(score: finalScore, for: .snake, difficulty: difficulty, user: user) }
         }
     }
 
@@ -117,9 +242,16 @@ struct SnakeView: View {
                     .background(.ultraThinMaterial, in: Capsule())
             }
 
+            Text(vm.levelLabel)
+                .font(.subheadline.weight(.semibold))
+                .shrinkToFit()
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(.ultraThinMaterial, in: Capsule())
+
             Spacer()
 
-            if !vm.isGameOver && !vm.isPaused {
+            if !vm.isGameOver && !vm.isPaused && !vm.isLevelComplete {
                 HUDPauseButton { vm.pause() }
             }
 
@@ -132,6 +264,45 @@ struct SnakeView: View {
         }
         .foregroundStyle(.primary)
         .padding(.horizontal)
+    }
+
+    // MARK: - Level Complete
+
+    private var levelCompletePanel: some View {
+        VStack(spacing: 20) {
+            Text("Snake_LevelComplete")
+                .font(.largeTitle.bold())
+                .minimumScaleFactor(0.7)
+
+            Text(scoreText)
+                .font(.title3.monospacedDigit())
+                .shrinkToFit()
+
+            Text(String(format: String(localized: "Snake_NextLevel"), vm.nextLevelLabel))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .shrinkToFit()
+
+            HStack(spacing: 16) {
+                Button {
+                    vm.advanceLevel()
+                    keyboardFocused = true
+                } label: {
+                    Text("Common_Continue").bold().shrinkToFit().frame(minWidth: 120)
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button {
+                    coordinator.returnToHub()
+                } label: {
+                    Text("Common_MainMenu").shrinkToFit().frame(minWidth: 120)
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .padding(32)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(radius: 20)
     }
 
     // MARK: - Game Over
@@ -171,9 +342,9 @@ struct SnakeView: View {
 
 // MARK: - Board
 
-/// The fixed portrait grid. Sizes square cells to the available width and draws the snake
-/// (rounded segments, a brighter head) and the pellet (regular = full circle, bonus =
-/// smaller gold circle).
+/// The portrait grid for the current level. Sizes square cells to the available width and
+/// draws the walls (muted blocks), the pellet (a red circle), and the snake (rounded
+/// segments, a brighter head).
 private struct BoardView: View {
     @ObservedObject var vm: SnakeViewModel
 
@@ -182,10 +353,11 @@ private struct BoardView: View {
     private static let bodyColor = Color(red: 0.30, green: 0.78, blue: 0.42)
     private static let headColor = Color(red: 0.56, green: 0.93, blue: 0.60)
     private static let foodColor = Color(red: 0.95, green: 0.32, blue: 0.32)
+    private static let wallColor = Color(red: 0.34, green: 0.40, blue: 0.37)
 
     var body: some View {
-        let cols = SnakeViewModel.columns
-        let rows = SnakeViewModel.rows
+        let cols = vm.columns
+        let rows = vm.rows
         GeometryReader { geo in
             let cell = geo.size.width / CGFloat(cols)
             ZStack(alignment: .topLeading) {
@@ -193,6 +365,15 @@ private struct BoardView: View {
                     .fill(Self.boardColor)
 
                 grid(cell: cell, cols: cols, rows: rows)
+
+                // Walls, beneath the snake and pellet.
+                ForEach(Array(vm.walls.enumerated()), id: \.offset) { _, wall in
+                    RoundedRectangle(cornerRadius: cell * 0.2, style: .continuous)
+                        .fill(Self.wallColor)
+                        .frame(width: cell - 2, height: cell - 2)
+                        .offset(x: CGFloat(wall.x) * cell + 1,
+                                y: CGFloat(wall.y) * cell + 1)
+                }
 
                 // Pellet.
                 let food = vm.food

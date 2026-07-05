@@ -32,9 +32,10 @@ struct MainHubView: View {
                                 LazyVGrid(columns: columns, spacing: 16) {
                                     ForEach(games) { game in
                                         Button {
-                                            // Connect 4 owns its own mode-picker, so it skips
-                                            // the score-based start menu and opens directly.
-                                            if game.id == .connect4 {
+                                            // Connect 4 and Snake own their own pickers (mode /
+                                            // difficulty), so they skip the score-based start
+                                            // menu and open directly.
+                                            if game.id == .connect4 || game.id == .snake {
                                                 coordinator.open(game.id)
                                             } else {
                                                 coordinator.showStartMenu(game.id)

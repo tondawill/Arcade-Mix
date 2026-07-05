@@ -210,9 +210,16 @@ struct GameInfo: Identifiable {
                 rules: [
                     .init(icon: "circle.fill", textKey: "Snake_HowTo_Rule_Eat"),
                     .init(icon: "arrow.up.right.circle.fill", textKey: "Snake_HowTo_Rule_Grow"),
+                    .init(icon: "square.grid.3x3.fill", textKey: "Snake_HowTo_Rule_Obstacles"),
                     .init(icon: "exclamationmark.triangle.fill", textKey: "Snake_HowTo_Rule_Walls"),
                     .init(icon: "arrow.uturn.left", textKey: "Snake_HowTo_Rule_Self"),
+                    .init(icon: "flag.checkered", textKey: "Snake_HowTo_Rule_Fill"),
                     .init(icon: "speedometer", textKey: "Snake_HowTo_Rule_Speed")
+                ],
+                difficulty: [
+                    .init(whenKey: "Snake_Diff_Tiers_When", effectKey: "Snake_Diff_Tiers_What"),
+                    .init(whenKey: "Snake_Diff_Fill_When", effectKey: "Snake_Diff_Fill_What"),
+                    .init(whenKey: "Snake_Diff_Levels_When", effectKey: "Snake_Diff_Levels_What")
                 ]
             )
         )

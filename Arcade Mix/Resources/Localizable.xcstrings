@@ -2386,6 +2386,278 @@
         }
       }
     },
+    "Snake_HowTo_Rule_Obstacles" : {
+      "comment" : "How to play rule: grey blocks are obstacles.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šedé bloky jsou překážky — vyhýbej se jim."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grey blocks are obstacles — steer around them."
+          }
+        }
+      }
+    },
+    "Snake_HowTo_Rule_Fill" : {
+      "comment" : "How to play rule: fill the grid to clear the level.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaplň celou mřížku a postup do dalšího levelu."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill the whole grid to clear the level."
+          }
+        }
+      }
+    },
+    "Snake_Difficulty_Easy" : {
+      "comment" : "Snake difficulty tier.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lehká"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy"
+          }
+        }
+      }
+    },
+    "Snake_Difficulty_Medium" : {
+      "comment" : "Snake difficulty tier.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Střední"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
+          }
+        }
+      }
+    },
+    "Snake_Difficulty_Hard" : {
+      "comment" : "Snake difficulty tier.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Těžká"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hard"
+          }
+        }
+      }
+    },
+    "Snake_ChooseDifficulty" : {
+      "comment" : "Prompt on the Snake difficulty-select screen.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyber obtížnost"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a difficulty"
+          }
+        }
+      }
+    },
+    "Snake_GlobalBest" : {
+      "comment" : "Global best under a difficulty tier: score then player name.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nejlepší: %d · %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best: %d · %@"
+          }
+        }
+      }
+    },
+    "Snake_LevelComplete" : {
+      "comment" : "Title of the Snake level-complete overlay.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level dokončen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Level Complete"
+          }
+        }
+      }
+    },
+    "Snake_NextLevel" : {
+      "comment" : "Caption naming the upcoming level, e.g. \"Next: Hard+\".",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Další: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next: %@"
+          }
+        }
+      }
+    },
+    "Snake_Diff_Tiers_When" : {
+      "comment" : "Difficulty table row (left): the tier names.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lehká · Střední · Těžká"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy · Medium · Hard"
+          }
+        }
+      }
+    },
+    "Snake_Diff_Tiers_What" : {
+      "comment" : "Difficulty table row (right): what each tier changes.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Větší mřížka, více zdí, rychlejší had."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bigger grid, more walls, a faster snake."
+          }
+        }
+      }
+    },
+    "Snake_Diff_Fill_When" : {
+      "comment" : "Difficulty table row (left): filling the grid.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaplň mřížku"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill the grid"
+          }
+        }
+      }
+    },
+    "Snake_Diff_Fill_What" : {
+      "comment" : "Difficulty table row (right): filling the grid advances a tier.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokončíš level a postoupíš výš."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clears the level and moves you up a tier."
+          }
+        }
+      }
+    },
+    "Snake_Diff_Levels_When" : {
+      "comment" : "Difficulty table row (left): every level.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Každý level"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each level"
+          }
+        }
+      }
+    },
+    "Snake_Diff_Levels_What" : {
+      "comment" : "Difficulty table row (right): each level ramps up further.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mřížka roste a zrychlování je strmější."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The grid grows and the speed ramp steepens."
+          }
+        }
+      }
+    },
+    "Common_Continue" : {
+      "comment" : "Button to continue to the next level.",
+      "localizations" : {
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
     "Common_Pause" : {
       "comment" : "Accessibility label for the in-game pause button.",
       "localizations" : {
