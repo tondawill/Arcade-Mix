@@ -34,7 +34,6 @@ struct SnakeView: View {
                 hud
                 BoardView(vm: vm)
                     .padding(.horizontal, 16)
-                    .gesture(swipe)
                 Spacer(minLength: 0)
             }
             .padding(.vertical, 12)
@@ -43,6 +42,9 @@ struct SnakeView: View {
                 gameOverPanel
             }
         }
+        // Steer with a swipe anywhere on screen, not just over the board.
+        .contentShape(Rectangle())
+        .gesture(swipe)
         .statusBarHidden()
         .focusable()
         .focused($keyboardFocused)
