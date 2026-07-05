@@ -41,6 +41,14 @@ struct SnakeView: View {
             if vm.isGameOver {
                 gameOverPanel
             }
+
+            if vm.isPaused && !vm.isGameOver {
+                PausedOverlay(
+                    onResume: { vm.resume(); keyboardFocused = true },
+                    onRestart: { vm.restart(); keyboardFocused = true },
+                    onMainMenu: { coordinator.returnToHub() }
+                )
+            }
         }
         // Steer with a swipe anywhere on screen, not just over the board.
         .contentShape(Rectangle())
@@ -110,6 +118,10 @@ struct SnakeView: View {
             }
 
             Spacer()
+
+            if !vm.isGameOver && !vm.isPaused {
+                HUDPauseButton { vm.pause() }
+            }
 
             Text(scoreText)
                 .font(.headline.monospacedDigit())

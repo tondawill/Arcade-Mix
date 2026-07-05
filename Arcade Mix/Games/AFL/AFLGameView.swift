@@ -32,7 +32,7 @@ struct AFLGameView: View {
 
     var body: some View {
         ZStack {
-            SpriteView(scene: model.scene)
+            SpriteView(scene: model.scene, isPaused: model.isPaused)
                 .ignoresSafeArea()
                 .focusable()
                 .focused($keyboardFocused)
@@ -44,6 +44,14 @@ struct AFLGameView: View {
 
             if model.isGameOver {
                 gameOverPanel
+            }
+
+            if model.isPaused && !model.isGameOver {
+                PausedOverlay(
+                    onResume: { model.resume(); keyboardFocused = true },
+                    onRestart: { model.restart(); keyboardFocused = true },
+                    onMainMenu: { coordinator.returnToHub() }
+                )
             }
         }
         .statusBarHidden()
@@ -62,6 +70,7 @@ struct AFLGameView: View {
     // MARK: - Keyboard movement
 
     private func handleKey(_ press: KeyPress) -> KeyPress.Result {
+        if model.isPaused { return .ignored }
         let pressed = (press.phase == .down)
         let ch = String(press.key.character).lowercased()
         // Space passes to the highlighted teammate; Q/E cycle the target (once per key-down).
@@ -122,6 +131,10 @@ struct AFLGameView: View {
 
                 Spacer()
 
+                if !model.isGameOver && !model.isPaused {
+                    HUDPauseButton { model.pause() }
+                }
+
                 Text(scoreText)
                     .font(.headline.monospacedDigit())
                     .shrinkToFit()
@@ -133,7 +146,7 @@ struct AFLGameView: View {
 
             Spacer()
 
-            if !model.isGameOver {
+            if !model.isGameOver && !model.isPaused {
                 HStack {
                     Spacer()
                     Button {
@@ -194,6 +207,7 @@ struct AFLGameView: View {
 final class AFLGameModel: ObservableObject {
     @Published var score: Int = 0
     @Published var isGameOver: Bool = false
+    @Published var isPaused: Bool = false
 
     let scene: AFLGameScene
 
@@ -214,7 +228,17 @@ final class AFLGameModel: ObservableObject {
 
     func restart() {
         isGameOver = false
+        isPaused = false
         score = 0
         scene.startMatch()
+    }
+
+    func pause() {
+        guard !isGameOver else { return }
+        isPaused = true
+    }
+
+    func resume() {
+        isPaused = false
     }
 }

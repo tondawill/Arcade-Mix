@@ -57,6 +57,7 @@ final class SnakeViewModel: ObservableObject {
     @Published private(set) var food = Point(x: 0, y: 0)
     @Published private(set) var score = 0
     @Published private(set) var isGameOver = false
+    @Published private(set) var isPaused = false
 
     // MARK: - Tuning
 
@@ -82,7 +83,7 @@ final class SnakeViewModel: ObservableObject {
     func start() {
         stop()
         reset()
-        loopTask = Task { [weak self] in await self?.run() }
+        runLoop()
     }
 
     /// Cancel the tick loop (on disappear, game over, or before a restart).
@@ -93,6 +94,26 @@ final class SnakeViewModel: ObservableObject {
 
     func restart() {
         start()
+    }
+
+    /// Freeze the game: cancel the tick loop but keep all state so `resume()` can pick up
+    /// exactly where it left off.
+    func pause() {
+        guard !isGameOver, !isPaused else { return }
+        isPaused = true
+        loopTask?.cancel()
+        loopTask = nil
+    }
+
+    /// Resume ticking after a pause, without resetting the board.
+    func resume() {
+        guard isPaused, !isGameOver else { return }
+        isPaused = false
+        runLoop()
+    }
+
+    private func runLoop() {
+        loopTask = Task { [weak self] in await self?.run() }
     }
 
     deinit {
@@ -108,6 +129,7 @@ final class SnakeViewModel: ObservableObject {
         pendingDirection = .up
         score = 0
         isGameOver = false
+        isPaused = false
         spawnFood()
     }
 
@@ -123,7 +145,7 @@ final class SnakeViewModel: ObservableObject {
 
     /// Queue a turn for the next tick, ignoring a 180° reversal into the snake's neck.
     func setDirection(_ new: Direction) {
-        guard !isGameOver else { return }
+        guard !isGameOver, !isPaused else { return }
         if new == direction.opposite { return }
         pendingDirection = new
     }

@@ -54,7 +54,7 @@ struct RugbyGameView: View {
 
     private var gameScreen: some View {
         ZStack {
-            SpriteView(scene: model.scene)
+            SpriteView(scene: model.scene, isPaused: model.isPaused)
                 .ignoresSafeArea()
                 .focusable()
                 .focused($keyboardFocused)
@@ -67,6 +67,14 @@ struct RugbyGameView: View {
             if model.isGameOver {
                 gameOverPanel
             }
+
+            if model.isPaused && !model.isGameOver {
+                PausedOverlay(
+                    onResume: { model.resume(); keyboardFocused = true },
+                    onRestart: { model.restart(); keyboardFocused = true },
+                    onMainMenu: { coordinator.returnToHub() }
+                )
+            }
         }
         .defersSystemGestures(on: .bottom)   // keep the bottom edge for passing/running, not a home-swipe
     }
@@ -74,6 +82,7 @@ struct RugbyGameView: View {
     // MARK: - Keyboard movement
 
     private func handleKey(_ press: KeyPress) -> KeyPress.Result {
+        if model.isPaused { return .ignored }
         let pressed = (press.phase == .down)
         let ch = String(press.key.character).lowercased()
         // Space passes to the highlighted teammate; Q/E cycle the target (once per key-down).
@@ -133,6 +142,10 @@ struct RugbyGameView: View {
 
                 Spacer()
 
+                if !model.isGameOver && !model.isPaused {
+                    HUDPauseButton { model.pause() }
+                }
+
                 Text(tackleText)
                     .font(.headline.monospacedDigit())
                     .shrinkToFit()
@@ -151,7 +164,7 @@ struct RugbyGameView: View {
 
             Spacer()
 
-            if !model.isGameOver {
+            if !model.isGameOver && !model.isPaused {
                 HStack {
                     Spacer()
                     if model.isPositioning {
@@ -226,6 +239,7 @@ final class RugbyGameModel: ObservableObject {
     @Published var score: Int = 0
     @Published var tackleCount: Int = 0
     @Published var isGameOver: Bool = false
+    @Published var isPaused: Bool = false
     /// Advanced Mode: true while play is frozen for the player to drag their teammates.
     @Published var isPositioning: Bool = false
 
@@ -255,9 +269,19 @@ final class RugbyGameModel: ObservableObject {
 
     func restart() {
         isGameOver = false
+        isPaused = false
         score = 0
         tackleCount = 0
         isPositioning = false
         scene.startMatch()
+    }
+
+    func pause() {
+        guard !isGameOver else { return }
+        isPaused = true
+    }
+
+    func resume() {
+        isPaused = false
     }
 }

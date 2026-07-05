@@ -27,7 +27,7 @@ struct BrickBreakerGameView: View {
 
     var body: some View {
         ZStack {
-            SpriteView(scene: model.scene)
+            SpriteView(scene: model.scene, isPaused: model.isPaused)
                 .ignoresSafeArea()
                 .focusable()
                 .focused($keyboardFocused)
@@ -37,6 +37,14 @@ struct BrickBreakerGameView: View {
 
             if model.isGameOver {
                 gameOverPanel
+            }
+
+            if model.isPaused && !model.isGameOver {
+                PausedOverlay(
+                    onResume: { model.resume(); keyboardFocused = true },
+                    onRestart: { model.restart(); keyboardFocused = true },
+                    onMainMenu: { coordinator.returnToHub() }
+                )
             }
         }
         .statusBarHidden()
@@ -55,6 +63,7 @@ struct BrickBreakerGameView: View {
     // MARK: - Keyboard
 
     private func handleKey(_ press: KeyPress) -> KeyPress.Result {
+        if model.isPaused { return .ignored }
         let step: CGFloat = 40
         switch press.key {
         case .leftArrow:  model.scene.nudgePaddle(-step)
@@ -87,6 +96,10 @@ struct BrickBreakerGameView: View {
                 }
 
                 Spacer()
+
+                if !model.isGameOver && !model.isPaused {
+                    HUDPauseButton { model.pause() }
+                }
 
                 Text(String(format: String(localized: "BrickBreaker_Level_Label"), model.level))
                     .font(.subheadline.weight(.semibold))
@@ -160,6 +173,7 @@ final class BrickBreakerGameModel: ObservableObject {
     @Published var lives = 3
     @Published var level = 1
     @Published var isGameOver = false
+    @Published var isPaused = false
 
     let scene: BrickBreakerScene
 
@@ -178,7 +192,17 @@ final class BrickBreakerGameModel: ObservableObject {
 
     func restart() {
         isGameOver = false
+        isPaused = false
         score = 0
         scene.startGame()
+    }
+
+    func pause() {
+        guard !isGameOver else { return }
+        isPaused = true
+    }
+
+    func resume() {
+        isPaused = false
     }
 }
