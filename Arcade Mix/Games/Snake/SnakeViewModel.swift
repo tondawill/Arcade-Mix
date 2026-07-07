@@ -126,6 +126,11 @@ final class SnakeViewModel: ObservableObject {
     @Published private(set) var isLevelComplete = false
     @Published private(set) var isPaused = false
 
+    /// Hidden debug mode (toggled from the difficulty-select screen). When on, the board
+    /// auto-feeds every second, food grows the snake by 5, and the speed never ramps — a
+    /// fast way to test level progression. It never touches the score or the leaderboard.
+    @Published private(set) var isDebug = false
+
     /// The difficulty the run started on — the key every score for this run is saved under.
     private(set) var startingDifficulty: SnakeDifficulty = .easy
     /// Current position on the shared stage ladder.
@@ -155,21 +160,32 @@ final class SnakeViewModel: ObservableObject {
     private var fruitEaten = 0
     private var nextWallAt = 0
 
+    /// Segments still owed to the snake from recent feeding (grows one cell per tick until
+    /// spent). Lets a single pellet grow the snake by more than one — 5 in debug mode.
+    private var growthRemaining = 0
+    private var growthPerFood: Int { isDebug ? 5 : 1 }
+    /// Debug-only timer that auto-feeds the snake once a second.
+    private var debugTask: Task<Void, Never>?
+
     /// The next direction to apply — buffered so a mid-tick input can't reverse the snake
     /// into itself, and only one turn is honoured per tick.
     private var pendingDirection: Direction = .up
     private var loopTask: Task<Void, Never>?
 
     /// Current tick length: slower when short, easing toward `minInterval` as it grows.
+    /// Debug mode pins it to the level's base speed so the ramp never kicks in.
     private var currentInterval: TimeInterval {
-        max(config.minInterval, config.baseInterval - Double(snake.count - config.startLength) * config.decrement)
+        if isDebug { return config.baseInterval }
+        return max(config.minInterval, config.baseInterval - Double(snake.count - config.startLength) * config.decrement)
     }
 
     // MARK: - Lifecycle
 
     /// Start a fresh run at the given difficulty. Safe to call again to restart.
-    func beginGame(difficulty: SnakeDifficulty) {
+    /// `debug` enables the hidden progression-testing mode for the whole run.
+    func beginGame(difficulty: SnakeDifficulty, debug: Bool = false) {
         stop()
+        isDebug = debug
         startingDifficulty = difficulty
         stage = difficulty.entryStage
         score = 0
@@ -188,15 +204,18 @@ final class SnakeViewModel: ObservableObject {
         runLoop()
     }
 
-    /// Restart the run from the starting difficulty's first level, score reset.
+    /// Restart the run from the starting difficulty's first level, score reset. Keeps the
+    /// current debug mode so a retry stays in the same mode.
     func restart() {
-        beginGame(difficulty: startingDifficulty)
+        beginGame(difficulty: startingDifficulty, debug: isDebug)
     }
 
     /// Cancel the tick loop (on disappear, game over, level complete, or before a restart).
     func stop() {
         loopTask?.cancel()
         loopTask = nil
+        debugTask?.cancel()
+        debugTask = nil
     }
 
     /// Freeze the game: cancel the tick loop but keep all state so `resume()` can pick up
@@ -206,6 +225,8 @@ final class SnakeViewModel: ObservableObject {
         isPaused = true
         loopTask?.cancel()
         loopTask = nil
+        debugTask?.cancel()
+        debugTask = nil
     }
 
     /// Resume ticking after a pause, without resetting the board.
@@ -217,10 +238,14 @@ final class SnakeViewModel: ObservableObject {
 
     private func runLoop() {
         loopTask = Task { [weak self] in await self?.run() }
+        if isDebug {
+            debugTask = Task { [weak self] in await self?.runDebugFeed() }
+        }
     }
 
     deinit {
         loopTask?.cancel()
+        debugTask?.cancel()
     }
 
     /// Build the current level: size the board, centre the snake, place walls, drop the
@@ -240,6 +265,7 @@ final class SnakeViewModel: ObservableObject {
         generateInitialWalls()
         fruitEaten = 0
         nextWallAt = Int.random(in: 3...5)
+        growthRemaining = 0
         isLevelComplete = false
         isPaused = false
         _ = spawnFood()
@@ -251,6 +277,22 @@ final class SnakeViewModel: ObservableObject {
             if Task.isCancelled { return }
             step()
         }
+    }
+
+    /// Debug mode: once a second, respawn the pellet and grow the snake — a hands-off way
+    /// to march toward filling the grid and exercising level progression.
+    private func runDebugFeed() async {
+        while !isGameOver && !isLevelComplete {
+            try? await Task.sleep(for: .seconds(1))
+            if Task.isCancelled { return }
+            autoFeed()
+        }
+    }
+
+    private func autoFeed() {
+        guard isDebug, !isGameOver, !isLevelComplete, !isPaused else { return }
+        growthRemaining += growthPerFood
+        if !spawnFood() { levelComplete() }   // no free cell left → grid filled
     }
 
     // MARK: - Input
@@ -283,9 +325,10 @@ final class SnakeViewModel: ObservableObject {
         }
 
         let ate = next == food
-        // Self collision. The tail cell frees up this tick unless we're growing, so it's
-        // fair game when we're not eating.
-        let body = ate ? snake : snake.dropLast()
+        // Self collision. The tail cell frees up this tick unless we're growing (eating or
+        // still owed growth), so it's fair game only when the tail will move on.
+        let growing = ate || growthRemaining > 0
+        let body = growing ? snake : snake.dropLast()
         if body.contains(next) {
             gameOver()
             return
@@ -293,7 +336,9 @@ final class SnakeViewModel: ObservableObject {
 
         snake.insert(next, at: 0)
         if ate {
-            score += pointsPerFood
+            if !isDebug { score += pointsPerFood }   // debug never touches the score
+            // This tick already added one segment; owe the rest of the pellet's growth.
+            growthRemaining += growthPerFood - 1
             // Fill the whole grid → level complete; otherwise drop the next pellet, then
             // (on Hard+) grow the maze near neither the new food nor the head.
             if !spawnFood() {
@@ -309,6 +354,8 @@ final class SnakeViewModel: ObservableObject {
                     nextWallAt = fruitEaten + Int.random(in: 3...5)
                 }
             }
+        } else if growthRemaining > 0 {
+            growthRemaining -= 1   // consume owed growth: keep the tail this tick
         } else {
             snake.removeLast()
         }

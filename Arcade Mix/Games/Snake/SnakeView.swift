@@ -26,6 +26,8 @@ struct SnakeView: View {
     /// Global best per difficulty, loaded for the select screen.
     @State private var bests: [SnakeDifficulty: HighScore] = [:]
     @State private var showHelp = false
+    /// Hidden progression-testing mode, toggled by tapping the title 5×.
+    @State private var debugEnabled = false
 
     // Dark backdrop; the board grid sits a touch lighter on top of it.
     private static let backdrop = Color(red: 0.05, green: 0.09, blue: 0.07)
@@ -60,10 +62,13 @@ struct SnakeView: View {
                     .font(.largeTitle.bold())
                     .foregroundStyle(.white)
                     .shrinkToFit()
+                    // Hidden: tap the title 5× to toggle progression-testing debug mode.
+                    .onTapGesture(count: 5) { debugEnabled.toggle() }
                 Text("Snake_ChooseDifficulty")
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.7))
                     .shrinkToFit()
+                if debugEnabled { debugBadge }
             }
 
             VStack(spacing: 12) {
@@ -136,9 +141,18 @@ struct SnakeView: View {
     }
 
     private func start(_ difficulty: SnakeDifficulty) {
-        vm.beginGame(difficulty: difficulty)
+        vm.beginGame(difficulty: difficulty, debug: debugEnabled)
         started = true
         keyboardFocused = true
+    }
+
+    private var debugBadge: some View {
+        Text(verbatim: "DEBUG")
+            .font(.caption2.weight(.bold))
+            .foregroundStyle(.black)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(.yellow, in: Capsule())
     }
 
     private func loadBests() async {
@@ -187,7 +201,8 @@ struct SnakeView: View {
         .onKeyPress(phases: .down) { handleKey($0) }
         .onAppear { keyboardFocused = true }
         .onChange(of: vm.isGameOver) { _, isOver in
-            guard isOver, vm.score > 0, let user = backend.currentUser else { return }
+            // Debug runs never touch the leaderboard.
+            guard isOver, !vm.isDebug, vm.score > 0, let user = backend.currentUser else { return }
             let finalScore = vm.score
             let difficulty = vm.startingDifficulty.rawValue
             Task { try? await backend.highScores.submit(score: finalScore, for: .snake, difficulty: difficulty, user: user) }
@@ -248,6 +263,8 @@ struct SnakeView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(.ultraThinMaterial, in: Capsule())
+
+            if vm.isDebug { debugBadge }
 
             Spacer()
 
