@@ -549,6 +549,10 @@ class BaseGameScene: SKScene {
         }
     }
 
+    /// Hook: whether spawned defenders keep chasing while the ball is loose (no carrier).
+    /// Default off — AFL only spawns its defence on possession anyway.
+    var defendersChaseLooseBall: Bool { false }
+
     func freezeOpponents() { opponentsFrozen = true }
     func unfreezeOpponents() { opponentsFrozen = false }
 
@@ -1371,8 +1375,16 @@ class BaseGameScene: SKScene {
                 updateOpponentChase(dt)
                 updateLineDefenders(dt)
                 checkScoringLine()
-            } else if let ap = activePlayer, let b = ball, distance(ap.position, b.position) < config.pickupRadius {
-                gainPossession(by: ap)
+            } else {
+                // Loose ball: a sport can let an already-spawned defence close in before the
+                // gather (they can't tackle until someone has the ball).
+                if defendersChaseLooseBall {
+                    updateOpponentChase(dt)
+                    updateLineDefenders(dt)
+                }
+                if let ap = activePlayer, let b = ball, distance(ap.position, b.position) < config.pickupRadius {
+                    gainPossession(by: ap)
+                }
             }
 
         case .passing:

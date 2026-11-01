@@ -113,6 +113,19 @@ final class RugbyGameScene: BaseGameScene {
         roll.timingMode = .easeOut   // skids fast, then settles at the end
         ball?.run(roll)
         enterPlayOn(resetBall: false)   // keep the roll animation alive
+        // The defence shows up and starts rushing the moment the ball hits the ground, so a
+        // missed catch costs ground: the longer the chase, the closer they are at the gather.
+        spawnOpponents()
+    }
+
+    /// Defenders already on the field from a missed catch close in on the loose ball.
+    override var defendersChaseLooseBall: Bool { true }
+
+    /// Defenders may already be on the field from a missed gather (see `onAerialLanded`), so
+    /// don't spawn a second wave when the loose ball is picked up.
+    override func spawnOpponents() {
+        guard opponents.isEmpty, lineDefenders.isEmpty else { return }
+        super.spawnOpponents()
     }
 
     /// Every fresh possession (clean gather or chasing down a loose ball) starts a new set.
